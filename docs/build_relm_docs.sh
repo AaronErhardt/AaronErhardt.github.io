@@ -12,6 +12,7 @@ mkdir tmp
 cd tmp
 git clone https://github.com/AaronErhardt/relm4 ./
 
+cargo update
 cargo doc
 mv target/doc/* ../relm4
 
