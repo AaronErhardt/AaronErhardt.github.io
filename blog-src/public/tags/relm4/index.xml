@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>relm4 on Eberhardt blog</title>
-    <link>http://example.org/tags/relm4/</link>
+    <link>https://aaronerhardt.github.io/blog/tags/relm4/</link>
     <description>Recent content in relm4 on Eberhardt blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Aug 2021 15:00:00 +3000</lastBuildDate><atom:link href="http://example.org/tags/relm4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Aug 2021 15:00:00 +3000</lastBuildDate><atom:link href="https://aaronerhardt.github.io/blog/tags/relm4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Relm4 beta released 🎉</title>
-      <link>http://example.org/posts/relm_beta/</link>
+      <link>https://aaronerhardt.github.io/blog/posts/relm_beta/</link>
       <pubDate>Wed, 11 Aug 2021 15:00:00 +3000</pubDate>
       
-      <guid>http://example.org/posts/relm_beta/</guid>
+      <guid>https://aaronerhardt.github.io/blog/posts/relm_beta/</guid>
       <description>What&amp;rsquo;s relm? Relm is described on its repository as an &amp;ldquo;idiomatic, GTK+-based, GUI library, inspired by Elm, written in Rust&amp;rdquo; and has more than 2000 GitHub stars and over 36.000 downloads on crates.io.
 When I first started with GUI development in Rust and experimented with gtk-rs I had a rough time because I was completely new to GUI development and GTK. Relm on the other side provided me the examples and structure I needed to get productive in just a couple of hours.</description>
     </item>

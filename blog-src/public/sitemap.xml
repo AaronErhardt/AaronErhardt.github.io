@@ -3,32 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://example.org/</loc>
+    <loc>https://aaronerhardt.github.io/blog/</loc>
     <lastmod>2021-08-11T15:00:00+30:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/</loc>
+    <loc>https://aaronerhardt.github.io/blog/posts/</loc>
     <lastmod>2021-08-11T15:00:00+30:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/tags/relm4/</loc>
+    <loc>https://aaronerhardt.github.io/blog/tags/relm4/</loc>
     <lastmod>2021-08-11T15:00:00+30:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/posts/relm_beta/</loc>
+    <loc>https://aaronerhardt.github.io/blog/posts/relm_beta/</loc>
     <lastmod>2021-08-11T15:00:00+30:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://aaronerhardt.github.io/blog/tags/</loc>
     <lastmod>2021-08-11T15:00:00+30:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://aaronerhardt.github.io/blog/categories/</loc>
   </url>
   
 </urlset>
