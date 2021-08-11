@@ -1,0 +1,19 @@
+baseURL: http://example.org/
+languageCode: en-us
+title: Eberhardt blog
+description: Aaron Erhardt's personal blog
+author: "Aaron Erhardt"
+
+theme: "PaperMod"
+
+params:
+    description: Aaron Erhardt's personal blog
+    ShowReadingTime: true
+    ShowShareButtons: true
+    ShowCodeCopyButtons: true
+    defaultTheme: auto
+    disableThemeToggle: true
+    
+    socialIcons:
+        - name: github
+          url: "https://github.com/AaronErhardt"
