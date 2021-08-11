@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title></title>
-        <base href="/">
+        <title>Efficient UI updates - GUI development with Relm4</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -76,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">3.1.</strong> Tracker</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.2.</strong> Factory</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Workers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Threads and async</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html" class="active"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">3.1.</strong> Tracker</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.2.</strong> Factory</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Workers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Threads and async</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -138,19 +137,32 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="efficient-ui-updates"><a class="header" href="#efficient-ui-updates">Efficient UI updates</a></h1>
+<p>Relm4 follows the Elm programming model which means that data and widgets are separate. This causes a problem for larger applications: The update function can't update the widgets and the view function doesn't know what has changed.</p>
+<p>Let's have a look at an imaginary example to visualize this problem. Imagine you have a app with 1000 counters and you only increment the first counter. The model receives the increment message for the first counter and increments it. Now the view function gets the updated model with 1000 counters and... well has no idea what changed! So instead of one UI update we need to do 1000 because we don't know which of our counters was modified.</p>
+<p>There are two concepts in Relm4 to avoid unnecessary UI updates</p>
+<ul>
+<li>Trackers: keep track of which struct fields were modified and only update the UI if they were modified</li>
+<li>Factories: store data in a special container similar to the containers in <a href="https://doc.rust-lang.org/std/collections/index.html"><code>std::collections</code></a> that will keep track of changes and will only apply minimal UI updates.</li>
+</ul>
+<p>Both concepts are covered in the following sections.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="widget_macro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="widget_macro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
             </nav>
 
         </div>
