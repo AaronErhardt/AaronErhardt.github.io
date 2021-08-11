@@ -4,8 +4,7 @@ date: 2021-08-11T15:00:00+30:00
 # weight: 1
 # aliases: ["/relm4_beta"]
 tags: ["relm4"]
-author: "Me"
-# author: ["Me", "You"] # multiple authors
+author: "Aaron Erhardt"
 showToc: true
 TocOpen: false
 draft: false
@@ -18,7 +17,7 @@ ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true
 editPost:
-    URL: "https://github.com/AaronErhardt/AaronErhardt.github.io/blog/content"
+    URL: "https://github.com/AaronErhardt/AaronErhardt.github.io/blob/master/blog-src/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
