@@ -33,7 +33,7 @@ When GTK4 and a few weeks later [gtk4-rs](https://github.com/gtk-rs/gtk4-rs) wer
 
 ## The story of Relm4
 
-So naturally, I started thinking about how to solve this issue and get relm working with GTK4. I quickly came up with several ideas and reached out for feedback by the community. Yet while hacking on relm I was quickly overwhelmed by its complexity but slowly realized how the underlying mechanisms worked. With this knowledge I started from scratch with a minimal version of Relm4.
+Naturally, I started thinking about how to solve this issue and get relm working with GTK4. I quickly came up with several ideas and reached out for feedback by the community. Yet while hacking on relm I was quickly overwhelmed by its complexity but slowly realized how the underlying mechanisms worked. With this knowledge I started from scratch with a minimal version of Relm4.
 
 Over time I added many features and rewrote the core of the library dozens of times to fit all requirements. Many examples were added to test out the new features and to expose limitations.
 
