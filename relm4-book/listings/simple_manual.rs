@@ -67,6 +67,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
             .orientation(gtk::Orientation::Vertical)
             .spacing(5)
             .build();
+        vbox.set_margin_all(5);
 
         let inc_button = gtk::Button::with_label("Increment");
         let dec_button = gtk::Button::with_label("Decrement");
@@ -76,7 +77,6 @@ impl Widgets<AppModel, ()> for AppWidgets {
 
         // Connect the widgets
         window.set_child(Some(&vbox));
-        vbox.set_margin_all(5);
         vbox.append(&inc_button);
         vbox.append(&dec_button);
         vbox.append(&label);

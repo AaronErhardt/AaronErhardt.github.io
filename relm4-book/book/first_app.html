@@ -156,7 +156,6 @@
     counter: u8,
 }
 </code></pre>
-<p>Because we want to initialize the counter with value 0 we can derive <code>Default</code> here.</p>
 <h3 id="the-message"><a class="header" href="#the-message">The message</a></h3>
 <p>Now we need to define what messages can be used to modify the model. The message could be represented by any data type but most often an <code>enum</code> is used. In our case we just want to be able to increment and decrement the counter.</p>
 <pre><code class="language-rust no_run noplayground">enum AppMsg {
@@ -165,7 +164,7 @@
 }
 </code></pre>
 <h3 id="the-widgets"><a class="header" href="#the-widgets">The widgets</a></h3>
-<p>The widgets <code>struct</code> stores the widgets we need to build our user interface. So for our app we could use a window with an increment button, a decrement button and a label to display the counter value. Additionally we need a box as a container to place our buttons and the label inside because a window can only have one child.</p>
+<p>The widgets struct stores the widgets we need to build our user interface. So for our app we could use a window with an increment button, a decrement button and a label to display the counter value. Additionally we need a box as a container to place our buttons and the label inside because a window can only have one child.</p>
 <pre><code class="language-rust no_run noplayground">struct AppWidgets {
     window: gtk::ApplicationWindow,
     vbox: gtk::Box,
@@ -179,7 +178,7 @@
 <p>There are three types we need to include:</p>
 <ul>
 <li>Msg: what message type do we use to update the model?</li>
-<li>Widgets: what widgets <code>struct</code> stores the widgets of our UI?</li>
+<li>Widgets: which struct stores the widgets of our UI?</li>
 <li>Components: which child components does our model use?</li>
 </ul>
 <p>We don't care about components for now because we are just writing a simple app. Therefore we can use <code>()</code> as placeholder.</p>
@@ -192,10 +191,10 @@
 <h2 id="the-update-loop"><a class="header" href="#the-update-loop">The update loop</a></h2>
 <p>As a next step we want to make our app interactive. Relm4 has two important functions that update state and UI:</p>
 <ul>
-<li>update: Receives a message and modifies the model</li>
-<li>view: Receives the modified model and updates the UI accordingly</li>
+<li>update: receives a message and modifies the model</li>
+<li>view: receives the modified model and updates the UI accordingly</li>
 </ul>
-<p>Before anything happens, a message must be sent through a channel. Theoretically anything can send messages but usually you send messages when a button is clicked or similar events occur. We will have a look how this works later.</p>
+<p>Before anything happens, a message must be sent through a channel. Theoretically anything can send messages but usually you send messages when a button is clicked or similar events occur. We will have a look at this later.</p>
 <p><img src="img/update_loop.svg" alt="relm update loop" /></p>
 <blockquote>
 <p>Data and widgets are separated from each other so that the update function doesn't interact with the widgets and the view function doesn't modify the model.</p>
@@ -218,12 +217,15 @@
 }
 </code></pre>
 <blockquote>
-<p><code>wrapping_add()</code> and <code>wrapping_sub()</code> are like <code>+1</code> and <code>-1</code> but don't panic on overflows.</p>
+<p><code>wrapping_add(1)</code> and <code>wrapping_sub(1)</code> are like <code>+1</code> and <code>-1</code> but don't panic on overflows.</p>
 </blockquote>
 <p>So what happens here? We just process the message and modify our counter accordingly.</p>
 <p>Also we return <code>true</code> because we don't want to quit our application. If our app should close we can simply return <code>false</code> to shut down the application.</p>
+<blockquote>
+<p>Unless you define a handler for <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.connect_close_request"><code>GtkWindowExt::connect_close_request</code></a> and return <code>Inhibit(true)</code> the window will close when you click the close button or hit Alt-F4 even if you always return <code>true</code> in the update function.</p>
+</blockquote>
 <h3 id="the-widgets-trait"><a class="header" href="#the-widgets-trait">The Widgets trait</a></h3>
-<p>Our last step is implementing the widgets trait. It provides methods to initialize the UI and to update the UI with the already mentioned view function.</p>
+<p>Our last step is implementing the widgets trait. It provides methods to initialize and update the UI.</p>
 <p>Let's do this step by step. First we'll have a look at beginning of the trait <code>impl</code>.</p>
 <pre><code class="language-rust no_run noplayground">impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     type Root = gtk::ApplicationWindow;
@@ -247,6 +249,7 @@
             .orientation(gtk::Orientation::Vertical)
             .spacing(5)
             .build();
+        vbox.set_margin_all(5);
 
         let inc_button = gtk::Button::with_label(&quot;Increment&quot;);
         let dec_button = gtk::Button::with_label(&quot;Decrement&quot;);
@@ -256,7 +259,6 @@
 
         // Connect the widgets
         window.set_child(Some(&amp;vbox));
-        vbox.set_margin_all(5);
         vbox.append(&amp;inc_button);
         vbox.append(&amp;dec_button);
         vbox.append(&amp;label);
@@ -281,21 +283,22 @@
         }
     }
 </code></pre>
-<p>Again, what happens here? First we initialize each of our widgets. </p>
-<p>Then we connect them so that GTK4 knows how they are related to each other. The buttons and the label are added to the box and the box is added to the window.</p>
-<p>Now the magic happens: we connect the &quot;clicked&quot; event for both buttons and send a message from the closures. We move a clone of our sender into the closures to send messages back to out update loop.</p>
+<p>But what exactly happens here?</p>
+<p>Well, first we initialize each of our widgets, mostly by using builder patterns.</p>
+<p>Then we connect the widgets so that GTK4 knows how they are related to each other. The buttons and the label are added to the box and the box is added to the window.</p>
+<p>Now the magic happens: we connect the &quot;clicked&quot; event for both buttons and send a message from the closures back to the update loop. To do this we only need to move a clone of our sender into the closures and send the message.</p>
 <blockquote>
 <p>The <code>send!(btn_sender, AppMsg::Increment)</code> macro simply expands to <code>btn_sender.clone().send(AppMsg::Increment).unwrap()</code></p>
 </blockquote>
 <p>Alright, now every time we click our buttons a message will be sent to update our counter!</p>
-<p>Yet our UI will not update itself with our counter. To do this we just need to implement the view function:</p>
+<p>Yet our UI will not update itself when the counter is changed. To do this we need to implement the view function:</p>
 <pre><code class="language-rust no_run noplayground">    /// Update the view to represent the updated model.
     fn view(&amp;mut self, model: &amp;AppModel, _sender: Sender&lt;AppMsg&gt;) {
         self.label.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
     }
 </code></pre>
 <p>Yep, that's it. We just need to update the label to represent the new counter value.</p>
-<p>We're almost done. To complete the <code>Widgets</code> trait we just need to implement the <code>widget</code> method.</p>
+<p>We're almost done. To complete the <code>Widgets</code> trait we just need to implement the <code>root_widget</code> method.</p>
 <pre><code class="language-rust no_run noplayground">    /// Return the root widget.
     fn root_widget(&amp;self) -&gt; Self::Root {
         self.window.clone()
@@ -316,7 +319,7 @@
 <p>There are a few concepts in Relm4 that might look complex at first but are actually quite easy to understand and help you keeping your code structured. I hope this chapter made everything clear for you :)</p>
 <p>As you have seen, initializing the UI was by far the largest part of our app with roughly one half of the total code. In the next chapter we will have a look at the relm4-macros crate that offers a macro that helps us to reduce the amount of code we need to implement the <code>Widgets</code> trait.</p>
 <blockquote>
-<p>As you might have noticed storing inc_button, dec_button and vbox in our widgets <code>struct</code> is not necessary because GTK will keep them alive automatically. Therefore we can remove them from <code>AppWidgets</code> to avoid compiler warnings.</p>
+<p>As you might have noticed storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore we can remove them from <code>AppWidgets</code> to avoid compiler warnings.</p>
 </blockquote>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
@@ -374,6 +377,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
             .orientation(gtk::Orientation::Vertical)
             .spacing(5)
             .build();
+        vbox.set_margin_all(5);
 
         let inc_button = gtk::Button::with_label(&quot;Increment&quot;);
         let dec_button = gtk::Button::with_label(&quot;Decrement&quot;);
@@ -383,7 +387,6 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 
         // Connect the widgets
         window.set_child(Some(&amp;vbox));
-        vbox.set_margin_all(5);
         vbox.append(&amp;inc_button);
         vbox.append(&amp;dec_button);
         vbox.append(&amp;label);

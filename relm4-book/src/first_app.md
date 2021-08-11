@@ -22,8 +22,6 @@ Our app only needs to store the state of a counter, so a simple `u8` will do the
 {{#include ../listings/simple_manual.rs:model }}
 ```
 
-Because we want to initialize the counter with value 0 we can derive `Default` here.
-
 ### The message
 
 Now we need to define what messages can be used to modify the model. The message could be represented by any data type but most often an `enum` is used. In our case we just want to be able to increment and decrement the counter.
@@ -34,7 +32,7 @@ Now we need to define what messages can be used to modify the model. The message
 
 ### The widgets
 
-The widgets `struct` stores the widgets we need to build our user interface. So for our app we could use a window with an increment button, a decrement button and a label to display the counter value. Additionally we need a box as a container to place our buttons and the label inside because a window can only have one child.
+The widgets struct stores the widgets we need to build our user interface. So for our app we could use a window with an increment button, a decrement button and a label to display the counter value. Additionally we need a box as a container to place our buttons and the label inside because a window can only have one child.
 
 ```rust,no_run,noplayground
 {{#include ../listings/simple_manual.rs:widgets }}
@@ -47,7 +45,7 @@ We have our data types in place, so now we can start implementing the model trai
 There are three types we need to include:
 
 + Msg: what message type do we use to update the model?
-+ Widgets: what widgets `struct` stores the widgets of our UI?
++ Widgets: which struct stores the widgets of our UI?
 + Components: which child components does our model use?
 
 We don't care about components for now because we are just writing a simple app. Therefore we can use `()` as placeholder.
@@ -60,10 +58,10 @@ We don't care about components for now because we are just writing a simple app.
 
 As a next step we want to make our app interactive. Relm4 has two important functions that update state and UI:
 
-+ update: Receives a message and modifies the model
-+ view: Receives the modified model and updates the UI accordingly
++ update: receives a message and modifies the model
++ view: receives the modified model and updates the UI accordingly
 
-Before anything happens, a message must be sent through a channel. Theoretically anything can send messages but usually you send messages when a button is clicked or similar events occur. We will have a look how this works later.
+Before anything happens, a message must be sent through a channel. Theoretically anything can send messages but usually you send messages when a button is clicked or similar events occur. We will have a look at this later.
 
 ![relm update loop](img/update_loop.svg)
 
@@ -79,15 +77,17 @@ Our update function is implemented in the `AppUpdate` trait:
 {{#include ../listings/simple_manual.rs:app_update }}
 ```
 
-> `wrapping_add()` and `wrapping_sub()` are like `+1` and `-1` but don't panic on overflows.
+> `wrapping_add(1)` and `wrapping_sub(1)` are like `+1` and `-1` but don't panic on overflows.
 
 So what happens here? We just process the message and modify our counter accordingly.
 
 Also we return `true` because we don't want to quit our application. If our app should close we can simply return `false` to shut down the application.
 
+> Unless you define a handler for [`GtkWindowExt::connect_close_request`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.connect_close_request) and return `Inhibit(true)` the window will close when you click the close button or hit Alt-F4 even if you always return `true` in the update function.
+
 ### The Widgets trait
 
-Our last step is implementing the widgets trait. It provides methods to initialize the UI and to update the UI with the already mentioned view function.
+Our last step is implementing the widgets trait. It provides methods to initialize and update the UI.
 
 Let's do this step by step. First we'll have a look at beginning of the trait `impl`.
 
@@ -110,17 +110,19 @@ Next up, we want to initialize our UI.
 {{#include ../listings/simple_manual.rs:init_view }}
 ```
 
-Again, what happens here? First we initialize each of our widgets. 
+But what exactly happens here?
 
-Then we connect them so that GTK4 knows how they are related to each other. The buttons and the label are added to the box and the box is added to the window.
+Well, first we initialize each of our widgets, mostly by using builder patterns.
 
-Now the magic happens: we connect the "clicked" event for both buttons and send a message from the closures. We move a clone of our sender into the closures to send messages back to out update loop.
+Then we connect the widgets so that GTK4 knows how they are related to each other. The buttons and the label are added to the box and the box is added to the window.
+
+Now the magic happens: we connect the "clicked" event for both buttons and send a message from the closures back to the update loop. To do this we only need to move a clone of our sender into the closures and send the message.
 
 > The `send!(btn_sender, AppMsg::Increment)` macro simply expands to `btn_sender.clone().send(AppMsg::Increment).unwrap()`
 
 Alright, now every time we click our buttons a message will be sent to update our counter!
 
-Yet our UI will not update itself with our counter. To do this we just need to implement the view function:
+Yet our UI will not update itself when the counter is changed. To do this we need to implement the view function:
 
 ```rust,no_run,noplayground
 {{#include ../listings/simple_manual.rs:view }}
@@ -128,7 +130,7 @@ Yet our UI will not update itself with our counter. To do this we just need to i
 
 Yep, that's it. We just need to update the label to represent the new counter value.
 
-We're almost done. To complete the `Widgets` trait we just need to implement the `widget` method.
+We're almost done. To complete the `Widgets` trait we just need to implement the `root_widget` method.
 
 ```rust,no_run,noplayground
 {{#include ../listings/simple_manual.rs:root_widget }}
@@ -150,7 +152,7 @@ There are a few concepts in Relm4 that might look complex at first but are actua
 
 As you have seen, initializing the UI was by far the largest part of our app with roughly one half of the total code. In the next chapter we will have a look at the relm4-macros crate that offers a macro that helps us to reduce the amount of code we need to implement the `Widgets` trait.
 
-> As you might have noticed storing inc_button, dec_button and vbox in our widgets `struct` is not necessary because GTK will keep them alive automatically. Therefore we can remove them from `AppWidgets` to avoid compiler warnings.
+> As you might have noticed storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore we can remove them from `AppWidgets` to avoid compiler warnings.
 
 ## The complete code
 

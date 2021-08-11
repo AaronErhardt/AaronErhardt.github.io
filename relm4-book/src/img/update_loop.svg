@@ -10,7 +10,7 @@
    stroke-linejoin="round"
    xml:space="preserve"
    id="svg517"
-   sodipodi:docname="Main loop.svg"
+   sodipodi:docname="update_loop.svg"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -41,7 +41,7 @@
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
-   inkscape:current-layer="container-id1" />
+   inkscape:current-layer="id41" />
  <defs
    class="ClipPathGroup"
    id="defs8">
@@ -797,22 +797,19 @@
    id="g489">
        <g
    id="id41">
-        <rect
+        <path
+   id="rect482"
    class="BoundingBox"
-   stroke="none"
-   fill="none"
-   x="3667"
-   y="13673"
-   width="12759"
-   height="1325"
-   id="rect482" />
+   style="fill:none"
+   d="m 3667,13673 h 12759 v 1325 H 3667 Z" />
         <path
    fill="none"
    stroke="#000000"
    stroke-width="53"
    stroke-linejoin="round"
    d="m 15762,13700 h 636 v 1270 H 3857 v -131"
-   id="path484" />
+   id="path484"
+   style="stroke-width:53.00000137;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:212.00000521,212.00000521;stroke-dashoffset:0" />
         <path
    fill="#000000"
    stroke="none"
