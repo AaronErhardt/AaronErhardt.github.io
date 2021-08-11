@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["AlertMsg",""]],"struct":[["AlertModel",""],["AlertSettings",""],["AlertWidgets",""]],"trait":[["AlertParent",""],["AlertParentWidgets",""]]});
+initSidebarItems({"enum":[["AlertMsg",""]],"struct":[["AlertModel",""],["AlertSettings",""],["AlertWidgets",""]],"trait":[["AlertParent","Interface for the parent model"],["AlertParentWidgets","Get the parent window that allows setting the parent window of the dialog with [`gtk::prelude::GtkWindowExt::set_transient_for`]."]]});

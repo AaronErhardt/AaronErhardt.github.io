@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["alert",""],["save_dialog",""]]});
+initSidebarItems({"mod":[["alert","Reusable and easily configurable alert component."],["save_dialog","Reusable and easily configurable save dialog component."]]});
