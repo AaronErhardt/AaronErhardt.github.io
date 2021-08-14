@@ -8,17 +8,23 @@ cd tmp
 
 git clone https://github.com/AaronErhardt/relm4 ./
 
+find -name "lib.rs" -exec ../append_doc_feature.sh {} +
+
 cargo update
-cargo doc --features all
 
-cd relm4-macros
-cargo doc
+cd relm4-components
+cargo +nightly doc --all-features
 
-cd ../relm4-components
-cargo doc
+cd ../relm4-macros
+cargo +nightly doc --all-features
 
-cd ../..
+cd ..
+cargo +nightly doc --all-features
+
+cd ..
 
 mv tmp/target/doc/* relm4
+
+git add relm4/*
 
 rm -rf tmp

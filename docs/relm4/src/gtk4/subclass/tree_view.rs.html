@@ -1,6 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/aaron/.cargo/registry/src/github.com-1ecc6299db9ec823/gtk4-0.2.0/src/subclass/tree_view.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tree_view.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
-<link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../gtk4/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;aaron&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;gtk4-0.2.0&#x2F;src&#x2F;subclass&#x2F;tree_view.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tree_view.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../gtk4/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -583,23 +581,23 @@
 </pre><pre class="rust">
 <span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::subclass::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::subclass::prelude</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MovementStep</span>, <span class="ident">TreeIter</span>, <span class="ident">TreePath</span>, <span class="ident">TreeView</span>, <span class="ident">TreeViewColumn</span>, <span class="ident">Widget</span>};
 <span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">glib::Cast</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TreeViewImpl</span>: <span class="ident">TreeViewImplExt</span> <span class="op">+</span> <span class="ident">WidgetImpl</span> {
-    <span class="kw">fn</span> <span class="ident">columns_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
+    <span class="kw">fn</span> <span class="ident">columns_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) {
         <span class="self">self</span>.<span class="ident">parent_columns_changed</span>(<span class="ident">tree_view</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">cursor_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
+    <span class="kw">fn</span> <span class="ident">cursor_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) {
         <span class="self">self</span>.<span class="ident">parent_cursor_changed</span>(<span class="ident">tree_view</span>)
     }
 
     <span class="kw">fn</span> <span class="ident">expand_collapse_cursor_row</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">logical</span>: <span class="ident">bool</span>,
         <span class="ident">expand</span>: <span class="ident">bool</span>,
         <span class="ident">open_all</span>: <span class="ident">bool</span>,
@@ -609,7 +607,7 @@
 
     <span class="kw">fn</span> <span class="ident">move_cursor</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">step</span>: <span class="ident">MovementStep</span>,
         <span class="ident">count</span>: <span class="ident">i32</span>,
         <span class="ident">expand</span>: <span class="ident">bool</span>,
@@ -618,64 +616,64 @@
         <span class="self">self</span>.<span class="ident">parent_move_cursor</span>(<span class="ident">tree_view</span>, <span class="ident">step</span>, <span class="ident">count</span>, <span class="ident">expand</span>, <span class="ident">modify</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>, <span class="ident">column</span>: <span class="kw-2">&amp;</span><span class="ident">TreeViewColumn</span>) {
+    <span class="kw">fn</span> <span class="ident">row_activated</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>, <span class="ident">column</span>: <span class="kw-2">&amp;</span><span class="ident">TreeViewColumn</span>) {
         <span class="self">self</span>.<span class="ident">parent_row_activated</span>(<span class="ident">tree_view</span>, <span class="ident">path</span>, <span class="ident">column</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">row_collapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
+    <span class="kw">fn</span> <span class="ident">row_collapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
         <span class="self">self</span>.<span class="ident">parent_row_collapsed</span>(<span class="ident">tree_view</span>, <span class="ident">iter</span>, <span class="ident">path</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">row_expanded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
+    <span class="kw">fn</span> <span class="ident">row_expanded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
         <span class="self">self</span>.<span class="ident">parent_row_expanded</span>(<span class="ident">tree_view</span>, <span class="ident">iter</span>, <span class="ident">path</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_select_all</span>(<span class="ident">tree_view</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">select_cursor_parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">select_cursor_parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_select_cursor_parent</span>(<span class="ident">tree_view</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">select_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">start_editing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">select_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">start_editing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_select_cursor_row</span>(<span class="ident">tree_view</span>, <span class="ident">start_editing</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">start_interactive_search</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">start_interactive_search</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_start_interactive_search</span>(<span class="ident">tree_view</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">test_collapse_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">test_collapse_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_test_collapse_row</span>(<span class="ident">tree_view</span>, <span class="ident">iter</span>, <span class="ident">path</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">test_expand_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">test_expand_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_test_expand_row</span>(<span class="ident">tree_view</span>, <span class="ident">iter</span>, <span class="ident">path</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_toggle_cursor_row</span>(<span class="ident">tree_view</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">parent_unselect_all</span>(<span class="ident">tree_view</span>)
     }
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TreeViewImplExt</span>: <span class="ident">ObjectSubclass</span> {
-    <span class="kw">fn</span> <span class="ident">parent_columns_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>);
-    <span class="kw">fn</span> <span class="ident">parent_cursor_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>);
+    <span class="kw">fn</span> <span class="ident">parent_columns_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>);
+    <span class="kw">fn</span> <span class="ident">parent_cursor_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>);
     <span class="kw">fn</span> <span class="ident">parent_expand_collapse_cursor_row</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">logical</span>: <span class="ident">bool</span>,
         <span class="ident">expand</span>: <span class="ident">bool</span>,
         <span class="ident">open_all</span>: <span class="ident">bool</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
     <span class="kw">fn</span> <span class="ident">parent_move_cursor</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">step</span>: <span class="ident">MovementStep</span>,
         <span class="ident">count</span>: <span class="ident">i32</span>,
         <span class="ident">extend</span>: <span class="ident">bool</span>,
@@ -683,34 +681,34 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
     <span class="kw">fn</span> <span class="ident">parent_row_activated</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,
         <span class="ident">column</span>: <span class="kw-2">&amp;</span><span class="ident">TreeViewColumn</span>,
     );
-    <span class="kw">fn</span> <span class="ident">parent_row_collapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>);
-    <span class="kw">fn</span> <span class="ident">parent_row_expanded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>);
-    <span class="kw">fn</span> <span class="ident">parent_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
-    <span class="kw">fn</span> <span class="ident">parent_select_cursor_parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
-    <span class="kw">fn</span> <span class="ident">parent_select_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">start_editing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
-    <span class="kw">fn</span> <span class="ident">parent_start_interactive_search</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">parent_row_collapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>);
+    <span class="kw">fn</span> <span class="ident">parent_row_expanded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>);
+    <span class="kw">fn</span> <span class="ident">parent_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">parent_select_cursor_parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">parent_select_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">start_editing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">parent_start_interactive_search</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
     <span class="kw">fn</span> <span class="ident">parent_test_collapse_row</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
     <span class="kw">fn</span> <span class="ident">parent_test_expand_row</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
-    <span class="kw">fn</span> <span class="ident">parent_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
-    <span class="kw">fn</span> <span class="ident">parent_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">parent_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">parent_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TreeViewImpl</span><span class="op">&gt;</span> <span class="ident">TreeViewImplExt</span> <span class="kw">for</span> <span class="ident">T</span> {
-    <span class="kw">fn</span> <span class="ident">parent_columns_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
+    <span class="kw">fn</span> <span class="ident">parent_columns_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -720,7 +718,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_cursor_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) {
+    <span class="kw">fn</span> <span class="ident">parent_cursor_changed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -732,7 +730,7 @@
 
     <span class="kw">fn</span> <span class="ident">parent_expand_collapse_cursor_row</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">logical</span>: <span class="ident">bool</span>,
         <span class="ident">expand</span>: <span class="ident">bool</span>,
         <span class="ident">open_all</span>: <span class="ident">bool</span>,
@@ -756,7 +754,7 @@
 
     <span class="kw">fn</span> <span class="ident">parent_move_cursor</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">step</span>: <span class="ident">MovementStep</span>,
         <span class="ident">count</span>: <span class="ident">i32</span>,
         <span class="ident">extend</span>: <span class="ident">bool</span>,
@@ -781,7 +779,7 @@
 
     <span class="kw">fn</span> <span class="ident">parent_row_activated</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,
         <span class="ident">column</span>: <span class="kw-2">&amp;</span><span class="ident">TreeViewColumn</span>,
     ) {
@@ -798,7 +796,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_row_collapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
+    <span class="kw">fn</span> <span class="ident">parent_row_collapsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -812,7 +810,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_row_expanded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
+    <span class="kw">fn</span> <span class="ident">parent_row_expanded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>, <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>) {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -826,7 +824,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">parent_select_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -838,7 +836,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_select_cursor_parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">parent_select_cursor_parent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -850,7 +848,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_select_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>, <span class="ident">start_editing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">parent_select_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>, <span class="ident">start_editing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -865,7 +863,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_start_interactive_search</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">parent_start_interactive_search</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -879,7 +877,7 @@
 
     <span class="kw">fn</span> <span class="ident">parent_test_collapse_row</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
@@ -900,7 +898,7 @@
 
     <span class="kw">fn</span> <span class="ident">parent_test_expand_row</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>,
+        <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>,
         <span class="ident">iter</span>: <span class="kw-2">&amp;</span><span class="ident">TreeIter</span>,
         <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">TreePath</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
@@ -919,7 +917,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">parent_toggle_cursor_row</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -931,7 +929,7 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">parent_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="self">Self</span><span class="ident">::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">parent_unselect_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tree_view</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Type</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">T::type_data</span>();
             <span class="kw">let</span> <span class="ident">parent_class</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">as_ref</span>().<span class="ident">parent_class</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">ffi::GtkTreeViewClass</span>;
@@ -1162,4 +1160,6 @@
     <span class="ident">imp</span>.<span class="ident">unselect_all</span>(<span class="ident">wrap</span>.<span class="ident">unsafe_cast_ref</span>()).<span class="ident">into_glib</span>()
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk4" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div><script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk4" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
+    <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script>
+</body></html>
