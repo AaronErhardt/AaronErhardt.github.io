@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["default_widgets",""],["widget_plus",""]]});

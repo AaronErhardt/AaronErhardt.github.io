@@ -187,6 +187,10 @@
 <span id="187">187</span>
 <span id="188">188</span>
 <span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
 </pre><pre class="rust">
 <span class="doccomment">/// Default widget implementation.</span>
 <span class="doccomment">///</span>
@@ -211,6 +215,14 @@
         $(<span class="macro">impl_default_widget!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>);)<span class="op">+</span>
     };
 }
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>)]</span>
+<span class="macro">impl_default_widgets!</span>[
+    <span class="ident">gtk::PageSetupUnixDialog</span>,
+    <span class="ident">gtk::PrintJob</span>,
+    <span class="ident">gtk::PrintUnixDialog</span>,
+    <span class="ident">gtk::Printer</span>
+];
 
 <span class="macro">impl_default_widgets!</span>[
     <span class="ident">gtk::AboutDialog</span>,
@@ -319,17 +331,13 @@
     <span class="ident">gtk::Overlay</span>,
     <span class="ident">gtk::OverlayLayoutChild</span>,
     <span class="ident">gtk::PadController</span>,
-    <span class="ident">gtk::PageSetupUnixDialog</span>,
     <span class="ident">gtk::Paned</span>,
     <span class="ident">gtk::PasswordEntry</span>,
     <span class="ident">gtk::Picture</span>,
     <span class="ident">gtk::Popover</span>,
     <span class="ident">gtk::PopoverMenu</span>,
     <span class="ident">gtk::PopoverMenuBar</span>,
-    <span class="ident">gtk::PrintJob</span>,
     <span class="ident">gtk::PrintOperation</span>,
-    <span class="ident">gtk::PrintUnixDialog</span>,
-    <span class="ident">gtk::Printer</span>,
     <span class="ident">gtk::ProgressBar</span>,
     <span class="ident">gtk::Revealer</span>,
     <span class="ident">gtk::Scale</span>,

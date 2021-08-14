@@ -1,1 +1,0 @@
-window.ALL_CRATES = ["proc_macro2","quote","relm4_macros","syn","unicode_xid"];
