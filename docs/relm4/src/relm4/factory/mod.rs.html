@@ -62,6 +62,21 @@
 <span id="62">62</span>
 <span id="63">63</span>
 <span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Defines traits and data types used to efficiently generating widgets from collections.</span>
 
@@ -77,9 +92,18 @@
 <span class="doccomment">/// Define behavior to create, update and remove widgets according to</span>
 <span class="doccomment">/// data stored in a factory.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FactoryPrototype</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// Factory container that stores the data.</span>
     <span class="kw">type</span> <span class="ident">Factory</span>: <span class="ident">Factory</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::View</span><span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Outermost type of the newly created widgets.</span>
+    <span class="doccomment">/// Similar to the `Root` type in [`crate::Widgets`].</span>
     <span class="kw">type</span> <span class="ident">Widget</span>: <span class="ident">WidgetExt</span>;
+
+    <span class="doccomment">/// Widget that the generated widgets are added to.</span>
     <span class="kw">type</span> <span class="ident">View</span>: <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Widget</span><span class="op">&gt;</span>;
+
+    <span class="doccomment">/// Message type used to send messages back to the component or app</span>
+    <span class="doccomment">/// where this factory is used</span>
     <span class="kw">type</span> <span class="ident">Msg</span>;
 
     <span class="doccomment">/// Create new widgets when self is inserted into the factory.</span>
@@ -122,9 +146,15 @@
 
 <span class="doccomment">/// A trait implemented for GTK4 widgets that allows a factory to create and remove widgets.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident">Widget</span>: <span class="ident">WidgetExt</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Position type used by this widget.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// For example [`GridPosition`] for [`gtk::Grid`] or `()` for [`gtk::Box`]</span>
     <span class="kw">type</span> <span class="ident">Position</span>;
 
+    <span class="doccomment">/// Adds a new widget to self at the end.</span>
     <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">Widget</span>, <span class="ident">position</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Position</span>);
+
+    <span class="doccomment">/// Removes a widget from self at the end.</span>
     <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">Widget</span>);
 }
 </pre></div>

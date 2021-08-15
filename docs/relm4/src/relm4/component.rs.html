@@ -162,6 +162,7 @@
 <span id="162">162</span>
 <span id="163">163</span>
 <span id="164">164</span>
+<span id="165">165</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">gtk::glib</span>::{<span class="self">self</span>, <span class="ident">Sender</span>};
 
@@ -176,6 +177,7 @@
 <span class="doccomment">/// and can send messages to its parent and its children components.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Multiple [`RelmComponent`]s that have the same parent are usually bundled in a struct that implements [`Components`].</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RelmComponent</span><span class="op">&lt;</span><span class="ident">Model</span>, <span class="ident">ParentModel</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Model</span>: <span class="ident">ComponentUpdate</span><span class="op">&lt;</span><span class="ident">ParentModel</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,

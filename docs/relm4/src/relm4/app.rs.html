@@ -80,6 +80,7 @@
 <span id="80">80</span>
 <span id="81">81</span>
 <span id="82">82</span>
+<span id="83">83</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">gtk::glib</span>;
 <span class="kw">use</span> <span class="ident">gtk::prelude</span>::{<span class="ident">ApplicationExt</span>, <span class="ident">ApplicationExtManual</span>, <span class="ident">GtkWindowExt</span>};
@@ -94,6 +95,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// A [`RelmApp`] might run as a standalone application or may contain</span>
 <span class="doccomment">/// multiple components that communicate with each other.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RelmApp</span><span class="op">&lt;</span><span class="ident">Model</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Model</span>: <span class="ident">ModelTrait</span> <span class="op">+</span> <span class="ident">AppUpdate</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,

@@ -191,12 +191,14 @@
 <span id="191">191</span>
 <span id="192">192</span>
 <span id="193">193</span>
+<span id="194">194</span>
 </pre><pre class="rust">
-<span class="doccomment">/// Default widget implementation.</span>
+<span class="doccomment">//! Default widget implementation.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This is mainly useful for macros that generate widgets</span>
 <span class="doccomment">/// in order to avoid passing arguments to `new(...)` functions of GTK widgets.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">DefaultWidget</span> {
+    <span class="doccomment">/// Returns a widget with default configuration</span>
     <span class="kw">fn</span> <span class="ident">default_widget</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
 }
 

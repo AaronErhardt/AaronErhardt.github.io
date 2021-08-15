@@ -200,7 +200,6 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">ComponentUpdate</span>, <span class="ident">Components</span>, <span class="ident">Model</span> <span class="kw">as</span> <span class="ident">ModelTrait</span>};
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="doccomment">/// [`RelmWorker`]s are like [`RelmComponent`](crate::RelmComponent)s but they don&#39;t have any widgets.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// They are usually used to run expansive tasks on different threads and report back when they are finished</span>
@@ -212,6 +211,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Multiple [`RelmWorker`]s that have the same parent are usually bundled along with [`RelmComponent`](crate::RelmComponent)s</span>
 <span class="doccomment">/// in a struct that implements [`Components`].</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RelmWorker</span><span class="op">&lt;</span><span class="ident">Model</span>, <span class="ident">ParentModel</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Model</span>: <span class="ident">ComponentUpdate</span><span class="op">&lt;</span><span class="ident">ParentModel</span>, <span class="ident">Widgets</span> <span class="op">=</span> ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,

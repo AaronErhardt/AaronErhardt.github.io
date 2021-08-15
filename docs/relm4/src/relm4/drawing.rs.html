@@ -130,6 +130,10 @@
 <span id="130">130</span>
 <span id="131">131</span>
 <span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Utility to help drawing on a [`gtk::DrawingArea`] in a Relm4 application.</span>
 <span class="doccomment">//! Create a DrawHandler, initialize it, and get its context when handling a message (that could be</span>
@@ -144,7 +148,7 @@
 <span class="kw">use</span> <span class="ident">gtk::cairo</span>::{<span class="self">self</span>, <span class="ident">Context</span>, <span class="ident">Format</span>, <span class="ident">ImageSurface</span>};
 <span class="kw">use</span> <span class="ident">gtk::prelude</span>::{<span class="ident">DrawingAreaExt</span>, <span class="ident">WidgetExt</span>};
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">struct</span> <span class="ident">Surface</span> {
     <span class="ident">surface</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">ImageSurface</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
@@ -165,6 +169,9 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="doccomment">/// Context returned by [`DrawHandler`] that stores a [`Context`] along</span>
+<span class="doccomment">/// with additional data required for drawing.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DrawContext</span> {
     <span class="ident">context</span>: <span class="ident">Context</span>,
     <span class="ident">draw_surface</span>: <span class="ident">Surface</span>,
@@ -205,6 +212,7 @@
 }
 
 <span class="doccomment">/// Manager for drawing operations.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DrawHandler</span> {
     <span class="ident">draw_surface</span>: <span class="ident">Surface</span>,
     <span class="ident">edit_surface</span>: <span class="ident">ImageSurface</span>,

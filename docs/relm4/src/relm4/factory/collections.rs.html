@@ -135,8 +135,8 @@
     <span class="ident">Update</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
 <span class="doccomment">/// A container similar to [`Vec`] that implements [`Factory`].</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FactoryVec</span><span class="op">&lt;</span><span class="ident">Data</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Data</span>: <span class="ident">FactoryPrototype</span>,

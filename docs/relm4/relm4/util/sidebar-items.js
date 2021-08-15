@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["default_widgets",""],["widget_plus",""]]});
+initSidebarItems({"mod":[["default_widgets","Default widget implementation."],["widget_plus","Trait that extends [`gtk::prelude::WidgetExt`]."]]});
