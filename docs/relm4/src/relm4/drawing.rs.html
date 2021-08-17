@@ -136,7 +136,7 @@
 <span id="136">136</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Utility to help drawing on a [`gtk::DrawingArea`] in a Relm4 application.</span>
-<span class="doccomment">//! Create a DrawHandler, initialize it, and get its context when handling a message (that could be</span>
+<span class="doccomment">//! Create a [`DrawHandler`], initialize it, and get its context when handling a message (that could be</span>
 <span class="doccomment">//! sent from the draw signal).</span>
 
 <span class="comment">// TODO: check if clip has the intended behavior.</span>
@@ -220,7 +220,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DrawHandler</span> {
-    <span class="doccomment">/// Create a new DrawHandler.</span>
+    <span class="doccomment">/// Create a new [`DrawHandler`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">cairo::Error</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
             <span class="ident">draw_surface</span>: <span class="ident">Surface::new</span>(<span class="ident">ImageSurface::create</span>(<span class="ident">Format::ARgb32</span>, <span class="number">100</span>, <span class="number">100</span>)<span class="question-mark">?</span>),
@@ -229,8 +229,8 @@
         })
     }
 
-    <span class="doccomment">/// Get the drawing context to draw on a DrawingArea.</span>
-    <span class="doccomment">/// If the size of the DrawingArea changed, the contents of the</span>
+    <span class="doccomment">/// Get the drawing context to draw on a [`gtk::DrawingArea`].</span>
+    <span class="doccomment">/// If the size of the [`gtk::DrawingArea`] changed, the contents of the</span>
     <span class="doccomment">/// surface will be replaced by a new, empty surface.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_context</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DrawContext</span>, <span class="ident">cairo::Error</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">draw_area</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">draw_area</span> {
@@ -243,8 +243,8 @@
                 <span class="comment">// TODO: also copy the old small surface to the new bigger one?</span>
                 <span class="kw">match</span> <span class="ident">ImageSurface::create</span>(<span class="ident">Format::ARgb32</span>, <span class="ident">width</span>, <span class="ident">height</span>) {
                     <span class="prelude-val">Ok</span>(<span class="ident">surface</span>) <span class="op">=</span><span class="op">&gt;</span> {
-                        <span class="ident">surface</span>.<span class="ident">set_device_scale</span>(<span class="ident">scale</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="ident">scale</span> <span class="kw">as</span> <span class="ident">f64</span>);
-                        <span class="self">self</span>.<span class="ident">edit_surface</span> <span class="op">=</span> <span class="ident">surface</span>
+                        <span class="ident">surface</span>.<span class="ident">set_device_scale</span>(<span class="ident">f64::from</span>(<span class="ident">scale</span>), <span class="ident">f64::from</span>(<span class="ident">scale</span>));
+                        <span class="self">self</span>.<span class="ident">edit_surface</span> <span class="op">=</span> <span class="ident">surface</span>;
                     }
                     <span class="prelude-val">Err</span>(<span class="ident">error</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">log::error!</span>(<span class="string">&quot;Cannot resize image surface: {:?}&quot;</span>, <span class="ident">error</span>),
                 }

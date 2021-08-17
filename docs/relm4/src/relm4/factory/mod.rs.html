@@ -77,16 +77,34 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Defines traits and data types used to efficiently generating widgets from collections.</span>
 
 <span class="kw">use</span> <span class="ident">gtk::glib::Sender</span>;
 <span class="kw">use</span> <span class="ident">gtk::prelude::WidgetExt</span>;
 
-<span class="kw">mod</span> <span class="ident">collections</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">collections</span>;
 <span class="kw">mod</span> <span class="ident">widgets</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">collections::FactoryVec</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">collections</span>::<span class="kw-2">*</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">widgets::GridPosition</span>;
 
 <span class="doccomment">/// Define behavior to create, update and remove widgets according to</span>
@@ -95,12 +113,16 @@
     <span class="doccomment">/// Factory container that stores the data.</span>
     <span class="kw">type</span> <span class="ident">Factory</span>: <span class="ident">Factory</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::View</span><span class="op">&gt;</span>;
 
+    <span class="doccomment">/// Type that stores all widgets needed to update them</span>
+    <span class="doccomment">/// in the [`update`](FactoryPrototype::update) function.</span>
+    <span class="kw">type</span> <span class="ident">Widgets</span>;
+
     <span class="doccomment">/// Outermost type of the newly created widgets.</span>
     <span class="doccomment">/// Similar to the `Root` type in [`crate::Widgets`].</span>
-    <span class="kw">type</span> <span class="ident">Widget</span>: <span class="ident">WidgetExt</span>;
+    <span class="kw">type</span> <span class="ident">Root</span>: <span class="ident">WidgetExt</span>;
 
     <span class="doccomment">/// Widget that the generated widgets are added to.</span>
-    <span class="kw">type</span> <span class="ident">View</span>: <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Widget</span><span class="op">&gt;</span>;
+    <span class="kw">type</span> <span class="ident">View</span>: <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Root</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Message type used to send messages back to the component or app</span>
     <span class="doccomment">/// where this factory is used</span>
@@ -111,23 +133,23 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Factory</span> <span class="kw">as</span> <span class="ident">Factory</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::View</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Key</span>,
         <span class="ident">sender</span>: <span class="ident">Sender</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Msg</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Widget</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Widgets</span>;
 
     <span class="doccomment">/// Set the widget position upon creation, useful for [`gtk::Grid`] or similar.</span>
     <span class="kw">fn</span> <span class="ident">position</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Factory</span> <span class="kw">as</span> <span class="ident">Factory</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::View</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Key</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::View</span> <span class="kw">as</span> <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Widget</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Position</span>;
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::View</span> <span class="kw">as</span> <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Root</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Position</span>;
 
     <span class="doccomment">/// Function called when self is modified.</span>
     <span class="kw">fn</span> <span class="ident">update</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Factory</span> <span class="kw">as</span> <span class="ident">Factory</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::View</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Key</span>,
-        <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Widget</span>,
+        <span class="ident">widgets</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Widgets</span>,
     );
 
-    <span class="doccomment">/// Function called when self is removed from the factory.</span>
-    <span class="kw">fn</span> <span class="ident">remove</span>(<span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Widget</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Widget</span>;
+    <span class="doccomment">/// Get the outermost widget from the widgets.</span>
+    <span class="kw">fn</span> <span class="ident">get_root</span>(<span class="ident">widgets</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Widgets</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Root</span>;
 }
 
 <span class="doccomment">/// A container that is a able to efficiently update, generate and remove widgets</span>
@@ -135,7 +157,7 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">Data</span>, <span class="ident">View</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Data</span>: <span class="ident">FactoryPrototype</span><span class="op">&lt;</span><span class="ident">View</span> <span class="op">=</span> <span class="ident">View</span><span class="op">&gt;</span>,
-    <span class="ident">View</span>: <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident">Data::Widget</span><span class="op">&gt;</span>,
+    <span class="ident">View</span>: <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident">Data::Root</span><span class="op">&gt;</span>,
 {
     <span class="doccomment">/// Key that provides additional information for the [`FactoryPrototype`] functions.</span>
     <span class="kw">type</span> <span class="ident">Key</span>;
@@ -145,7 +167,7 @@
 }
 
 <span class="doccomment">/// A trait implemented for GTK4 widgets that allows a factory to create and remove widgets.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident">Widget</span>: <span class="ident">WidgetExt</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Position type used by this widget.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For example [`GridPosition`] for [`gtk::Grid`] or `()` for [`gtk::Box`]</span>
@@ -156,6 +178,20 @@
 
     <span class="doccomment">/// Removes a widget from self at the end.</span>
     <span class="kw">fn</span> <span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">Widget</span>);
+}
+
+<span class="doccomment">/// Extends [`FactoryView`] for containers that work similar to lists.</span>
+<span class="doccomment">/// This means that the container can insert widgets before and after other</span>
+<span class="doccomment">/// widgets.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FactoryListView</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="self">Self</span>: <span class="ident">FactoryView</span><span class="op">&lt;</span><span class="ident">Widget</span><span class="op">&gt;</span>,
+{
+    <span class="doccomment">/// Insert a widget after another widget.</span>
+    <span class="kw">fn</span> <span class="ident">insert_after</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">Widget</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="ident">Widget</span>);
+
+    <span class="doccomment">/// Add an widget to the front.</span>
+    <span class="kw">fn</span> <span class="ident">push_front</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">widget</span>: <span class="kw-2">&amp;</span><span class="ident">Widget</span>);
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="relm4" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
