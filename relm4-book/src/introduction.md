@@ -5,7 +5,7 @@ It is a new version of [relm](https://github.com/antoyo/relm) that's built from 
 
 # Platform support
 
-Relm4 is based on GTK4 so all platforms suppported by GTK4 are available for Relm4 as well:
+Relm4 is based on GTK4 so all platforms supported by GTK4 are available for Relm4 as well:
 
 + Linux
 + Windows

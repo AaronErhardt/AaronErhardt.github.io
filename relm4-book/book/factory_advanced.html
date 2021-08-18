@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html" class="active"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Workers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Threads and async</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html" class="active"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -139,16 +139,16 @@
                     <main>
                         <h1 id="advanced-factories"><a class="header" href="#advanced-factories">Advanced factories</a></h1>
 <blockquote>
-<p>If you're not familiar with the <code>Rc</code> type of the standard library have a look at <a href="https://doc.rust-lang.org/std/rc/index.html">this</a>.</p>
+<p>If you're not familiar with the <code>Rc</code> type of the standard library, have a look at <a href="https://doc.rust-lang.org/std/rc/index.html">this</a>.</p>
 </blockquote>
 <p>The <code>FactoryVec</code> we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces more complexity that needs to be taken care of but fortunately is mostly handled by Relm4.</p>
-<p>To demonstrate this, we'll create a similar counter app to the one of the previous chapter but on <strong>steroids</strong>: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the flexibility we need for this we'll use the <code>FactoryVecDeque</code> type instead of a <code>FactoryVec</code>.</p>
+<p>To show this, we'll create a similar counter app to the one of the previous chapter, but on <strong>steroids</strong>: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the flexibility we need for this, we'll use the <code>FactoryVecDeque</code> type instead of a <code>FactoryVec</code>.</p>
 <blockquote>
 <p>An almost identical example called &quot;factory_advanced&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="indices"><a class="header" href="#indices">Indices</a></h2>
-<p>Indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we for example add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handlers similar to the previous chapter were we just copied the index at start and moved it into the closure we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
-<p>One solution would be to recreate all signal handler with the updated index once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
+<p>Indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
+<p>One solution would be to recreate all signal handlers with the updated index once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
 <p>The solution Relm4 chose was using dynamic indices. These indices can be updated automatically to always point at the same element. This however, requires the user to understand how to use them.</p>
 <h3 id="the-message-type"><a class="header" href="#the-message-type">The message type</a></h3>
 <pre><code class="language-rust no_run noplayground">enum AppMsg {
@@ -160,12 +160,12 @@
     InsertAfter(Rc&lt;DynamicIndex&gt;),
 }
 </code></pre>
-<p>As you can see we use a lot of <code>Rc&lt;DynamicIndex&gt;</code>. This allows us to always hold a reference to the updated index value.</p>
+<p>As you can see, we use a lot of <code>Rc&lt;DynamicIndex&gt;</code>. This allows us to always hold a reference to the updated index value.</p>
 <blockquote>
-<p>You might consider using <code>Weak</code> instead of <code>Rc</code> for messages because <code>Rc</code> will keep alive indices of removed elements inside queued messages (which rarely happens). For simplicity we will use <code>Rc</code> here.</p>
+<p>You might consider using <code>Weak</code> instead of <code>Rc</code> for messages because <code>Rc</code> will keep alive indices of removed elements inside queued messages (which rarely happens). For simplicity, we will use <code>Rc</code> here.</p>
 </blockquote>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
-<p>The model is very similar to the previous chapter. The only difference is that we use <code>FactoryVecDeque</code> as data structure now.</p>
+<p>The model is very similar to the previous chapter. The only difference is that we use <code>FactoryVecDeque</code> as a data structure now.</p>
 <pre><code class="language-rust no_run noplayground">struct Counter {
     counter: u8,
 }
@@ -176,7 +176,7 @@ struct AppModel {
 }
 </code></pre>
 <h3 id="the-update-function"><a class="header" href="#the-update-function">The update function</a></h3>
-<p>The update function now handles quite a lot of event. We want to</p>
+<p>The update function now handles quite a lot of events. We want to</p>
 <ul>
 <li>Add elements at the start</li>
 <li>Remove elements from the back</li>
@@ -225,7 +225,7 @@ struct AppModel {
     }
 }
 </code></pre>
-<p>To get the current index value from the dynamic index we simply call <code>index.current_index()</code>.</p>
+<p>To get the current index value from the dynamic index, we simply call <code>index.current_index()</code>.</p>
 <h2 id="the-factory-implementation"><a class="header" href="#the-factory-implementation">The factory implementation</a></h2>
 <p>The factory implementation is mostly the same, so we'll just have a look at what's changed.</p>
 <h3 id="the-widgets-type"><a class="header" href="#the-widgets-type">The widgets type</a></h3>
@@ -236,7 +236,7 @@ struct AppModel {
 }
 </code></pre>
 <h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
-<p>For the generate function we need to first generate the new buttons and the box.</p>
+<p>For the generate function, we need to first generate the new buttons and the box.</p>
 <pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FctryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
@@ -289,7 +289,7 @@ struct AppModel {
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <blockquote>
-<p>Unlike the example in the previous chapter the following code does not use the widget macro from relm4-macros but implements the <code>Widgets</code> trait manually. Yet the generated code from the macro and the manual code should be almost identical.</p>
+<p>Unlike the example in the previous chapter, the following code does not use the widget macro from relm4-macros but implements the <code>Widgets</code> trait manually. Yet, the generated code from the macro and the manual code should be almost identical.</p>
 </blockquote>
 <pre><code class="language-rust no_run noplayground">use gtk::glib::Sender;
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
@@ -517,6 +517,9 @@ fn main() {
                             <a rel="prev" href="factory.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+                            <a rel="next" href="components.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -525,6 +528,9 @@ fn main() {
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="factory.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="components.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 

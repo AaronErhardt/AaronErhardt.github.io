@@ -1,10 +1,10 @@
 # Factory
 
-Factories define how to generate widgets from collections of data. They are used inside GTK as well but Relm4 uses them a bit different.
+Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.
 
 ## Factories in Relm4
 
-Let's have a look at factories in Relm4. We want to write a simple application that can create (and remove) many counters. Each counter needs to store it's value and display widgets to allow modifying the counter. In this example we will only decrement the counter. 
+Let's have a look at factories in Relm4. We want to write a simple application that can create (and remove) many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
 
 > An almost identical example called "factory" is available [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
@@ -16,7 +16,7 @@ The most natural solution for storing collections of data is a `Vec`. Yet a `Vec
 {{#include ../listings/factory.rs:model }}
 ```
 
-As you can see we first define the struct `Counter` that just stores the value of a counter. Then we add a `FactoryVec` of counters to the model. Additionally, we keep one counter in the model itself as a nice starting value for our new counters.
+As you can see, we first define the struct `Counter` that just stores the value of a counter. Then we add a `FactoryVec` of counters to the model. Additionally, we keep one counter in the model itself as a nice starting value for our new counters.
 
 ## The message type
 
@@ -26,7 +26,7 @@ The actions we want to perform are
 + Remove counters
 + Decrement a counter
 
-Accordingly our message type looks like this:
+Accordingly, our message type looks like this:
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:msg }}
@@ -48,9 +48,9 @@ The update function takes care of adding, removing and decrementing counters. Ea
 
 So far the code looked pretty normal. Now to the interesting part of the code.
 
-The first thing we need to implement a factory is a widgets type. That sounds familiar right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets are created to represent an element inside a factory data structures like `FactoryVec`.
+The first thing we need to implement a factory is a widgets type. That sounds familiar, right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets represent an element inside a factory data structure like `FactoryVec`.
 
-In our case we just need a simple button that will decrement the counter when clicked and will also display the counter value.
+In our case, we just need a simple button that will decrement the counter when clicked and will also display the counter value.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:factory_widgets }}
@@ -64,7 +64,7 @@ The `FactoryPrototype` trait we need next is very similar to the `Widgets` trait
 
 Alright, there are quite a few types! Let's look at them step by step:
 
-+ Factory: the data structure we use to store our elements. In our case a `FactoryVec`.
++ Factory: the data structure we use to store our elements. In our case, a `FactoryVec`.
 + Widgets: the struct that stores out widgets. That's the `FactoryWidgets` type we just created.
 + Root: similar to the root in the `Widgets` trait. Represents the outermost widget we create. This is usually a container like `gtk::Box` but in our case we just have a `gtk::Button`.
 + View: the container we want our widgets to be placed inside. The simplest solution for this is a `gtk::Box`.
@@ -72,23 +72,23 @@ Alright, there are quite a few types! Let's look at them step by step:
 
 ### The generate function
 
-The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from given data. You will notice that there's an index as well that we can use to send messages that can index the data these widgets represent. The index type might be vary between different factory container you use. The `FactoryVec` we use indexes elements with the type `usize`.
+The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from given data. You notice that there's an index as well that we can use to send messages that can index the data these widgets represent. The index type might be vary between different factory container you use. The `FactoryVec` we use indexes elements with the type `usize`.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:generate }}
 ```
 
-As you can see we sent a message with the index back to the update function to decrement this specific counter.
+As you can see, we sent a message with the index back to the update function to decrement this specific counter.
 
 ### The position function
 
-In our case the function is pretty short:
+In our case, the function is pretty short:
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:position }}
 ```
 
-It's not very useful here because a `gtk::Box` does not use fixed positions for widgets placed inside it. However if we used a `gtk::Grid` instead we would need to specify where (row, column, etc.) here to add new elements.
+It's not very useful here because a `gtk::Box` does not use fixed positions for widgets placed inside it. However, if we used a `gtk::Grid` instead we would need to specify where (row, column, etc.) here to add new elements.
 
 ### The update function
 
@@ -116,11 +116,11 @@ The last peace to make our code complete it the definition of the widgets for th
 {{#include ../listings/factory.rs:widgets }}
 ```
 
-The `factory!` macro that's almost at the end of the widgets definition now updates our widgets according to the changes we make to the data in our model. It sits inside of the `gtk::Box` we want to use as container for our counter.
+The `factory!` macro that's almost at the end of the widgets definition now updates our widgets according to the changes we make to the data in our model. It sits inside of the `gtk::Box` we want to use as a container for our counter.
 
-> The `factory!` macro simply expands to `model.data.generate(&self.gen_box, sender)` where `gen_box` is the `gtk::Box` we used as container. The `generate` function is provided by the `Factory` trait that's implemented for `FactoryVec` and similar data structures.
+> The `factory!` macro simply expands to `model.data.generate(&self.gen_box, sender)` where `gen_box` is the `gtk::Box` we used as a container. The `generate` function is provided by the `Factory` trait that's implemented for `FactoryVec` and similar data structures.
 
-Now to test this we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!
+Now to test this, we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!
 
 ## The complete code
 

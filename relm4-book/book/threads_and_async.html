@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Efficient UI updates - GUI development with Relm4</title>
+        <title>Threads and async - GUI development with Relm4</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html" class="active"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html" class="active"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,25 +137,60 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="efficient-ui-updates"><a class="header" href="#efficient-ui-updates">Efficient UI updates</a></h1>
-<p>Relm4 follows the Elm programming model which means that data and widgets are separate. This causes a problem for larger applications: The update function can't update the widgets and the view function doesn't know what has changed.</p>
-<p>Let's have a look at an imaginary example to visualize this problem. Imagine you have an app with 1000 counters and you only increment the first counter. The model receives the increment message for the first counter and increments it. Now the view function gets the updated model with 1000 counters and... well has no idea what changed! So instead of one UI update we need to do 1000 because we don't know which of our counters was modified.</p>
-<p>There are two concepts in Relm4 to avoid unnecessary UI updates</p>
-<ul>
-<li>Trackers: keep track of which struct fields were modified and only update the UI if they were modified</li>
-<li>Factories: store data in a special data structures similar to the data structures in <a href="https://doc.rust-lang.org/std/collections/index.html"><code>std::collections</code></a> that will keep track of changes and will only apply minimal UI updates.</li>
-</ul>
-<p>Both concepts are explained in the following chapters.</p>
+                        <h1 id="threads"><a class="header" href="#threads">Threads</a></h1>
+<p>In the previous chapter, we've introduced workers. One of the most common use case for workers is to run long computations or IO-bound operations on a different thread. So how do we do this?</p>
+<h2 id="running-a-component-on-a-different-thread"><a class="header" href="#running-a-component-on-a-different-thread">Running a component on a different thread</a></h2>
+<p>You might remember this section of code from the example application in the components chapter.</p>
+<pre><code class="language-rust no_run noplayground">impl Components&lt;AppModel&gt; for AppComponents {
+    fn init_components(
+        parent_model: &amp;AppModel,
+        parent_widgets: &amp;AppWidgets,
+        parent_sender: Sender&lt;AppMsg&gt;,
+    ) -&gt; Self {
+        AppComponents {
+            header: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
+            dialog: RelmComponent::new(parent_model, parent_widgets, parent_sender),
+        }
+    }
+}
+</code></pre>
+<p>In order to run the dialog component on a new thread, we just need to change one line:</p>
+<pre><code class="language-rust no_run noplayground">impl Components&lt;AppModel&gt; for AppComponents {
+    fn init_components(
+        parent_model: &amp;AppModel,
+        parent_widgets: &amp;AppWidgets,
+        parent_sender: Sender&lt;AppMsg&gt;,
+    ) -&gt; Self {
+        AppComponents {
+            header: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
+            dialog: RelmComponent::with_new_thread(parent_model, parent_widgets, parent_sender),
+        }
+    }
+}
+</code></pre>
+<p>It's hard to spot the difference. Instead of <code>RelmComponent::new</code> we used <code>RelmComponent::with_new_thread</code>. The same works for worker. <code>RelmWorker::new</code> runs the worker on the same thread and <code>RelmWorker::with_new_thread</code> spawns a new thread for the worker.</p>
+<p>There's one problem for the components, though. Components have widgets that in the case of GTK4 are neither <code>Send</code> nor <code>Sync</code>. That means we can't run the view function from a different thread, but only the update function that just operates on the model. But then, how does this work? Well, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker because workers don't have this problem.</p>
+<h2 id="async"><a class="header" href="#async">Async</a></h2>
+<p>Async update functions currently exclusive for workers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an <code>AsyncRelmWorker</code> type that uses an async update function. Apart from that, they are just like normal workers that run in a new thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs">&quot;tokio&quot; example</a> shows how this can be used with for async HTTP requests.</p>
+<h2 id="the-message-queue-problem"><a class="header" href="#the-message-queue-problem">The message queue problem</a></h2>
+<p>Because workers tend to take a lot of time during the update function you should make sure to not bombard them with messages. Imagine you have a button in your application that allows the user to update a web page. If the user presses the button, a new request is sent and then the worker responds with a message. If the button can be clicked and a message is sent for each click while the worker fetches the web page you could quickly have a lot of unprocessed messages in the queue of your worker. To avoid this, make sure to only send the message once and wait until the worker is finished.</p>
+<h2 id="multiple-threads-and-async-without-workers"><a class="header" href="#multiple-threads-and-async-without-workers">Multiple threads and async without workers</a></h2>
+<p>One reason you always get a new sender passed into your update function is that you can spawn a new thread and move a cloned sender into it. This can sometimes be more flexible than defining a worker. You can simply use <code>std::thread::spawn</code> for this and even spawn any async runtime you want from that thread.</p>
+<p>For example you could do this in your update function:</p>
+<pre><code class="language-rust no_run noplayground">std::thread::spawn(move || {
+    send_request();
+    send!(sender, AppMsg::RequestComplete);
+});
+</code></pre>
+<h3 id="async-inside-the-main-event-loop"><a class="header" href="#async-inside-the-main-event-loop">Async inside the main event loop</a></h3>
+<p>GTK uses an event loop from glib to handle asynchronous events. In fact the senders we've been using all the time are just channels on that event loop. This event loop also allows us to execute futures. Relm4 provides a <code>spawn_future</code> function to do exactly that. The only drawback of this is that most crates relying on a tokio runtime won't work and that the future is run on the main thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/future.rs">&quot;future&quot; example</a> shows how this can be used.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="widget_macro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="worker.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a rel="next" href="tracker.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -163,11 +198,8 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="widget_macro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="worker.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a rel="next" href="tracker.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
