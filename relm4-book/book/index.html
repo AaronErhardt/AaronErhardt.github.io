@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.2.</strong> Factory</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Workers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Threads and async</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Workers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Threads and async</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -157,10 +157,12 @@ It is a new version of <a href="https://github.com/antoyo/relm">relm</a> that's 
 <h2 id="cargo"><a class="header" href="#cargo">Cargo</a></h2>
 <p>Add the packages you need to your Cargo.toml:</p>
 <pre><code class="language-toml">gtk = { version = &quot;0.2&quot;, package = &quot;gtk4&quot; }
-relm4 = &quot;0.1.0-beta.5&quot;
-relm4-macros = &quot;0.1.0-beta.5&quot;
-relm4-components = &quot;0.1.0-beta.5&quot;
+relm4 = &quot;0.1.0-beta.6&quot;
+relm4-macros = &quot;0.1.0-beta.6&quot;
+relm4-components = &quot;0.1.0-beta.6&quot;
 </code></pre>
+<h1 id="issues-and-feedback"><a class="header" href="#issues-and-feedback">Issues and feedback</a></h1>
+<p>If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at <a href="https://github.com/AaronErhardt/relm4/issues">GitHub</a> or chat with us on <a href="https://matrix.to/#/#relm4:matrix.org">Matrix</a>.</p>
 <h1 id="special-thanks"><a class="header" href="#special-thanks">Special thanks</a></h1>
 <p>I want to thank all contributors of <a href="https://github.com/antoyo/relm">relm</a> especially <a href="https://github.com/antoyo">antoyo</a> for building relm that inspired much of the work on Relm4.</p>
 <p>Also I want to thank all contributors of <a href="https://gtk-rs.org/">gtk-rs</a> that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.</p>
@@ -185,20 +187,6 @@ relm4-components = &quot;0.1.0-beta.5&quot;
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3000/__livereload");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>

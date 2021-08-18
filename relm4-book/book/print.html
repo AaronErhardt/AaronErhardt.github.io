@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.2.</strong> Factory</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Workers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Threads and async</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Workers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Threads and async</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> Reusable components</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -158,10 +158,12 @@ It is a new version of <a href="https://github.com/antoyo/relm">relm</a> that's 
 <h2 id="cargo"><a class="header" href="#cargo">Cargo</a></h2>
 <p>Add the packages you need to your Cargo.toml:</p>
 <pre><code class="language-toml">gtk = { version = &quot;0.2&quot;, package = &quot;gtk4&quot; }
-relm4 = &quot;0.1.0-beta.5&quot;
-relm4-macros = &quot;0.1.0-beta.5&quot;
-relm4-components = &quot;0.1.0-beta.5&quot;
+relm4 = &quot;0.1.0-beta.6&quot;
+relm4-macros = &quot;0.1.0-beta.6&quot;
+relm4-components = &quot;0.1.0-beta.6&quot;
 </code></pre>
+<h1 id="issues-and-feedback"><a class="header" href="#issues-and-feedback">Issues and feedback</a></h1>
+<p>If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at <a href="https://github.com/AaronErhardt/relm4/issues">GitHub</a> or chat with us on <a href="https://matrix.to/#/#relm4:matrix.org">Matrix</a>.</p>
 <h1 id="special-thanks"><a class="header" href="#special-thanks">Special thanks</a></h1>
 <p>I want to thank all contributors of <a href="https://github.com/antoyo/relm">relm</a> especially <a href="https://github.com/antoyo">antoyo</a> for building relm that inspired much of the work on Relm4.</p>
 <p>Also I want to thank all contributors of <a href="https://gtk-rs.org/">gtk-rs</a> that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.</p>
@@ -597,13 +599,13 @@ fn main() {
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="efficient-ui-updates"><a class="header" href="#efficient-ui-updates">Efficient UI updates</a></h1>
 <p>Relm4 follows the Elm programming model which means that data and widgets are separate. This causes a problem for larger applications: The update function can't update the widgets and the view function doesn't know what has changed.</p>
-<p>Let's have a look at an imaginary example to visualize this problem. Imagine you have a app with 1000 counters and you only increment the first counter. The model receives the increment message for the first counter and increments it. Now the view function gets the updated model with 1000 counters and... well has no idea what changed! So instead of one UI update we need to do 1000 because we don't know which of our counters was modified.</p>
+<p>Let's have a look at an imaginary example to visualize this problem. Imagine you have an app with 1000 counters and you only increment the first counter. The model receives the increment message for the first counter and increments it. Now the view function gets the updated model with 1000 counters and... well has no idea what changed! So instead of one UI update we need to do 1000 because we don't know which of our counters was modified.</p>
 <p>There are two concepts in Relm4 to avoid unnecessary UI updates</p>
 <ul>
 <li>Trackers: keep track of which struct fields were modified and only update the UI if they were modified</li>
-<li>Factories: store data in a special container similar to the containers in <a href="https://doc.rust-lang.org/std/collections/index.html"><code>std::collections</code></a> that will keep track of changes and will only apply minimal UI updates.</li>
+<li>Factories: store data in a special data structures similar to the data structures in <a href="https://doc.rust-lang.org/std/collections/index.html"><code>std::collections</code></a> that will keep track of changes and will only apply minimal UI updates.</li>
 </ul>
-<p>Both concepts are covered in the following sections.</p>
+<p>Both concepts are explained in the following chapters.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tracker"><a class="header" href="#tracker">Tracker</a></h1>
 <p>A tracker in this context just means a data type that's able to track changes to itself. For example if we increment the counter of the model we used for our first app the model could tell us later that the counter did change during the last update function.</p>
 <p>Relm4 does not promote any implementation of a tracker you're free to use any implementation you like. You can even implement a tracker yourself. In this example however we'll use the tracker crate that provides a simple macro that implements a tracker for you automatically.</p>
@@ -631,7 +633,7 @@ Update your mutable field with a function or closure. Assumes the field will be 
 <p>To reset all previous changes you can call <code>var_name.reset()</code>.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
 <p>Let's have a look at a small example.</p>
-<pre><pre class="playground"><code class="language-rust">#[tracker::track]
+<pre><code class="language-rust no_run noplayground">#[tracker::track]
 struct Test {
     x: u8,
     y: u64,
@@ -657,7 +659,7 @@ fn main() {
     // same value so no change
     assert!(!t.changed(Test::x()));
 }
-</code></pre></pre>
+</code></pre>
 <blockquote>
 <p>More information about the tracker crate can be found <a href="https://github.com/AaronErhardt/Tracker">here</a></p>
 </blockquote>
@@ -924,6 +926,661 @@ fn main() {
     app.run();
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="factory"><a class="header" href="#factory">Factory</a></h1>
+<p>Factories define how to generate widgets from collections of data. They are used inside GTK as well but Relm4 uses them a bit different.</p>
+<h2 id="factories-in-relm4"><a class="header" href="#factories-in-relm4">Factories in Relm4</a></h2>
+<p>Let's have a look at factories in Relm4. We want to write a simple application that can create (and remove) many counters. Each counter needs to store it's value and display widgets to allow modifying the counter. In this example we will only decrement the counter. </p>
+<blockquote>
+<p>An almost identical example called &quot;factory&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+</blockquote>
+<h3 id="the-model-2"><a class="header" href="#the-model-2">The model</a></h3>
+<p>The most natural solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> won't allow us to do efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to create all widgets over and over again which is not very fast. So instead we use a <code>FactoryVec</code> to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the <code>FactoryVec</code>.</p>
+<pre><code class="language-rust no_run noplayground">struct Counter {
+    counter: u8,
+}
+
+struct AppModel {
+    data: FactoryVec&lt;Counter&gt;,
+    counter: u8,
+}
+</code></pre>
+<p>As you can see we first define the struct <code>Counter</code> that just stores the value of a counter. Then we add a <code>FactoryVec</code> of counters to the model. Additionally, we keep one counter in the model itself as a nice starting value for our new counters.</p>
+<h2 id="the-message-type"><a class="header" href="#the-message-type">The message type</a></h2>
+<p>The actions we want to perform are</p>
+<ul>
+<li>Add new counters</li>
+<li>Remove counters</li>
+<li>Decrement a counter</li>
+</ul>
+<p>Accordingly our message type looks like this:</p>
+<pre><code class="language-rust no_run noplayground">#[derive(Debug)]
+enum AppMsg {
+    Add,
+    Remove,
+    Clicked(usize),
+}
+</code></pre>
+<p>You'll notice that an index is passed with <code>AppMsg::Clicked</code>. This allows us to select the counter that emitted the clicked signal.</p>
+<h2 id="the-update-function"><a class="header" href="#the-update-function">The update function</a></h2>
+<p>The update function takes care of adding, removing and decrementing counters. Each new counter will be initialized with the amount of counters created before it.</p>
+<pre><code class="language-rust no_run noplayground">impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::Add =&gt; {
+                self.data.push(Counter {
+                    counter: self.counter,
+                });
+                self.counter += 1;
+            }
+            AppMsg::Remove =&gt; {
+                self.data.pop();
+            }
+            AppMsg::Clicked(index) =&gt; {
+                if let Some(data) = self.data.get_mut(index) {
+                    data.counter = data.counter.wrapping_sub(1);
+                }
+            }
+        }
+        true
+    }
+}
+</code></pre>
+<blockquote>
+<p>The <code>get</code> and <code>get_mut</code> methods inside <code>FactoryVec</code> return <code>Some</code> if the element exists and <code>None</code> if the index is invalid. It's recommended to not unwrap this <code>Option</code> because messages (and also the indices sent with them) are queued up if sent before your update and view functions finished and can be stale by the time they are handled.</p>
+</blockquote>
+<h2 id="the-factory-implementation"><a class="header" href="#the-factory-implementation">The factory implementation</a></h2>
+<p>So far the code looked pretty normal. Now to the interesting part of the code.</p>
+<p>The first thing we need to implement a factory is a widgets type. That sounds familiar right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets are created to represent an element inside a factory data structures like <code>FactoryVec</code>.</p>
+<p>In our case we just need a simple button that will decrement the counter when clicked and will also display the counter value.</p>
+<pre><code class="language-rust no_run noplayground">struct FactoryWidgets {
+    button: gtk::Button,
+}
+</code></pre>
+<p>The <code>FactoryPrototype</code> trait we need next is very similar to the <code>Widgets</code> trait, too: it defines how widgets are created and updated. Let's have a look at the implementation:</p>
+<pre><code class="language-rust no_run noplayground">impl FactoryPrototype for Counter {
+    type Factory = FactoryVec&lt;Self&gt;;
+    type Widgets = FactoryWidgets;
+    type Root = gtk::Button;
+    type View = gtk::Box;
+    type Msg = AppMsg;
+</code></pre>
+<p>Alright, there are quite a few types! Let's look at them step by step:</p>
+<ul>
+<li>Factory: the data structure we use to store our elements. In our case a <code>FactoryVec</code>.</li>
+<li>Widgets: the struct that stores out widgets. That's the <code>FactoryWidgets</code> type we just created.</li>
+<li>Root: similar to the root in the <code>Widgets</code> trait. Represents the outermost widget we create. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
+<li>View: the container we want our widgets to be placed inside. The simplest solution for this is a <code>gtk::Box</code>.</li>
+<li>Msg: the messages we want to send to the model containing this factory.</li>
+</ul>
+<h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
+<p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from given data. You will notice that there's an index as well that we can use to send messages that can index the data these widgets represent. The index type might be vary between different factory container you use. The <code>FactoryVec</code> we use indexes elements with the type <code>usize</code>.</p>
+<pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
+        let button = gtk::Button::with_label(&amp;self.counter.to_string());
+        let index = *index;
+        button.connect_clicked(move |_| {
+            sender.send(AppMsg::Clicked(index)).unwrap();
+        });
+
+        FactoryWidgets { button }
+    }
+</code></pre>
+<p>As you can see we sent a message with the index back to the update function to decrement this specific counter.</p>
+<h3 id="the-position-function"><a class="header" href="#the-position-function">The position function</a></h3>
+<p>In our case the function is pretty short:</p>
+<pre><code class="language-rust no_run noplayground">    fn position(&amp;self, _index: &amp;usize) {}
+</code></pre>
+<p>It's not very useful here because a <code>gtk::Box</code> does not use fixed positions for widgets placed inside it. However if we used a <code>gtk::Grid</code> instead we would need to specify where (row, column, etc.) here to add new elements.</p>
+<h3 id="the-update-function-1"><a class="header" href="#the-update-function-1">The update function</a></h3>
+<p>The update function is similar to <code>view</code> in the <code>Widgets</code> trait: it updates the widgets according to the updated data.</p>
+<pre><code class="language-rust no_run noplayground">    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
+        widgets.button.set_label(&amp;self.counter.to_string());
+    }
+</code></pre>
+<p>We just update the label to represent the updated counter value.</p>
+<h3 id="the-get_root-function"><a class="header" href="#the-get_root-function">The get_root function</a></h3>
+<p>The last function we need is the get_root function. It's again similar to the <code>root_widget</code> in the <code>Widgets</code> trait: it returns the root widget, the outermost of our widgets.</p>
+<pre><code class="language-rust no_run noplayground">    fn get_root(widgets: &amp;FactoryWidgets) -&gt; &amp;gtk::Button {
+        &amp;widgets.button
+    }
+</code></pre>
+<h2 id="the-widgets-2"><a class="header" href="#the-widgets-2">The widgets</a></h2>
+<p>The last peace to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the <code>factory!</code> macro.</p>
+<pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        gtk::ApplicationWindow {
+            set_default_width: 300,
+            set_default_height: 200,
+            set_child = Some(&amp;gtk::Box) {
+                set_orientation: gtk::Orientation::Vertical,
+                set_margin_all: 5,
+                set_spacing: 5,
+                append = &amp;gtk::Button {
+                    set_label: &quot;Add&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Add);
+                    }
+                },
+                append = &amp;gtk::Button {
+                    set_label: &quot;Remove&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Remove);
+                    }
+                },
+                append = &amp;gtk::Box {
+                    set_orientation: gtk::Orientation::Vertical,
+                    set_margin_all: 5,
+                    set_spacing: 5,
+                    factory!(model.data),
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>The <code>factory!</code> macro that's almost at the end of the widgets definition now updates our widgets according to the changes we make to the data in our model. It sits inside of the <code>gtk::Box</code> we want to use as container for our counter.</p>
+<blockquote>
+<p>The <code>factory!</code> macro simply expands to <code>model.data.generate(&amp;self.gen_box, sender)</code> where <code>gen_box</code> is the <code>gtk::Box</code> we used as container. The <code>generate</code> function is provided by the <code>Factory</code> trait that's implemented for <code>FactoryVec</code> and similar data structures.</p>
+</blockquote>
+<p>Now to test this we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!</p>
+<h2 id="the-complete-code-3"><a class="header" href="#the-complete-code-3">The complete code</a></h2>
+<p>Let's review our code in one piece one more time to see how all these parts work together:</p>
+<pre><code class="language-rust no_run noplayground">use gtk::glib::Sender;
+use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
+use relm4::factory::{Factory, FactoryPrototype, FactoryVec};
+use relm4::{send, AppUpdate, Model, RelmApp, WidgetPlus, Widgets};
+
+#[derive(Debug)]
+enum AppMsg {
+    Add,
+    Remove,
+    Clicked(usize),
+}
+
+struct Counter {
+    counter: u8,
+}
+
+struct AppModel {
+    data: FactoryVec&lt;Counter&gt;,
+    counter: u8,
+}
+
+impl Model for AppModel {
+    type Msg = AppMsg;
+    type Widgets = AppWidgets;
+    type Components = ();
+}
+
+impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::Add =&gt; {
+                self.data.push(Counter {
+                    counter: self.counter,
+                });
+                self.counter += 1;
+            }
+            AppMsg::Remove =&gt; {
+                self.data.pop();
+            }
+            AppMsg::Clicked(index) =&gt; {
+                if let Some(data) = self.data.get_mut(index) {
+                    data.counter = data.counter.wrapping_sub(1);
+                }
+            }
+        }
+        true
+    }
+}
+
+struct FactoryWidgets {
+    button: gtk::Button,
+}
+
+impl FactoryPrototype for Counter {
+    type Factory = FactoryVec&lt;Self&gt;;
+    type Widgets = FactoryWidgets;
+    type Root = gtk::Button;
+    type View = gtk::Box;
+    type Msg = AppMsg;
+
+    fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
+        let button = gtk::Button::with_label(&amp;self.counter.to_string());
+        let index = *index;
+        button.connect_clicked(move |_| {
+            sender.send(AppMsg::Clicked(index)).unwrap();
+        });
+
+        FactoryWidgets { button }
+    }
+
+    fn position(&amp;self, _index: &amp;usize) {}
+
+    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
+        widgets.button.set_label(&amp;self.counter.to_string());
+    }
+
+    fn get_root(widgets: &amp;FactoryWidgets) -&gt; &amp;gtk::Button {
+        &amp;widgets.button
+    }
+}
+
+#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        gtk::ApplicationWindow {
+            set_default_width: 300,
+            set_default_height: 200,
+            set_child = Some(&amp;gtk::Box) {
+                set_orientation: gtk::Orientation::Vertical,
+                set_margin_all: 5,
+                set_spacing: 5,
+                append = &amp;gtk::Button {
+                    set_label: &quot;Add&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Add);
+                    }
+                },
+                append = &amp;gtk::Button {
+                    set_label: &quot;Remove&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Remove);
+                    }
+                },
+                append = &amp;gtk::Box {
+                    set_orientation: gtk::Orientation::Vertical,
+                    set_margin_all: 5,
+                    set_spacing: 5,
+                    factory!(model.data),
+                }
+            }
+        }
+    }
+}
+
+fn main() {
+    let model = AppModel {
+        data: FactoryVec::new(),
+        counter: 0,
+    };
+
+    let relm = RelmApp::new(model);
+    relm.run();
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="advanced-factories"><a class="header" href="#advanced-factories">Advanced factories</a></h1>
+<blockquote>
+<p>If you're not familiar with the <code>Rc</code> type of the standard library have a look at <a href="https://doc.rust-lang.org/std/rc/index.html">this</a>.</p>
+</blockquote>
+<p>The <code>FactoryVec</code> we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces more complexity that needs to be taken care of but fortunately is mostly handled by Relm4.</p>
+<p>To demonstrate this, we'll create a similar counter app to the one of the previous chapter but on <strong>steroids</strong>: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the flexibility we need for this we'll use the <code>FactoryVecDeque</code> type instead of a <code>FactoryVec</code>.</p>
+<blockquote>
+<p>An almost identical example called &quot;factory_advanced&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+</blockquote>
+<h2 id="indices"><a class="header" href="#indices">Indices</a></h2>
+<p>Indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we for example add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handlers similar to the previous chapter were we just copied the index at start and moved it into the closure we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
+<p>One solution would be to recreate all signal handler with the updated index once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
+<p>The solution Relm4 chose was using dynamic indices. These indices can be updated automatically to always point at the same element. This however, requires the user to understand how to use them.</p>
+<h3 id="the-message-type-1"><a class="header" href="#the-message-type-1">The message type</a></h3>
+<pre><code class="language-rust no_run noplayground">enum AppMsg {
+    AddFirst,
+    RemoveLast,
+    CountAt(Rc&lt;DynamicIndex&gt;),
+    RemoveAt(Rc&lt;DynamicIndex&gt;),
+    InsertBefore(Rc&lt;DynamicIndex&gt;),
+    InsertAfter(Rc&lt;DynamicIndex&gt;),
+}
+</code></pre>
+<p>As you can see we use a lot of <code>Rc&lt;DynamicIndex&gt;</code>. This allows us to always hold a reference to the updated index value.</p>
+<blockquote>
+<p>You might consider using <code>Weak</code> instead of <code>Rc</code> for messages because <code>Rc</code> will keep alive indices of removed elements inside queued messages (which rarely happens). For simplicity we will use <code>Rc</code> here.</p>
+</blockquote>
+<h3 id="the-model-3"><a class="header" href="#the-model-3">The model</a></h3>
+<p>The model is very similar to the previous chapter. The only difference is that we use <code>FactoryVecDeque</code> as data structure now.</p>
+<pre><code class="language-rust no_run noplayground">struct Counter {
+    counter: u8,
+}
+
+struct AppModel {
+    data: FactoryVecDeque&lt;Counter&gt;,
+    counter: u8,
+}
+</code></pre>
+<h3 id="the-update-function-2"><a class="header" href="#the-update-function-2">The update function</a></h3>
+<p>The update function now handles quite a lot of event. We want to</p>
+<ul>
+<li>Add elements at the start</li>
+<li>Remove elements from the back</li>
+<li>Decrement (count) a counter at a specific index</li>
+<li>Insert a new counter before another counter</li>
+<li>Insert a new counter after another counter</li>
+</ul>
+<pre><code class="language-rust no_run noplayground">impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::AddFirst =&gt; {
+                self.data.push_front(Counter {
+                    counter: self.counter,
+                });
+            }
+            AppMsg::RemoveLast =&gt; {
+                self.data.pop_back();
+            }
+            AppMsg::CountAt(index) =&gt; {
+                if let Some(data) = self.data.get_mut(index.current_index()) {
+                    data.counter = data.counter.wrapping_sub(1);
+                }
+            }
+            AppMsg::RemoveAt(index) =&gt; {
+                self.data.remove(index.current_index());
+            }
+            AppMsg::InsertBefore(index) =&gt; {
+                self.data.insert(
+                    index.current_index(),
+                    Counter {
+                        counter: self.counter,
+                    },
+                );
+            }
+            AppMsg::InsertAfter(index) =&gt; {
+                self.data.insert(
+                    index.current_index() + 1,
+                    Counter {
+                        counter: self.counter,
+                    },
+                );
+            }
+        }
+        self.counter += 1;
+        true
+    }
+}
+</code></pre>
+<p>To get the current index value from the dynamic index we simply call <code>index.current_index()</code>.</p>
+<h2 id="the-factory-implementation-1"><a class="header" href="#the-factory-implementation-1">The factory implementation</a></h2>
+<p>The factory implementation is mostly the same, so we'll just have a look at what's changed.</p>
+<h3 id="the-widgets-type"><a class="header" href="#the-widgets-type">The widgets type</a></h3>
+<p>Because we have four actions per counter now, we also need an additional box to store these buttons.</p>
+<pre><code class="language-rust no_run noplayground">struct FctryWidgets {
+    hbox: gtk::Box,
+    counter_button: gtk::Button,
+}
+</code></pre>
+<h3 id="the-generate-function-1"><a class="header" href="#the-generate-function-1">The generate function</a></h3>
+<p>For the generate function we need to first generate the new buttons and the box.</p>
+<pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FctryWidgets {
+        let hbox = gtk::Box::builder()
+            .orientation(gtk::Orientation::Horizontal)
+            .spacing(5)
+            .build();
+
+        let counter_button = gtk::Button::with_label(&amp;self.counter.to_string());
+        let index: Rc&lt;DynamicIndex&gt; = index.clone();
+
+        let remove_button = gtk::Button::with_label(&quot;Remove&quot;);
+        let ins_above_button = gtk::Button::with_label(&quot;Add above&quot;);
+        let ins_below_button = gtk::Button::with_label(&quot;Add below&quot;);
+</code></pre>
+<p>Then we need to place the buttons inside of the box.</p>
+<pre><code class="language-rust no_run noplayground">        hbox.append(&amp;counter_button);
+        hbox.append(&amp;remove_button);
+        hbox.append(&amp;ins_above_button);
+        hbox.append(&amp;ins_below_button);
+</code></pre>
+<p>Now we can connect the messages. Note that we always send a cloned <code>Rc</code> of our dynamic index.</p>
+<pre><code class="language-rust no_run noplayground">        {
+            let sender = sender.clone();
+            let index = index.clone();
+            counter_button.connect_clicked(move |_| {
+                send!(sender, AppMsg::CountAt(index.clone()));
+            });
+        }
+
+        {
+            let sender = sender.clone();
+            let index = index.clone();
+            remove_button.connect_clicked(move |_| {
+                send!(sender, AppMsg::RemoveAt(index.clone()));
+            });
+        }
+
+        {
+            let sender = sender.clone();
+            let index = index.clone();
+            ins_above_button.connect_clicked(move |_| {
+                send!(sender, AppMsg::InsertBefore(index.clone()));
+            });
+        }
+
+        ins_below_button.connect_clicked(move |_| {
+            send!(sender, AppMsg::InsertAfter(index.clone()));
+        });
+</code></pre>
+<p>And that's it! All the other complex operations that keep track of changes are implemented in Relm4 already, we just need to use dynamic indices to make out program work :)</p>
+<h2 id="the-complete-code-4"><a class="header" href="#the-complete-code-4">The complete code</a></h2>
+<p>Let's review our code in one piece one more time to see how all these parts work together:</p>
+<blockquote>
+<p>Unlike the example in the previous chapter the following code does not use the widget macro from relm4-macros but implements the <code>Widgets</code> trait manually. Yet the generated code from the macro and the manual code should be almost identical.</p>
+</blockquote>
+<pre><code class="language-rust no_run noplayground">use gtk::glib::Sender;
+use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
+use relm4::factory::{DynamicIndex, Factory, FactoryPrototype, FactoryVecDeque};
+use relm4::*;
+
+use std::rc::Rc;
+
+#[derive(Debug)]
+enum AppMsg {
+    AddFirst,
+    RemoveLast,
+    CountAt(Rc&lt;DynamicIndex&gt;),
+    RemoveAt(Rc&lt;DynamicIndex&gt;),
+    InsertBefore(Rc&lt;DynamicIndex&gt;),
+    InsertAfter(Rc&lt;DynamicIndex&gt;),
+}
+
+struct Counter {
+    counter: u8,
+}
+
+struct AppModel {
+    data: FactoryVecDeque&lt;Counter&gt;,
+    counter: u8,
+}
+
+impl Model for AppModel {
+    type Msg = AppMsg;
+    type Widgets = AppWidgets;
+    type Components = ();
+}
+
+impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::AddFirst =&gt; {
+                self.data.push_front(Counter {
+                    counter: self.counter,
+                });
+            }
+            AppMsg::RemoveLast =&gt; {
+                self.data.pop_back();
+            }
+            AppMsg::CountAt(index) =&gt; {
+                if let Some(data) = self.data.get_mut(index.current_index()) {
+                    data.counter = data.counter.wrapping_sub(1);
+                }
+            }
+            AppMsg::RemoveAt(index) =&gt; {
+                self.data.remove(index.current_index());
+            }
+            AppMsg::InsertBefore(index) =&gt; {
+                self.data.insert(
+                    index.current_index(),
+                    Counter {
+                        counter: self.counter,
+                    },
+                );
+            }
+            AppMsg::InsertAfter(index) =&gt; {
+                self.data.insert(
+                    index.current_index() + 1,
+                    Counter {
+                        counter: self.counter,
+                    },
+                );
+            }
+        }
+        self.counter += 1;
+        true
+    }
+}
+
+struct FctryWidgets {
+    hbox: gtk::Box,
+    counter_button: gtk::Button,
+}
+
+impl FactoryPrototype for Counter {
+    type Factory = FactoryVecDeque&lt;Self&gt;;
+    type Widgets = FctryWidgets;
+    type Root = gtk::Box;
+    type View = gtk::Box;
+    type Msg = AppMsg;
+
+    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FctryWidgets {
+        let hbox = gtk::Box::builder()
+            .orientation(gtk::Orientation::Horizontal)
+            .spacing(5)
+            .build();
+
+        let counter_button = gtk::Button::with_label(&amp;self.counter.to_string());
+        let index: Rc&lt;DynamicIndex&gt; = index.clone();
+
+        let remove_button = gtk::Button::with_label(&quot;Remove&quot;);
+        let ins_above_button = gtk::Button::with_label(&quot;Add above&quot;);
+        let ins_below_button = gtk::Button::with_label(&quot;Add below&quot;);
+
+        hbox.append(&amp;counter_button);
+        hbox.append(&amp;remove_button);
+        hbox.append(&amp;ins_above_button);
+        hbox.append(&amp;ins_below_button);
+
+        {
+            let sender = sender.clone();
+            let index = index.clone();
+            counter_button.connect_clicked(move |_| {
+                send!(sender, AppMsg::CountAt(index.clone()));
+            });
+        }
+
+        {
+            let sender = sender.clone();
+            let index = index.clone();
+            remove_button.connect_clicked(move |_| {
+                send!(sender, AppMsg::RemoveAt(index.clone()));
+            });
+        }
+
+        {
+            let sender = sender.clone();
+            let index = index.clone();
+            ins_above_button.connect_clicked(move |_| {
+                send!(sender, AppMsg::InsertBefore(index.clone()));
+            });
+        }
+
+        ins_below_button.connect_clicked(move |_| {
+            send!(sender, AppMsg::InsertAfter(index.clone()));
+        });
+
+        FctryWidgets {
+            hbox,
+            counter_button,
+        }
+    }
+
+    fn position(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;) {}
+
+    fn update(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;, widgets: &amp;FctryWidgets) {
+        widgets.counter_button.set_label(&amp;self.counter.to_string());
+    }
+    fn get_root(widget: &amp;FctryWidgets) -&gt; &amp;gtk::Box {
+        &amp;widget.hbox
+    }
+}
+
+struct AppWidgets {
+    main: gtk::ApplicationWindow,
+    gen_box: gtk::Box,
+}
+
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    type Root = gtk::ApplicationWindow;
+
+    fn init_view(_model: &amp;AppModel, _components: &amp;(), sender: Sender&lt;AppMsg&gt;) -&gt; Self {
+        let main = gtk::ApplicationWindowBuilder::new()
+            .default_width(300)
+            .default_height(200)
+            .build();
+        let main_box = gtk::Box::builder()
+            .orientation(gtk::Orientation::Vertical)
+            .margin_end(5)
+            .margin_top(5)
+            .margin_start(5)
+            .margin_bottom(5)
+            .spacing(5)
+            .build();
+
+        let gen_box = gtk::Box::builder()
+            .orientation(gtk::Orientation::Vertical)
+            .margin_end(5)
+            .margin_top(5)
+            .margin_start(5)
+            .margin_bottom(5)
+            .spacing(5)
+            .build();
+
+        let add = gtk::Button::with_label(&quot;Add&quot;);
+        let remove = gtk::Button::with_label(&quot;Remove&quot;);
+
+        main_box.append(&amp;add);
+        main_box.append(&amp;remove);
+        main_box.append(&amp;gen_box);
+
+        main.set_child(Some(&amp;main_box));
+
+        let cloned_sender = sender.clone();
+        add.connect_clicked(move |_| {
+            cloned_sender.send(AppMsg::AddFirst).unwrap();
+        });
+
+        remove.connect_clicked(move |_| {
+            sender.send(AppMsg::RemoveLast).unwrap();
+        });
+
+        AppWidgets { main, gen_box }
+    }
+
+    fn view(&amp;mut self, model: &amp;AppModel, sender: Sender&lt;AppMsg&gt;) {
+        model.data.generate(&amp;self.gen_box, sender);
+    }
+
+    fn root_widget(&amp;self) -&gt; gtk::ApplicationWindow {
+        self.main.clone()
+    }
+}
+
+fn main() {
+    let model = AppModel {
+        data: FactoryVecDeque::new(),
+        counter: 0,
+    };
+
+    let relm = RelmApp::new(model);
+    relm.run();
+}
+</code></pre>
 
                     </main>
 
@@ -939,20 +1596,6 @@ fn main() {
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3000/__livereload");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>

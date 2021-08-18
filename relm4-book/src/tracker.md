@@ -28,7 +28,7 @@ To reset all previous changes you can call `var_name.reset()`.
 
 Let's have a look at a small example.
 
-```rust
+```rust,no_run,noplayground
 #[tracker::track]
 struct Test {
     x: u8,

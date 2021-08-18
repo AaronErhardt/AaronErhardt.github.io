@@ -13,7 +13,6 @@ Relm4 is based on GTK4 so all platforms suppported by GTK4 are available for Rel
 
 # Dependencies
 
-
 I can recommend reading the [gtk4-rs book](https://gtk-rs.org/gtk4-rs/git/book/) for getting more insight into development with GTK4 yet knowledge of GTK4 is not required for understanding this book.
 
 + [How to install GTK4](https://www.gtk.org/docs/installations/)
@@ -26,10 +25,14 @@ Add the packages you need to your Cargo.toml:
 
 ```toml
 gtk = { version = "0.2", package = "gtk4" }
-relm4 = "0.1.0-beta.5"
-relm4-macros = "0.1.0-beta.5"
-relm4-components = "0.1.0-beta.5"
+relm4 = "0.1.0-beta.6"
+relm4-macros = "0.1.0-beta.6"
+relm4-components = "0.1.0-beta.6"
 ```
+
+# Issues and feedback
+
+If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at [GitHub](https://github.com/AaronErhardt/relm4/issues) or chat with us on [Matrix](https://matrix.to/#/#relm4:matrix.org).
 
 # Special thanks
 
