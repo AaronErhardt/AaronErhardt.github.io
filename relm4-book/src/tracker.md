@@ -162,5 +162,5 @@ There's one last thing to point out. When initializing our model, we need to ini
 Let's review our code in one piece one more time to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:all }}
+{{#include ../listings/tracker.rs:all }}
 ```

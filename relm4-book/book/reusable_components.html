@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html" class="active"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html" class="active"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -146,8 +146,7 @@
 <h2 id="the-parent-traits"><a class="header" href="#the-parent-traits">The parent traits</a></h2>
 <p>First, we’ll have a look at the traits the parent component, that will eventually use this component, has to implement.</p>
 <p>Because we want our component to be flexible and able to display different messages, we first define a data type for configuring our component.</p>
-<pre><code class="language-rust no_run noplayground">
-pub struct AlertSettings {
+<pre><code class="language-rust no_run noplayground">pub struct AlertSettings {
     /// Large text
     pub text: String,
     /// Optional secondary, smaller text
@@ -163,11 +162,9 @@ pub struct AlertSettings {
     /// Text for third option button. If [`None`] the third button won't be created.
     pub option_label: Option&lt;String&gt;,
 }
-
 </code></pre>
 <p>Next, we define a trait for our parent model that defines the messages our component will send to respond to the parent. The trait also defines a function that passes a new configuration to our component.</p>
-<pre><code class="language-rust no_run noplayground">
-/// Interface for the parent model
+<pre><code class="language-rust no_run noplayground">/// Interface for the parent model
 pub trait AlertParent: Model
 where
     Self::Widgets: AlertParentWidgets,
@@ -184,58 +181,46 @@ where
     /// Message sent to parent if user clicks third option button
     fn option_msg() -&gt; Self::Msg;
 }
-
 </code></pre>
 <p>Because you usually want to tell GTK to which window a dialog belongs to, we also add a trait that allows us to pass the parent window.</p>
-<pre><code class="language-rust no_run noplayground">
-/// Get the parent window that allows setting the parent window of the dialog with
+<pre><code class="language-rust no_run noplayground">/// Get the parent window that allows setting the parent window of the dialog with
 /// [`gtk::prelude::GtkWindowExt::set_transient_for`].
 pub trait AlertParentWidgets {
     fn parent_window(&amp;self) -&gt; Option&lt;gtk::Window&gt;;
 }
-
 </code></pre>
 <h2 id="the-model"><a class="header" href="#the-model">The model</a></h2>
 <p>Our model stores whether the component is visible and the configuration.</p>
-<pre><code class="language-rust no_run noplayground">
-pub struct AlertModel {
+<pre><code class="language-rust no_run noplayground">pub struct AlertModel {
     settings: AlertSettings,
     is_active: bool,
 }
-
 </code></pre>
 <p>The message type only exposes the <code>Show</code> message to the parent component. The <code>Response</code> message is used internally for handling user interactions, so we hide it with <code>#[doc(hidden)]</code>.</p>
-<pre><code class="language-rust no_run noplayground">
-pub enum AlertMsg {
+<pre><code class="language-rust no_run noplayground">pub enum AlertMsg {
     /// Message sent by the parent to view the dialog
     Show,
     #[doc(hidden)]
     Response(gtk::ResponseType),
 }
-
 </code></pre>
 <p>The <code>ComponentUpdate</code> trait would usually expect the parent component as a generic parameter. We don’t know the parent component yet, so we add trait bounds to a new generic type.</p>
-<pre><code class="language-rust no_run noplayground">
-impl&lt;ParentModel&gt; ComponentUpdate&lt;ParentModel&gt; for AlertModel
+<pre><code class="language-rust no_run noplayground">impl&lt;ParentModel&gt; ComponentUpdate&lt;ParentModel&gt; for AlertModel
 where
     ParentModel: AlertParent,
     ParentModel::Widgets: AlertParentWidgets,
 {
-
 </code></pre>
 <p>For initializing our model, we get the configuration from our parent component and set <code>is_active</code> to <code>false</code>.</p>
-<pre><code class="language-rust no_run noplayground">
-    fn init_model(parent_model: &amp;ParentModel) -&gt; Self {
+<pre><code class="language-rust no_run noplayground">    fn init_model(parent_model: &amp;ParentModel) -&gt; Self {
         AlertModel {
             settings: parent_model.alert_config(),
             is_active: false,
         }
     }
-
 </code></pre>
 <p>The update function handles the <code>Show</code> message from our parent component and the <code>Response</code> messages generated by user interactions. It also sends the appropriate messages to the parent.</p>
-<pre><code class="language-rust no_run noplayground">
-    fn update(
+<pre><code class="language-rust no_run noplayground">    fn update(
         &amp;mut self,
         msg: AlertMsg,
         _components: &amp;(),
@@ -258,12 +243,10 @@ where
             }
         }
     }
-
 </code></pre>
 <h2 id="the-widgets"><a class="header" href="#the-widgets">The widgets</a></h2>
 <p>The widgets have also a generic type for the parent component with the expected trait bounds. Apart from that, there is nothing special.</p>
-<pre><code class="language-rust no_run noplayground">
-#[relm4_macros::widget(pub)]
+<pre><code class="language-rust no_run noplayground">#[relm4_macros::widget(pub)]
 impl&lt;ParentModel&gt; relm4::Widgets&lt;AlertModel, ParentModel&gt; for AlertWidgets
 where
     ParentModel: AlertParent,
@@ -299,7 +282,6 @@ where
         }
     }
 }
-
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>We’re done! That’s your first reusable component. If you want to see the alert component, we just wrote, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>.</p>
@@ -308,8 +290,7 @@ where
 </blockquote>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let’s review our code in one piece one more time to see how all these parts work together:</p>
-<pre><code class="language-rust no_run noplayground">
-use gtk::prelude::{DialogExt, GtkWindowExt, WidgetExt};
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{DialogExt, GtkWindowExt, WidgetExt};
 use relm4::{send, ComponentUpdate, Model, Sender, WidgetPlus};
 
 pub struct AlertSettings {
@@ -444,7 +425,6 @@ where
         }
     }
 }
-
 </code></pre>
 
                     </main>
@@ -454,6 +434,9 @@ where
                             <a rel="prev" href="threads_and_async.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+                            <a rel="next" href="widget_macro_reference.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -462,6 +445,9 @@ where
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="threads_and_async.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="widget_macro_reference.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 

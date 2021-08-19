@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Widget macro reference</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -819,16 +819,38 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 </code></pre>
 <h2 id="the-complete-code-2"><a class="header" href="#the-complete-code-2">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
-<pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
 use relm4::{send, AppUpdate, Model, RelmApp, Sender, WidgetPlus, Widgets};
 
-struct AppModel {
-    counter: u8,
+const ICON_LIST: &amp;[&amp;str] = &amp;[
+    &quot;bookmark-new-symbolic&quot;,
+    &quot;edit-copy-symbolic&quot;,
+    &quot;edit-cut-symbolic&quot;,
+    &quot;edit-find-symbolic&quot;,
+    &quot;starred-symbolic&quot;,
+    &quot;system-run-symbolic&quot;,
+    &quot;emoji-objects-symbolic&quot;,
+    &quot;emoji-nature-symbolic&quot;,
+    &quot;display-brightness-symbolic&quot;,
+];
+
+fn random_icon_name() -&gt; &amp;'static str {
+    let index: usize = rand::random::&lt;usize&gt;() % ICON_LIST.len();
+    ICON_LIST[index]
 }
 
 enum AppMsg {
-    Increment,
-    Decrement,
+    UpdateFirst,
+    UpdateSecond,
+}
+
+// The track proc macro allows to easily track changes to different
+// fields of the model
+#[tracker::track]
+struct AppModel {
+    first_icon: &amp;'static str,
+    second_icon: &amp;'static str,
+    identical: bool,
 }
 
 impl Model for AppModel {
@@ -839,91 +861,81 @@ impl Model for AppModel {
 
 impl AppUpdate for AppModel {
     fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        // reset tracker value of the model
+        self.reset();
+
         match msg {
-            AppMsg::Increment =&gt; {
-                self.counter = self.counter.wrapping_add(1);
+            AppMsg::UpdateFirst =&gt; {
+                self.set_first_icon(random_icon_name());
             }
-            AppMsg::Decrement =&gt; {
-                self.counter = self.counter.wrapping_sub(1);
+            AppMsg::UpdateSecond =&gt; {
+                self.set_second_icon(random_icon_name());
             }
         }
+        self.set_identical(self.first_icon == self.second_icon);
+
         true
     }
 }
 
-struct AppWidgets {
-    window: gtk::ApplicationWindow,
-    vbox: gtk::Box,
-    inc_button: gtk::Button,
-    dec_button: gtk::Button,
-    label: gtk::Label,
-}
-
+#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
-    type Root = gtk::ApplicationWindow;
-
-    /// Initialize the UI.
-    fn init_view(model: &amp;AppModel, _parent_widgets: &amp;(), sender: Sender&lt;AppMsg&gt;) -&gt; Self {
-        let window = gtk::ApplicationWindow::builder()
-            .title(&quot;Simple app&quot;)
-            .default_width(300)
-            .default_height(100)
-            .build();
-        let vbox = gtk::Box::builder()
-            .orientation(gtk::Orientation::Vertical)
-            .spacing(5)
-            .build();
-        vbox.set_margin_all(5);
-
-        let inc_button = gtk::Button::with_label(&quot;Increment&quot;);
-        let dec_button = gtk::Button::with_label(&quot;Decrement&quot;);
-
-        let label = gtk::Label::new(Some(&amp;format!(&quot;Counter: {}&quot;, model.counter)));
-        label.set_margin_all(5);
-
-        // Connect the widgets
-        window.set_child(Some(&amp;vbox));
-        vbox.append(&amp;inc_button);
-        vbox.append(&amp;dec_button);
-        vbox.append(&amp;label);
-
-        // Connect events
-        let btn_sender = sender.clone();
-        inc_button.connect_clicked(move |_| {
-            send!(btn_sender, AppMsg::Increment);
-        });
-
-        let btn_sender = sender.clone();
-        dec_button.connect_clicked(move |_| {
-            send!(btn_sender, AppMsg::Decrement);
-        });
-
-        Self {
-            window,
-            vbox,
-            inc_button,
-            dec_button,
-            label,
+    view! {
+        main_window = gtk::ApplicationWindow {
+            set_class_active: track!(model.changed(AppModel::identical()),
+                &quot;identical&quot;, model.identical),
+            set_child = Some(&amp;gtk::Box) {
+                set_orientation: gtk::Orientation::Horizontal,
+                set_spacing: 10,
+                set_margin_all: 10,
+                append = &amp;gtk::Box {
+                    set_orientation: gtk::Orientation::Vertical,
+                    set_spacing: 10,
+                    append = &amp;gtk::Image {
+                        set_pixel_size: 50,
+                        set_icon_name: track!(model.changed(AppModel::first_icon()),
+                            Some(model.first_icon)),
+                    },
+                    append = &amp;gtk::Button {
+                        set_label: &quot;New random image&quot;,
+                        connect_clicked(sender) =&gt; move |_| {
+                            send!(sender, AppMsg::UpdateFirst);
+                        }
+                    }
+                },
+                append = &amp;gtk::Box {
+                    set_orientation: gtk::Orientation::Vertical,
+                    set_spacing: 10,
+                    append = &amp;gtk::Image {
+                        set_pixel_size: 50,
+                        set_icon_name: track!(model.changed(AppModel::second_icon()),
+                            Some(model.second_icon)),
+                    },
+                    append = &amp;gtk::Button {
+                        set_label: &quot;New random image&quot;,
+                        connect_clicked(sender) =&gt; move |_| {
+                            send!(sender, AppMsg::UpdateSecond);
+                        }
+                    }
+                },
+            }
         }
     }
-    
-    /// Return the root widget.
-    fn root_widget(&amp;self) -&gt; Self::Root {
-        self.window.clone()
-    }
-    
-    /// Update the view to represent the updated model.
-    fn view(&amp;mut self, model: &amp;AppModel, _sender: Sender&lt;AppMsg&gt;) {
-        self.label.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
+
+    fn post_init() {
+        relm4::set_global_css(b&quot;.identical { background: #00ad5c; }&quot;);
     }
 }
 
 fn main() {
     let model = AppModel {
-        counter: 0,
+        first_icon: random_icon_name(),
+        second_icon: random_icon_name(),
+        identical: false,
+        tracker: 0,
     };
-    let app = RelmApp::new(model);
-    app.run();
+    let relm = RelmApp::new(model);
+    relm.run();
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="factory"><a class="header" href="#factory">Factory</a></h1>
@@ -2159,8 +2171,7 @@ fn main() {
 <h2 id="the-parent-traits"><a class="header" href="#the-parent-traits">The parent traits</a></h2>
 <p>First, we’ll have a look at the traits the parent component, that will eventually use this component, has to implement.</p>
 <p>Because we want our component to be flexible and able to display different messages, we first define a data type for configuring our component.</p>
-<pre><code class="language-rust no_run noplayground">
-pub struct AlertSettings {
+<pre><code class="language-rust no_run noplayground">pub struct AlertSettings {
     /// Large text
     pub text: String,
     /// Optional secondary, smaller text
@@ -2176,11 +2187,9 @@ pub struct AlertSettings {
     /// Text for third option button. If [`None`] the third button won't be created.
     pub option_label: Option&lt;String&gt;,
 }
-
 </code></pre>
 <p>Next, we define a trait for our parent model that defines the messages our component will send to respond to the parent. The trait also defines a function that passes a new configuration to our component.</p>
-<pre><code class="language-rust no_run noplayground">
-/// Interface for the parent model
+<pre><code class="language-rust no_run noplayground">/// Interface for the parent model
 pub trait AlertParent: Model
 where
     Self::Widgets: AlertParentWidgets,
@@ -2197,58 +2206,46 @@ where
     /// Message sent to parent if user clicks third option button
     fn option_msg() -&gt; Self::Msg;
 }
-
 </code></pre>
 <p>Because you usually want to tell GTK to which window a dialog belongs to, we also add a trait that allows us to pass the parent window.</p>
-<pre><code class="language-rust no_run noplayground">
-/// Get the parent window that allows setting the parent window of the dialog with
+<pre><code class="language-rust no_run noplayground">/// Get the parent window that allows setting the parent window of the dialog with
 /// [`gtk::prelude::GtkWindowExt::set_transient_for`].
 pub trait AlertParentWidgets {
     fn parent_window(&amp;self) -&gt; Option&lt;gtk::Window&gt;;
 }
-
 </code></pre>
 <h2 id="the-model-7"><a class="header" href="#the-model-7">The model</a></h2>
 <p>Our model stores whether the component is visible and the configuration.</p>
-<pre><code class="language-rust no_run noplayground">
-pub struct AlertModel {
+<pre><code class="language-rust no_run noplayground">pub struct AlertModel {
     settings: AlertSettings,
     is_active: bool,
 }
-
 </code></pre>
 <p>The message type only exposes the <code>Show</code> message to the parent component. The <code>Response</code> message is used internally for handling user interactions, so we hide it with <code>#[doc(hidden)]</code>.</p>
-<pre><code class="language-rust no_run noplayground">
-pub enum AlertMsg {
+<pre><code class="language-rust no_run noplayground">pub enum AlertMsg {
     /// Message sent by the parent to view the dialog
     Show,
     #[doc(hidden)]
     Response(gtk::ResponseType),
 }
-
 </code></pre>
 <p>The <code>ComponentUpdate</code> trait would usually expect the parent component as a generic parameter. We don’t know the parent component yet, so we add trait bounds to a new generic type.</p>
-<pre><code class="language-rust no_run noplayground">
-impl&lt;ParentModel&gt; ComponentUpdate&lt;ParentModel&gt; for AlertModel
+<pre><code class="language-rust no_run noplayground">impl&lt;ParentModel&gt; ComponentUpdate&lt;ParentModel&gt; for AlertModel
 where
     ParentModel: AlertParent,
     ParentModel::Widgets: AlertParentWidgets,
 {
-
 </code></pre>
 <p>For initializing our model, we get the configuration from our parent component and set <code>is_active</code> to <code>false</code>.</p>
-<pre><code class="language-rust no_run noplayground">
-    fn init_model(parent_model: &amp;ParentModel) -&gt; Self {
+<pre><code class="language-rust no_run noplayground">    fn init_model(parent_model: &amp;ParentModel) -&gt; Self {
         AlertModel {
             settings: parent_model.alert_config(),
             is_active: false,
         }
     }
-
 </code></pre>
 <p>The update function handles the <code>Show</code> message from our parent component and the <code>Response</code> messages generated by user interactions. It also sends the appropriate messages to the parent.</p>
-<pre><code class="language-rust no_run noplayground">
-    fn update(
+<pre><code class="language-rust no_run noplayground">    fn update(
         &amp;mut self,
         msg: AlertMsg,
         _components: &amp;(),
@@ -2271,12 +2268,10 @@ where
             }
         }
     }
-
 </code></pre>
 <h2 id="the-widgets-6"><a class="header" href="#the-widgets-6">The widgets</a></h2>
 <p>The widgets have also a generic type for the parent component with the expected trait bounds. Apart from that, there is nothing special.</p>
-<pre><code class="language-rust no_run noplayground">
-#[relm4_macros::widget(pub)]
+<pre><code class="language-rust no_run noplayground">#[relm4_macros::widget(pub)]
 impl&lt;ParentModel&gt; relm4::Widgets&lt;AlertModel, ParentModel&gt; for AlertWidgets
 where
     ParentModel: AlertParent,
@@ -2312,7 +2307,6 @@ where
         }
     }
 }
-
 </code></pre>
 <h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
 <p>We’re done! That’s your first reusable component. If you want to see the alert component, we just wrote, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>.</p>
@@ -2321,8 +2315,7 @@ where
 </blockquote>
 <h2 id="the-complete-code-6"><a class="header" href="#the-complete-code-6">The complete code</a></h2>
 <p>Let’s review our code in one piece one more time to see how all these parts work together:</p>
-<pre><code class="language-rust no_run noplayground">
-use gtk::prelude::{DialogExt, GtkWindowExt, WidgetExt};
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{DialogExt, GtkWindowExt, WidgetExt};
 use relm4::{send, ComponentUpdate, Model, Sender, WidgetPlus};
 
 pub struct AlertSettings {
@@ -2457,7 +2450,118 @@ where
         }
     }
 }
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-widget-macro-reference"><a class="header" href="#the-widget-macro-reference">The widget macro reference</a></h1>
+<p>There are quite a lot of examples where the widget macro is used in this book. Yet, we haven't covered everything in the previous chapters and having all the information in one place is nice, too.</p>
+<h2 id="property-names"><a class="header" href="#property-names">Property names</a></h2>
+<p>The widget macros uses setter methods of gtk4-rs. You can find them at the <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/index.html">gtk4-rs docs</a>.</p>
+<p>Many properties are also part of a trait. Make sure that this trait is in scope. In many cases you need to <code>use gtk::prelude::TraitName</code>.</p>
+<p>For example, if you want to use the <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_default_width"><code>set_default_width</code></a> method of the <code>GtkWindowExt</code> trait you need to <code>use gtk::prelude::GtkWindowExt</code>.</p>
+<h2 id="assign-properties"><a class="header" href="#assign-properties">Assign properties</a></h2>
+<p>Initialize a property with a value:</p>
+<pre><code class="language-rust no_run noplayground">property_name: value,
+</code></pre>
+<p>Initialize an optional property only if it's <code>Some</code> and ignore if it's none:</p>
+<pre><code class="language-rust no_run noplayground">property_name?: value,
+</code></pre>
+<p>Initialize a property that has multiple properties:</p>
+<pre><code class="language-rust no_run noplayground">property_name: args!(value1, value2, ...),
+</code></pre>
+<p>Initialize and automatically update a property:</p>
+<pre><code class="language-rust no_run noplayground">property_name: watch!(value1, value2, ...),
+</code></pre>
+<p>Initialize and automatically update a property with a tracker. The track_expression can be any expression that returns a bool. If it's true, it indicates, that the property should be updated:</p>
+<pre><code class="language-rust no_run noplayground">property_name: track!(track_expression, value1, value2, ...),
+</code></pre>
+<p>Initialize a property by iterating over an iterator. You can use this for repeated calls to setter functions, like <code>add_class_name</code> in case you have multiple class names in a <code>Vec</code>.</p>
+<pre><code class="language-rust no_run noplayground">property_name: iterate!(iterator),
+</code></pre>
+<h2 id="add-widgets"><a class="header" href="#add-widgets">Add widgets</a></h2>
+<p>Without name:</p>
+<pre><code class="language-rust no_run noplayground">property_name = gtk::Box { ... }
+</code></pre>
+<blockquote>
+<p>A common mistake is to accidentally use <code>:</code> instead of <code>=</code> for assigning widgets.</p>
+</blockquote>
+<p>With name:</p>
+<pre><code class="language-rust no_run noplayground">property_name: name = gtk::Box { ... }
+</code></pre>
+<p>As reference:</p>
+<pre><code class="language-rust no_run noplayground">property_name = &amp;gtk::Box { ... }
+</code></pre>
+<p>As <code>Option</code>:</p>
+<pre><code class="language-rust no_run noplayground">property_name = Some(gtk::Box) { ... }
+</code></pre>
+<p>As reference in an <code>Option</code>:</p>
+<pre><code class="language-rust no_run noplayground">property_name = Some(&amp;gtk::Box) { ... }
+</code></pre>
+<p>The type of the widget created in all the examples above will always be <code>gtk::Box</code>. However, some properties are set with references or references in <code>Options</code> where this syntax becomes handy.</p>
+<h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
+<p>Sometimes there's no default implementation for a widget, so you need a constructor or you want to pass a function that returns the widget.</p>
+<p>If the function is associated with a type, you can simply use this syntax. The macro will assume the type of <code>gtk::Box::new()</code> is <code>gtk::Box</code>:</p>
+<pre><code class="language-rust no_run noplayground">property_name = gtk::Box::new() { ... }
+</code></pre>
+<p>For some functions, the macro can't guess the type or might even assume a wrong type. In such a case, add the type your function:</p>
+<pre><code class="language-rust no_run noplayground">property_name = new_box() -&gt; gtk::Box { ... }
+</code></pre>
+<h2 id="factories"><a class="header" href="#factories">Factories</a></h2>
+<pre><code class="language-rust no_run noplayground">property_name = gtk::Box { 
+    factory!(model.data)
+}
+</code></pre>
+<h2 id="manual"><a class="header" href="#manual">Manual</a></h2>
+<p>Sometimes the macro just isn't flexible enough. In this case, you can always use manual functions that will not be modified by the macro.</p>
+<p>Here's a list of all the options available.</p>
+<pre><code>#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        // ...
+    }
 
+    additional_fields! {
+        // ...
+    }
+
+    fn pre_init() {
+        // ...
+    }
+
+    fn post_init() {
+        // ...
+    }
+
+    fn manual_view() {
+        // ...
+    }
+}
+</code></pre>
+<h3 id="run-custom-initialization-code"><a class="header" href="#run-custom-initialization-code">Run custom initialization code</a></h3>
+<p>You can use the <code>pre_init</code> function inside the widgets macro to run code before the initialization of the view macro starts. This is useful if you want to generate values you later use in the view macro.</p>
+<pre><code class="language-rust no_run noplayground">fn pre_init() {
+    // ...
+}
+</code></pre>
+<p>You can use the <code>post_init</code> function to run code after the initialization of the view macro. This can be used to modify your widgets further for manual initialization. All variables used in the view macro and the <code>pre_init</code> function can still be used here.</p>
+<pre><code class="language-rust no_run noplayground">fn post_init() {
+    // ...
+}
+</code></pre>
+<h3 id="add-more-fields-to-your-widgets"><a class="header" href="#add-more-fields-to-your-widgets">Add more fields to your widgets</a></h3>
+<p>The widgets struct is automatically generated by the macro, but sometimes you want to add your own fields. To do so, use the <code>additional_fields!</code></p>
+<pre><code class="language-rust no_run noplayground">additional_fields! {
+    test: u8,
+}
+</code></pre>
+<p>To initialize the variable, you can use either <code>pre_init</code> or <code>post_init</code>. Simply name a local variable like your custom field. I this case we could simply do this:</p>
+<pre><code class="language-rust no_run noplayground">fn post_init() {
+    let test = 0;
+}
+</code></pre>
+<h3 id="manual-view"><a class="header" href="#manual-view">Manual view</a></h3>
+<p>You can also implement your own view logic that's added to the view code the view macro generates. To refer to the widgets, use <code>self</code> and <code>model</code> for the model.</p>
+<pre><code class="language-rust no_run noplayground">fn manual_view() {
+    // ...
+}
 </code></pre>
 
                     </main>
