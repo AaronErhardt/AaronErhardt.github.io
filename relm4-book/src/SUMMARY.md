@@ -11,6 +11,6 @@
 - [Components](./components.md)
 - [Workers](./worker.md)
 - [Threads and async](./threads_and_async.md)
-- [Reusable components]()
+- [Reusable components](./reusable_components.md)
 - [Widget macro reference]()
 - [Implementation checklists]()
