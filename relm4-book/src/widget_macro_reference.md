@@ -10,6 +10,21 @@ Many properties are also part of a trait. Make sure that this trait is in scope.
 
 For example, if you want to use the [`set_default_width`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_default_width) method of the `GtkWindowExt` trait you need to `use gtk::prelude::GtkWindowExt`.
 
+### Trait disambiguation
+
+Sometimes you use several traits that implement the same method for a type so you need to tell Rust which trait it should use. For example the `set_child` function is implemented by both `gtk::prelude::GtkWindowExt` and `libadwaita::traits::ApplicationWindowExt`. If we use the regular syntax, the Rust compiler will get confused and tells us to specify the trait. So instead we use the `TraitName::method` syntax that's similar to [Rust's fully qualified syntax for trait disambiguation](https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name).
+
+```rust,no_run,noplayground
+# use libadwaita::traits::ApplicationWindowExt;
+ApplicationWindowExt::set_child = Some(&gtk::Box) { ... }
+```
+
+You can also use the full path of the trait.
+
+```rust,no_run,noplayground
+libadwaita::traits::ApplicationWindowExt::set_child = Some(&gtk::Box) { ... }
+```
+
 ## Assign properties
 
 Initialize a property with a value:

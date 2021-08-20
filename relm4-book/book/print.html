@@ -2463,6 +2463,14 @@ where
 <p>The widget macros uses setter methods of gtk4-rs. You can find them at the <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/index.html">gtk4-rs docs</a>.</p>
 <p>Many properties are also part of a trait. Make sure that this trait is in scope. In many cases you need to <code>use gtk::prelude::TraitName</code>.</p>
 <p>For example, if you want to use the <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_default_width"><code>set_default_width</code></a> method of the <code>GtkWindowExt</code> trait you need to <code>use gtk::prelude::GtkWindowExt</code>.</p>
+<h3 id="trait-disambiguation"><a class="header" href="#trait-disambiguation">Trait disambiguation</a></h3>
+<p>Sometimes you use several traits that implement the same method for a type so you need to tell Rust which trait it should use. For example the <code>set_child</code> function is implemented by both <code>gtk::prelude::GtkWindowExt</code> and <code>libadwaita::traits::ApplicationWindowExt</code>. If we use the regular syntax, the Rust compiler will get confused and tells us to specify the trait. So instead we use the <code>TraitName::method</code> syntax that's similar to <a href="https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name">Rust's fully qualified syntax for trait disambiguation</a>.</p>
+<pre><code class="language-rust no_run noplayground"><span class="boring">use libadwaita::traits::ApplicationWindowExt;
+</span>ApplicationWindowExt::set_child = Some(&amp;gtk::Box) { ... }
+</code></pre>
+<p>You can also use the full path of the trait.</p>
+<pre><code class="language-rust no_run noplayground">libadwaita::traits::ApplicationWindowExt::set_child = Some(&amp;gtk::Box) { ... }
+</code></pre>
 <h2 id="assign-properties"><a class="header" href="#assign-properties">Assign properties</a></h2>
 <p>Initialize a property with a value:</p>
 <pre><code class="language-rust no_run noplayground">property_name: value,
