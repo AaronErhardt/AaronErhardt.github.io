@@ -2,14 +2,14 @@
 
 A tracker in this context just means a data type that's able to track changes to itself. For example, if we increment the counter of the model we used for our first app, the model could tell us later that the counter changed during the last update function.
 
-Relm4 does not promote any implementation of a tracker you're free to use any implementation you like. You can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for you automatically.
+Relm4 does not promote any implementation of a tracker. You're free to use any implementation you like, you can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for us automatically.
 
 ## The tracker crate
 
 The `tracker::track` macro implements the following methods for your struct fields:
 
 + `get_#field_name()`  
-  Get a immutable reference to your field
+  Get an immutable reference to your field.
 
 + `get_mut_#field_name()`  
   Get a mutable reference to your field. Assumes the field will be modified and marks it as changed.
@@ -18,7 +18,7 @@ The `tracker::track` macro implements the following methods for your struct fiel
   Get a mutable reference to your field. Marks the field as changed only if the new value isn't equal with the previous value.
 
 + `update_#field_name(fn)`  
-  Update your mutable field with a function or closure. Assumes the field will be modified and marks it as changed.
+  Update your mutable field with a function or a closure. Assumes the field will be modified and marks it as changed.
 
 To check for changes you can call `var_name.changed(StructName::field_name())` and it will return a bool indication whether the field was updated.
 
@@ -57,7 +57,7 @@ fn main() {
 }
 ```
 
-> More information about the tracker crate can be found [here](https://github.com/AaronErhardt/Tracker)
+> More information about the tracker crate can be found [here](https://github.com/AaronErhardt/Tracker).
 
 So in short, the `tracker::track` macro provides different getters and setters that will mark struct fields as changed. You also get a method that checks for changes and a method to reset the changes.
 
@@ -69,7 +69,7 @@ Let's build a simple app that shows two random icons and allows the user to set 
 
 ## The icons
 
-Before we can select random icons, we need to quickly implement a function that will return us random images.
+Before we can select random icons, we need to quickly implement a function that will return us random image names that are available in the default GTK icon theme.
 
 ```rust,no_run,noplayground
 {{#include ../listings/tracker.rs:icons }}
@@ -77,13 +77,13 @@ Before we can select random icons, we need to quickly implement a function that 
 
 ## The model
 
-For our model we only need to store the two icon names and if both of them are identical.
+For our model we only need to store the two icon names and whether both of them are identical.
 
 ```rust,no_run,noplayground
 {{#include ../listings/tracker.rs:model }}
 ```
 
-The message type is also pretty simple: we just want to update the icons.
+The message type is also pretty simple: we just want to update one of the icons.
 
 ```rust,no_run,noplayground
 {{#include ../listings/tracker.rs:msg }}
@@ -151,7 +151,7 @@ The second `track!` macro looks very similar but only passes one argument:
 
 ## The main function
 
-There's one last thing to point out. When initializing our model, we need to initialize the `tracker` field as well. The value doesn't really matter because we call `reset()` in the udpate function anyway, but usually `0` is used.
+There's one last thing to point out. When initializing our model, we need to initialize the `tracker` field as well. The initial value doesn't really matter because we call `reset()` in the udpate function anyway, but usually `0` is used.
 
 ```rust,no_run,noplayground
 {{#include ../listings/tracker.rs:main }}

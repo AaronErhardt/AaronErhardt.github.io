@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html" class="active"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html" class="active"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -139,13 +139,13 @@
                     <main>
                         <h1 id="tracker"><a class="header" href="#tracker">Tracker</a></h1>
 <p>A tracker in this context just means a data type that's able to track changes to itself. For example, if we increment the counter of the model we used for our first app, the model could tell us later that the counter changed during the last update function.</p>
-<p>Relm4 does not promote any implementation of a tracker you're free to use any implementation you like. You can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for you automatically.</p>
+<p>Relm4 does not promote any implementation of a tracker. You're free to use any implementation you like, you can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for us automatically.</p>
 <h2 id="the-tracker-crate"><a class="header" href="#the-tracker-crate">The tracker crate</a></h2>
 <p>The <code>tracker::track</code> macro implements the following methods for your struct fields:</p>
 <ul>
 <li>
 <p><code>get_#field_name()</code><br />
-Get a immutable reference to your field</p>
+Get an immutable reference to your field.</p>
 </li>
 <li>
 <p><code>get_mut_#field_name()</code><br />
@@ -157,7 +157,7 @@ Get a mutable reference to your field. Marks the field as changed only if the ne
 </li>
 <li>
 <p><code>update_#field_name(fn)</code><br />
-Update your mutable field with a function or closure. Assumes the field will be modified and marks it as changed.</p>
+Update your mutable field with a function or a closure. Assumes the field will be modified and marks it as changed.</p>
 </li>
 </ul>
 <p>To check for changes you can call <code>var_name.changed(StructName::field_name())</code> and it will return a bool indication whether the field was updated.</p>
@@ -192,7 +192,7 @@ fn main() {
 }
 </code></pre>
 <blockquote>
-<p>More information about the tracker crate can be found <a href="https://github.com/AaronErhardt/Tracker">here</a></p>
+<p>More information about the tracker crate can be found <a href="https://github.com/AaronErhardt/Tracker">here</a>.</p>
 </blockquote>
 <p>So in short, the <code>tracker::track</code> macro provides different getters and setters that will mark struct fields as changed. You also get a method that checks for changes and a method to reset the changes.</p>
 <h1 id="using-trackers-in-relm4-apps"><a class="header" href="#using-trackers-in-relm4-apps">Using trackers in Relm4 apps</a></h1>
@@ -201,7 +201,7 @@ fn main() {
 <p>An almost identical example called &quot;tracker&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="the-icons"><a class="header" href="#the-icons">The icons</a></h2>
-<p>Before we can select random icons, we need to quickly implement a function that will return us random images.</p>
+<p>Before we can select random icons, we need to quickly implement a function that will return us random image names that are available in the default GTK icon theme.</p>
 <pre><code class="language-rust no_run noplayground">const ICON_LIST: &amp;[&amp;str] = &amp;[
     &quot;bookmark-new-symbolic&quot;,
     &quot;edit-copy-symbolic&quot;,
@@ -220,7 +220,7 @@ fn random_icon_name() -&gt; &amp;'static str {
 }
 </code></pre>
 <h2 id="the-model"><a class="header" href="#the-model">The model</a></h2>
-<p>For our model we only need to store the two icon names and if both of them are identical.</p>
+<p>For our model we only need to store the two icon names and whether both of them are identical.</p>
 <pre><code class="language-rust no_run noplayground">#[tracker::track]
 struct AppModel {
     first_icon: &amp;'static str,
@@ -228,7 +228,7 @@ struct AppModel {
     identical: bool,
 }
 </code></pre>
-<p>The message type is also pretty simple: we just want to update the icons.</p>
+<p>The message type is also pretty simple: we just want to update one of the icons.</p>
 <pre><code class="language-rust no_run noplayground">enum AppMsg {
     UpdateFirst,
     UpdateSecond,
@@ -336,7 +336,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p><code>track!(bool_expression, { println!(&quot;Update widget&quot;); argument })</code></p>
 </blockquote>
 <h2 id="the-main-function"><a class="header" href="#the-main-function">The main function</a></h2>
-<p>There's one last thing to point out. When initializing our model, we need to initialize the <code>tracker</code> field as well. The value doesn't really matter because we call <code>reset()</code> in the udpate function anyway, but usually <code>0</code> is used.</p>
+<p>There's one last thing to point out. When initializing our model, we need to initialize the <code>tracker</code> field as well. The initial value doesn't really matter because we call <code>reset()</code> in the udpate function anyway, but usually <code>0</code> is used.</p>
 <pre><code class="language-rust no_run noplayground">fn main() {
     let model = AppModel {
         first_icon: random_icon_name(),

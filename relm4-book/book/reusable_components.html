@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html" class="active"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html" class="active"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -142,7 +142,7 @@
 <blockquote>
 <p>You can find more examples of reusable components in the relm4-components crate <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-components">here</a>. You can also contribute your own reusable components to relm4-components :)</p>
 </blockquote>
-<p>Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait that defines how to interact with the components.</p>
+<p>Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait as an interface for the component.</p>
 <h2 id="the-parent-traits"><a class="header" href="#the-parent-traits">The parent traits</a></h2>
 <p>First, we’ll have a look at the traits the parent component, that will eventually use this component, has to implement.</p>
 <p>Because we want our component to be flexible and able to display different messages, we first define a data type for configuring our component.</p>
@@ -204,7 +204,7 @@ pub trait AlertParentWidgets {
     Response(gtk::ResponseType),
 }
 </code></pre>
-<p>The <code>ComponentUpdate</code> trait would usually expect the parent component as a generic parameter. We don’t know the parent component yet, so we add trait bounds to a new generic type.</p>
+<p>The <code>ComponentUpdate</code> trait would usually expect the parent component as a generic type. We don’t know the parent component yet, so we add trait bounds to a new generic type.</p>
 <pre><code class="language-rust no_run noplayground">impl&lt;ParentModel&gt; ComponentUpdate&lt;ParentModel&gt; for AlertModel
 where
     ParentModel: AlertParent,
@@ -286,7 +286,7 @@ where
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>We’re done! That’s your first reusable component. If you want to see the alert component, we just wrote, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>.</p>
 <blockquote>
-<p>If you need a component for your application that you expect to be useful to others, too, we’d be happy if you’d consider contributing to relm4-components, a crate that offers reusable components.</p>
+<p>If you need a component for your application that you expect to be useful to others, too, we’d be happy if you consider contributing to relm4-components, a crate that offers reusable components.</p>
 </blockquote>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let’s review our code in one piece one more time to see how all these parts work together:</p>

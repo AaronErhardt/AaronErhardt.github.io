@@ -2,11 +2,11 @@
 
 I've already mentioned components several times in the previous chapters. Now we'll finally have a look at them.
 
-In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parents and children.
+In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parent and children.
 
 ## When to use components
 
-Components are mainly useful for separating parts of the UI into smaller, more manageable parts. As we've seen, components are not necessary but for larger applications, they can be very helpful.
+Components are mainly useful for separating parts of the UI into smaller, more manageable parts. Components are not necessary but for larger applications, they can be very helpful.
 
 # Example application
 
@@ -40,17 +40,19 @@ The message type allows us to switch between the modes.
 {{#include ../listings/components.rs:header_msg }}
 ```
 
-For components, we also need to implement the `Model` trait but it's the same as for the main app. The `Components` type is empty here because it refers to child components. We don't want any child components for our header bar so we leave it empty with a `()`.
+For components, we also need to implement the `Model` trait. The `Components` type is empty here because it refers to child components. We don't have any child components for our header bar so we use a `()`.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:header_model_impl }}
 ```
 
-The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can simply use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send messages to the app later.
+The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:header_update }}
 ```
+
+> We don't use the `_parent_model` argument of the `init_model` in this example. Yet you can use it if you need to access information from the parent model during initialization, for example for passing a resource shared with the component.
 
 ### The widgets
 
@@ -62,7 +64,7 @@ There's nothing special about widgets of a component. The only difference to the
 
 ## The close alert
 
-Like a normal application that's used to edit files, we want to notify the user before accidentally closeing the application and discarding all progress. For this - you might have guessed it already - we will use another component.
+Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this - you might have guessed it already - we will use another component.
 
 ### The model
 
@@ -96,9 +98,9 @@ You've probably seen enough widget implementations by now to know roughly how th
 {{#include ../listings/components.rs:dialog_widgets }}
 ```
 
-Most notably there the `args!` macro. It allows us to pass values to function that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use `args!` here.
+Most notably there is the `args!` macro. It allows us to pass values to function that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use `args!` here.
 
-Also, we set the `set_transient_for` property, which actually uses the main window from the parent widgets. So far `parent_widgets` was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: "[`set_transient_for`] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window". So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.
+Also, we set the `set_transient_for` property, which actually uses the main window from the parent widgets. So far `parent_widgets` was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: "[set_transient_for] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window". So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.
 
 ## The main app
 
@@ -120,7 +122,7 @@ To make this work and initialize our components, we need to implement the `Compo
 {{#include ../listings/components.rs:components_impl }}
 ```
 
-We just need to pass the arguments of the `init_components` components over to the `RelmComponent::new` function and the rest will be handled by Relm4.
+We just need to pass the arguments of the `init_components` function over to the `RelmComponent::new` function and the rest will be handled by Relm4.
 
 ### The model
 
@@ -148,13 +150,13 @@ You see we can use `components.NAME.send()` to send messages to a child componen
 
 ### The widgets
 
-We're almost done! We'll only look at the widgets of the main app.
+We're almost done! We only need to define the widgets of the main app.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:app_widgets }}
 ```
 
-The `component!` macro can be used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.
+The `component!` macro is used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.
 
 ## Conclusion
 

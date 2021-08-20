@@ -4,7 +4,7 @@ In this chapter, we will implement a simple alert dialog as a reusable component
 
 > You can find more examples of reusable components in the relm4-components crate [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-components). You can also contribute your own reusable components to relm4-components :)
 
-Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait that defines how to interact with the components.
+Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait as an interface for the component.
 
 ## The parent traits
 
@@ -42,7 +42,7 @@ The message type only exposes the `Show` message to the parent component. The `R
 {{#include ../listings/alert.rs:msg }}
 ```
 
-The `ComponentUpdate` trait would usually expect the parent component as a generic parameter. We don’t know the parent component yet, so we add trait bounds to a new generic type.
+The `ComponentUpdate` trait would usually expect the parent component as a generic type. We don’t know the parent component yet, so we add trait bounds to a new generic type.
 
 ```rust,no_run,noplayground
 {{#include ../listings/alert.rs:component_update_start }}
@@ -72,7 +72,7 @@ The widgets have also a generic type for the parent component with the expected 
 
 We’re done! That’s your first reusable component. If you want to see the alert component, we just wrote, used inside a Relm4 application have a look at the [“alert” example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs).
 
-> If you need a component for your application that you expect to be useful to others, too, we’d be happy if you’d consider contributing to relm4-components, a crate that offers reusable components.
+> If you need a component for your application that you expect to be useful to others, too, we’d be happy if you consider contributing to relm4-components, a crate that offers reusable components.
 
 ## The complete code
 

@@ -4,19 +4,19 @@ Factories define how to generate widgets from collections of data. They are used
 
 ## Factories in Relm4
 
-Let's have a look at factories in Relm4. We want to write a simple application that can create (and remove) many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
+Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
 
 > An almost identical example called "factory" is available [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ### The model
 
-The most natural solution for storing collections of data is a `Vec`. Yet a `Vec` won't allow us to do efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to create all widgets over and over again which is not very fast. So instead we use a `FactoryVec` to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the `FactoryVec`.
+The most common solution for storing collections of data is a `Vec`. Yet a `Vec` halp us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the `FactoryVec`.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:model }}
 ```
 
-As you can see, we first define the struct `Counter` that just stores the value of a counter. Then we add a `FactoryVec` of counters to the model. Additionally, we keep one counter in the model itself as a nice starting value for our new counters.
+As you can see, we first define the struct `Counter` that just stores the value of a counter. Then we add a `FactoryVec` of counters to the model. Additionally, we keep one counter in the model itself as a starting value for our new counters.
 
 ## The message type
 
@@ -42,7 +42,7 @@ The update function takes care of adding, removing and decrementing counters. Ea
 {{#include ../listings/factory.rs:app_update }}
 ```
 
-> The `get` and `get_mut` methods inside `FactoryVec` return `Some` if the element exists and `None` if the index is invalid. It's recommended to not unwrap this `Option` because messages (and also the indices sent with them) are queued up if sent before your update and view functions finished and can be stale by the time they are handled.
+> The `get` and `get_mut` methods inside `FactoryVec` return `Some` if the element exists and `None` if the index is invalid. It's recommended to not unwrap this `Option` because messages (and also the indices sent with them) are queued up if your update and view functions are slow and can be stale by the time they are handled.
 
 ## The factory implementation
 
@@ -66,19 +66,19 @@ Alright, there are quite a few types! Let's look at them step by step:
 
 + Factory: the data structure we use to store our elements. In our case, a `FactoryVec`.
 + Widgets: the struct that stores out widgets. That's the `FactoryWidgets` type we just created.
-+ Root: similar to the root in the `Widgets` trait. Represents the outermost widget we create. This is usually a container like `gtk::Box` but in our case we just have a `gtk::Button`.
++ Root: similar to the root in the `Widgets` trait, it represents the outermost widget. This is usually a container like `gtk::Box` but in our case we just have a `gtk::Button`.
 + View: the container we want our widgets to be placed inside. The simplest solution for this is a `gtk::Box`.
 + Msg: the messages we want to send to the model containing this factory.
 
 ### The generate function
 
-The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from given data. You notice that there's an index as well that we can use to send messages that can index the data these widgets represent. The index type might be vary between different factory container you use. The `FactoryVec` we use indexes elements with the type `usize`.
+The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data sturctures. The `FactoryVec` we use indexes elements with the `usize` type.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:generate }}
 ```
 
-As you can see, we sent a message with the index back to the update function to decrement this specific counter.
+As you can see, we send a message with the index back to the update function to decrement this specific counter when the button is pressed.
 
 ### The position function
 
@@ -88,7 +88,7 @@ In our case, the function is pretty short:
 {{#include ../listings/factory.rs:position }}
 ```
 
-It's not very useful here because a `gtk::Box` does not use fixed positions for widgets placed inside it. However, if we used a `gtk::Grid` instead we would need to specify where (row, column, etc.) here to add new elements.
+It's not very useful here because a `gtk::Box` does not use fixed positions for widgets placed inside it. However, if we used a `gtk::Grid` instead we would need to specify where (row, column, etc.) to add new elements.
 
 ### The update function
 
@@ -98,11 +98,11 @@ The update function is similar to `view` in the `Widgets` trait: it updates the 
 {{#include ../listings/factory.rs:update }}
 ```
 
-We just update the label to represent the updated counter value.
+We just update the label of the button to represent the updated counter value.
 
 ### The get_root function
 
-The last function we need is the get_root function. It's again similar to the `root_widget` in the `Widgets` trait: it returns the root widget, the outermost of our widgets.
+The last function we need is the `get_root` function. It's similar to the `root_widget` in the `Widgets` trait: it returns the root widget, the outermost of our widgets.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:get_root }}
@@ -110,7 +110,7 @@ The last function we need is the get_root function. It's again similar to the `r
 
 ## The widgets
 
-The last peace to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the `factory!` macro.
+The last piece to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the `factory!` macro.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:widgets }}

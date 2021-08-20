@@ -13,4 +13,7 @@
 - [Threads and async](./threads_and_async.md)
 - [Reusable components](./reusable_components.md)
 - [Widget macro reference](./widget_macro_reference.md)
-- [Implementation checklists]()
+- [Templates](./templates.md)
+  - [App template](./app_template.md)
+  - [Component template](./component_template.md)
+  - [Worker template](./worker_template.md)

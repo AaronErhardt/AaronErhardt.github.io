@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html" class="active"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html" class="active"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -196,9 +196,9 @@
 }
 </code></pre>
 <h2 id="manual"><a class="header" href="#manual">Manual</a></h2>
-<p>Sometimes the macro just isn't flexible enough. In this case, you can always use manual functions that will not be modified by the macro.</p>
+<p>Sometimes the macro isn't flexible enough. In this case, you can always use manual code that will not be modified by the macro.</p>
 <p>Here's a list of all the options available.</p>
-<pre><code>#[relm4_macros::widget]
+<pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     view! {
         // ...
@@ -227,13 +227,13 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     // ...
 }
 </code></pre>
-<p>You can use the <code>post_init</code> function to run code after the initialization of the view macro. This can be used to modify your widgets further for manual initialization. All variables used in the view macro and the <code>pre_init</code> function can still be used here.</p>
+<p>You can use the <code>post_init</code> function to run code after the initialization of the view macro. This can be used to modify the widgets generated by the view macro for manual initialization. All variables and widget names used in the view macro and the <code>pre_init</code> function can still be used here.</p>
 <pre><code class="language-rust no_run noplayground">fn post_init() {
     // ...
 }
 </code></pre>
 <h3 id="add-more-fields-to-your-widgets"><a class="header" href="#add-more-fields-to-your-widgets">Add more fields to your widgets</a></h3>
-<p>The widgets struct is automatically generated by the macro, but sometimes you want to add your own fields. To do so, use the <code>additional_fields!</code></p>
+<p>The widgets struct is automatically generated by the macro, but sometimes you want to add your own fields. To do so, use the <code>additional_fields!</code> macro:</p>
 <pre><code class="language-rust no_run noplayground">additional_fields! {
     test: u8,
 }
@@ -257,6 +257,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
                             <a rel="prev" href="reusable_components.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+                            <a rel="next" href="templates.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -265,6 +268,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="reusable_components.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="templates.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 

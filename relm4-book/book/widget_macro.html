@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html" class="active"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html" class="active"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -143,7 +143,7 @@
 <p>An almost identical example called &quot;simple&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="what-different"><a class="header" href="#what-different">What different?</a></h2>
-<p>The <code>widgets</code> macro will take care of creating the widgets <code>struct</code> and will also implement the <code>Widgets</code> trait for us. All other parts of the code remain untouched so we can reuse most of the code from our first app.</p>
+<p>The <code>widgets</code> macro will take care of creating the widgets <code>struct</code> and will also implement the <code>Widgets</code> trait for us. All other parts of the code remain untouched, so we can reuse most of the code from the previous chapter.</p>
 <p>Let's have a look at the macro and go through the code step by step:</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
@@ -181,23 +181,24 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p>The first line doesn't change. We still have to define what's the model and what's the parent model. The only difference is that the struct <code>AppWidgets</code> is never explicitly defined in the code, but generated by the macro.</p>
 <p>And then... wait, where do we define the <code>Root</code> type? Actually, the macro knows that your outermost widget is going to be the root widget.</p>
 <p>Next up - the heart of the <code>widget</code> macro - the nested <code>view!</code> macro. Here, we can easily define widgets and assign properties to them.</p>
-<p>As you see, we start with the <code>gtk::ApplicationWindow</code> which is our root. Then we open up brackets and assign properties to the window. There's not much magic here but actually <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_title"><code>set_title</code></a> is a method provided by gtk4-rs. So technically, the macro creates code like this:
-<code>window.set_title(Some(&quot;Simple app&quot;));</code></p>
-<p>Eventually, we assign a new widget to the window with</p>
+<p>As you see, we start with the <code>gtk::ApplicationWindow</code> which is our root. Then we open up brackets and assign properties to the window. There's not much magic here but actually <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_title"><code>set_title</code></a> is a method provided by gtk4-rs. So technically, the macro creates code like this:</p>
+<pre><code class="language-rust no_run noplayground">window.set_title(Some(&quot;Simple app&quot;));
+</code></pre>
+<p>Eventually, we assign a new widget to the window.</p>
 <pre><code class="language-rust no_run noplayground">            set_child = Some(&amp;gtk::Box) {
 </code></pre>
-<p>The only difference to assigning properties is that we use <code>=</code> instead of <code>:</code>. We could also name widgets using the <code>method: name = WIDGET</code> syntax:</p>
+<p>The only difference to assigning properties is that we use <code>=</code> instead of <code>:</code>. We could also name widgets using the <code>method: name = Widget</code> syntax:</p>
 <pre><code class="language-rust no_run noplayground">            set_child: vbox = Some(&amp;gtk::Box) {
 </code></pre>
 <p>To connect events, we use this syntax.</p>
-<pre><code class="language-rust no_run noplayground">method_name(cloned_elems, ...) =&gt; move |args, ...| { code... }
+<pre><code class="language-rust no_run noplayground">method_name(cloned_var1, cloned_var2, ...) =&gt; move |args, ...| { code... }
 </code></pre>
-<p>Again, there's no magic. The macro will simply assign a closure to a method. Because closures often need to capture local variables, we need to clone them. Therefore, we can list the variables we want to clone in the parentheses after the method name.</p>
+<p>Again, there's no magic. The macro will simply assign a closure to a method. Because closures often need to capture local variables that aren't <code>Copy</code>, we need to clone these variables. Therefore, we can list the variables we want to clone in the parentheses after the method name.</p>
 <pre><code class="language-rust no_run noplayground">                    connect_clicked(sender) =&gt; move |_| {
                         send!(sender, AppMsg::Increment);
                     },
 </code></pre>
-<p>The last special syntax of the <code>widgets</code> macro we'll cover here is the <code>watch!</code> macro. It's just like the normal initialization except that it also updates the property in the view function. So without it, the counter label would never be updated.</p>
+<p>The last special syntax of the <code>widgets</code> macro we'll cover here is the <code>watch!</code> macro. It's just like the normal initialization except that it also updates the property in the view function. Without it, the counter label would never be updated.</p>
 <pre><code class="language-rust no_run noplayground">                    set_label: watch! { &amp;format!(&quot;Counter: {}&quot;, model.counter) },
 </code></pre>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>

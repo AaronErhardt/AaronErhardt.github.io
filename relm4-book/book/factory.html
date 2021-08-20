@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html" class="active"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html" class="active"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -140,12 +140,12 @@
                         <h1 id="factory"><a class="header" href="#factory">Factory</a></h1>
 <p>Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.</p>
 <h2 id="factories-in-relm4"><a class="header" href="#factories-in-relm4">Factories in Relm4</a></h2>
-<p>Let's have a look at factories in Relm4. We want to write a simple application that can create (and remove) many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.</p>
+<p>Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.</p>
 <blockquote>
 <p>An almost identical example called &quot;factory&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
-<p>The most natural solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> won't allow us to do efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to create all widgets over and over again which is not very fast. So instead we use a <code>FactoryVec</code> to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the <code>FactoryVec</code>.</p>
+<p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> halp us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the <code>FactoryVec</code>.</p>
 <pre><code class="language-rust no_run noplayground">struct Counter {
     counter: u8,
 }
@@ -155,7 +155,7 @@ struct AppModel {
     counter: u8,
 }
 </code></pre>
-<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a counter. Then we add a <code>FactoryVec</code> of counters to the model. Additionally, we keep one counter in the model itself as a nice starting value for our new counters.</p>
+<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a counter. Then we add a <code>FactoryVec</code> of counters to the model. Additionally, we keep one counter in the model itself as a starting value for our new counters.</p>
 <h2 id="the-message-type"><a class="header" href="#the-message-type">The message type</a></h2>
 <p>The actions we want to perform are</p>
 <ul>
@@ -197,7 +197,7 @@ enum AppMsg {
 }
 </code></pre>
 <blockquote>
-<p>The <code>get</code> and <code>get_mut</code> methods inside <code>FactoryVec</code> return <code>Some</code> if the element exists and <code>None</code> if the index is invalid. It's recommended to not unwrap this <code>Option</code> because messages (and also the indices sent with them) are queued up if sent before your update and view functions finished and can be stale by the time they are handled.</p>
+<p>The <code>get</code> and <code>get_mut</code> methods inside <code>FactoryVec</code> return <code>Some</code> if the element exists and <code>None</code> if the index is invalid. It's recommended to not unwrap this <code>Option</code> because messages (and also the indices sent with them) are queued up if your update and view functions are slow and can be stale by the time they are handled.</p>
 </blockquote>
 <h2 id="the-factory-implementation"><a class="header" href="#the-factory-implementation">The factory implementation</a></h2>
 <p>So far the code looked pretty normal. Now to the interesting part of the code.</p>
@@ -219,12 +219,12 @@ enum AppMsg {
 <ul>
 <li>Factory: the data structure we use to store our elements. In our case, a <code>FactoryVec</code>.</li>
 <li>Widgets: the struct that stores out widgets. That's the <code>FactoryWidgets</code> type we just created.</li>
-<li>Root: similar to the root in the <code>Widgets</code> trait. Represents the outermost widget we create. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
+<li>Root: similar to the root in the <code>Widgets</code> trait, it represents the outermost widget. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
 <li>View: the container we want our widgets to be placed inside. The simplest solution for this is a <code>gtk::Box</code>.</li>
 <li>Msg: the messages we want to send to the model containing this factory.</li>
 </ul>
 <h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
-<p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from given data. You notice that there's an index as well that we can use to send messages that can index the data these widgets represent. The index type might be vary between different factory container you use. The <code>FactoryVec</code> we use indexes elements with the type <code>usize</code>.</p>
+<p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data sturctures. The <code>FactoryVec</code> we use indexes elements with the <code>usize</code> type.</p>
 <pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
         let button = gtk::Button::with_label(&amp;self.counter.to_string());
         let index = *index;
@@ -235,27 +235,27 @@ enum AppMsg {
         FactoryWidgets { button }
     }
 </code></pre>
-<p>As you can see, we sent a message with the index back to the update function to decrement this specific counter.</p>
+<p>As you can see, we send a message with the index back to the update function to decrement this specific counter when the button is pressed.</p>
 <h3 id="the-position-function"><a class="header" href="#the-position-function">The position function</a></h3>
 <p>In our case, the function is pretty short:</p>
 <pre><code class="language-rust no_run noplayground">    fn position(&amp;self, _index: &amp;usize) {}
 </code></pre>
-<p>It's not very useful here because a <code>gtk::Box</code> does not use fixed positions for widgets placed inside it. However, if we used a <code>gtk::Grid</code> instead we would need to specify where (row, column, etc.) here to add new elements.</p>
+<p>It's not very useful here because a <code>gtk::Box</code> does not use fixed positions for widgets placed inside it. However, if we used a <code>gtk::Grid</code> instead we would need to specify where (row, column, etc.) to add new elements.</p>
 <h3 id="the-update-function-1"><a class="header" href="#the-update-function-1">The update function</a></h3>
 <p>The update function is similar to <code>view</code> in the <code>Widgets</code> trait: it updates the widgets according to the updated data.</p>
 <pre><code class="language-rust no_run noplayground">    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
         widgets.button.set_label(&amp;self.counter.to_string());
     }
 </code></pre>
-<p>We just update the label to represent the updated counter value.</p>
+<p>We just update the label of the button to represent the updated counter value.</p>
 <h3 id="the-get_root-function"><a class="header" href="#the-get_root-function">The get_root function</a></h3>
-<p>The last function we need is the get_root function. It's again similar to the <code>root_widget</code> in the <code>Widgets</code> trait: it returns the root widget, the outermost of our widgets.</p>
+<p>The last function we need is the <code>get_root</code> function. It's similar to the <code>root_widget</code> in the <code>Widgets</code> trait: it returns the root widget, the outermost of our widgets.</p>
 <pre><code class="language-rust no_run noplayground">    fn get_root(widgets: &amp;FactoryWidgets) -&gt; &amp;gtk::Button {
         &amp;widgets.button
     }
 </code></pre>
 <h2 id="the-widgets"><a class="header" href="#the-widgets">The widgets</a></h2>
-<p>The last peace to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the <code>factory!</code> macro.</p>
+<p>The last piece to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the <code>factory!</code> macro.</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     view! {

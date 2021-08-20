@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -141,21 +141,28 @@
                         <h1 id="about"><a class="header" href="#about">About</a></h1>
 <p>Relm4 is an idiomatic GUI library inspired by <a href="https://elm-lang.org/">Elm</a> and based on <a href="https://crates.io/crates/gtk4">gtk4-rs</a>. 
 It is a new version of <a href="https://github.com/antoyo/relm">relm</a> that's built from scratch and is compatible with <a href="https://www.gtk.org/">GTK4</a>.</p>
-<h1 id="platform-support"><a class="header" href="#platform-support">Platform support</a></h1>
-<p>Relm4 is based on GTK4 so all platforms supported by GTK4 are available for Relm4 as well:</p>
+<h2 id="goals"><a class="header" href="#goals">Goals</a></h2>
+<ul>
+<li>⏱️ <strong>Productivity:</strong> Writing an application should require as few overhead as possible</li>
+<li>⚡ <strong>Flexibility:</strong> Anything that's possible to do with GTK4 should be possible in Relm4 as well</li>
+<li>✨ <strong>Simplicity:</strong> Writing an application should be as easy and straight forward as possible</li>
+<li>🔧 <strong>Maintainability</strong>: The Elm programming model used by Relm4 provides a simple and clear structure for app development</li>
+</ul>
+<h2 id="platform-support"><a class="header" href="#platform-support">Platform support</a></h2>
+<p>All platforms supported by GTK4 are available for Relm4 as well:</p>
 <ul>
 <li>Linux</li>
 <li>Windows</li>
 <li>MacOS</li>
 </ul>
-<h1 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h1>
-<p>I can recommend reading the <a href="https://gtk-rs.org/gtk4-rs/git/book/">gtk4-rs book</a> for getting more insight into development with GTK4 yet knowledge of GTK4 is not required for understanding this book.</p>
+<h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
+<p>I can recommend reading the <a href="https://gtk-rs.org/gtk4-rs/git/book/">gtk4-rs book</a> for getting more insight into development with GTK4. Yet, knowledge of GTK4 is not required for this book.</p>
 <ul>
 <li><a href="https://www.gtk.org/docs/installations/">How to install GTK4</a></li>
 <li><a href="https://gtk-rs.org/gtk4-rs/git/book/">gtk4-rs book</a></li>
 <li><a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/index.html">gtk4-rs docs</a></li>
 </ul>
-<h2 id="cargo"><a class="header" href="#cargo">Cargo</a></h2>
+<h3 id="cargo"><a class="header" href="#cargo">Cargo</a></h3>
 <p>Add the packages you need to your Cargo.toml:</p>
 <pre><code class="language-toml">gtk = { version = &quot;0.2&quot;, package = &quot;gtk4&quot; }
 relm4 = &quot;0.1.0-beta.7&quot;
@@ -166,35 +173,35 @@ relm4-components = &quot;0.1.0-beta.7&quot;
 <p>If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at <a href="https://github.com/AaronErhardt/relm4/issues">GitHub</a> or chat with us on <a href="https://matrix.to/#/#relm4:matrix.org">Matrix</a>.</p>
 <h1 id="special-thanks"><a class="header" href="#special-thanks">Special thanks</a></h1>
 <p>I want to thank all contributors of <a href="https://github.com/antoyo/relm">relm</a> especially <a href="https://github.com/antoyo">antoyo</a> for building relm that inspired much of the work on Relm4.</p>
-<p>Also I want to thank all contributors of <a href="https://gtk-rs.org/">gtk-rs</a> that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.</p>
+<p>Also, I want to thank all contributors of <a href="https://gtk-rs.org/">gtk-rs</a> that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="your-first-app"><a class="header" href="#your-first-app">Your first app</a></h1>
-<p>For our first app, let's create something original: A simple counter app ;)</p>
+<p>For our first app, let's create something original: A simple counter app.</p>
 <blockquote>
 <p>An almost identical example called &quot;simple_manual&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="the-basic-structure"><a class="header" href="#the-basic-structure">The basic structure</a></h2>
 <p>Relm4 builds on the Elm programming model. This means there are three important data types you need to define:</p>
 <ul>
-<li>The model that stores your application data, for example, a counter</li>
-<li>The message type that defines which messages can be sent to modify the model</li>
-<li>The widgets type that stores the GTK widgets (UI elements)</li>
+<li>The model type that stores your application state.</li>
+<li>The message type that defines which messages can be sent to modify the model.</li>
+<li>The widgets type that stores the GTK widgets (UI elements).</li>
 </ul>
-<p>Alright, let's have a look at what this looks like for our counter app.</p>
+<p>Let's see how we can implement those types for our counter app.</p>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
-<p>Our app only needs to store the state of a counter, so a simple <code>u8</code> will do the job for us.</p>
+<p>Our app only needs to store the state of a counter, so a simple <code>u8</code> is enough.</p>
 <pre><code class="language-rust no_run noplayground">struct AppModel {
     counter: u8,
 }
 </code></pre>
 <h3 id="the-message"><a class="header" href="#the-message">The message</a></h3>
-<p>Now we need to define what messages can be used to modify the model. The message could be represented by any data type, but most often an <code>enum</code> is used. In our case, we just want to increment and decrement the counter.</p>
+<p>Now we need to define what messages can be used to modify the model. The message can be represented by any data type, but most often, an <code>enum</code> is used. In our case, we just want to increment and decrement the counter.</p>
 <pre><code class="language-rust no_run noplayground">enum AppMsg {
     Increment,
     Decrement,
 }
 </code></pre>
 <h3 id="the-widgets"><a class="header" href="#the-widgets">The widgets</a></h3>
-<p>The widgets struct stores the widgets we need to build our user interface. So for our app we could use a window with an increment button, a decrement button and a label to display the counter value. Additionally, we need a box as a container to place our buttons and the label inside because a window can only have one child.</p>
+<p>The widgets struct stores the widgets we need to build our user interface. For our app, we can use a window with an increment button, a decrement button and a label to display the counter value. Besides that, we need a box as a container to place our buttons and the label inside because a window can only have one child.</p>
 <pre><code class="language-rust no_run noplayground">struct AppWidgets {
     window: gtk::ApplicationWindow,
     vbox: gtk::Box,
@@ -204,14 +211,14 @@ relm4-components = &quot;0.1.0-beta.7&quot;
 }
 </code></pre>
 <h2 id="the-model-trait"><a class="header" href="#the-model-trait">The Model trait</a></h2>
-<p>We have our data types in place, so now we can start implementing the model trait. This trait allows us to associate a model with other types to reduce the amount of generic parameters in other trait implementations.</p>
+<p>With our data types in place, we can now implement the model trait. This trait associates a model with other types to reduce the amount of generic parameters in other trait implementations.</p>
 <p>There are three types we need to include:</p>
 <ul>
 <li>Msg: what message type do we use to update the model?</li>
 <li>Widgets: which struct stores the widgets of our UI?</li>
 <li>Components: which child components does our model use?</li>
 </ul>
-<p>We don't care about components for now because we are just writing a simple app. Therefore we can use <code>()</code> as placeholder.</p>
+<p>We don't care about components for now because we are just writing a simple app. Therefore, we can use <code>()</code> as placeholder.</p>
 <pre><code class="language-rust no_run noplayground">impl Model for AppModel {
     type Msg = AppMsg;
     type Widgets = AppWidgets;
@@ -227,11 +234,11 @@ relm4-components = &quot;0.1.0-beta.7&quot;
 <p>Before anything happens, a message must be sent through a channel. Theoretically, anything can send messages, but usually you send messages when a button is clicked or similar events occur. We will have a look at this later.</p>
 <p><img src="img/update_loop.svg" alt="relm update loop" /></p>
 <blockquote>
-<p>Data and widgets are separated from each other so that the update function doesn't interact with the widgets and the view function doesn't modify the model.</p>
+<p>Data and widgets are separated from each other: the update function doesn't interact with the widgets and the view function doesn't modify the model.</p>
 </blockquote>
 <h3 id="the-appupdate-trait"><a class="header" href="#the-appupdate-trait">The AppUpdate trait</a></h3>
 <p>Theory is nice, but let's see it in action.</p>
-<p>Our update function is implemented in the <code>AppUpdate</code> trait:</p>
+<p>Our update function is implemented with the <code>AppUpdate</code> trait.</p>
 <pre><code class="language-rust no_run noplayground">impl AppUpdate for AppModel {
     fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
         match msg {
@@ -249,11 +256,8 @@ relm4-components = &quot;0.1.0-beta.7&quot;
 <blockquote>
 <p><code>wrapping_add(1)</code> and <code>wrapping_sub(1)</code> are like <code>+1</code>  and <code>-1</code> , but don't panic on overflows.</p>
 </blockquote>
-<p>So what happens here? We just process the message and modify our counter accordingly.</p>
-<p>Also, we return <code>true</code> because we don't want to quit our application. If our app should close, we can simply return <code>false</code> to shut down the application.</p>
-<blockquote>
-<p>Unless you define a handler for <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.connect_close_request"><code>GtkWindowExt::connect_close_request</code></a> and return <code>Inhibit(true)</code> the window will close when you click the close button or hit Alt-F4 even if you always return <code>true</code> in the update function.</p>
-</blockquote>
+<p>Whenever a new message is sent by our buttons, we process this message here and modify our counter accordingly.</p>
+<p>Also, we return <code>true</code> because we don't want to quit our application. If our app should close, we can simply return <code>false</code> to close the application.</p>
 <h3 id="the-widgets-trait"><a class="header" href="#the-widgets-trait">The Widgets trait</a></h3>
 <p>Our last step is implementing the widgets trait. It provides methods to initialize and update the UI.</p>
 <p>Let's do this step by step. First, we'll have a look at beginning of the trait <code>impl</code>.</p>
@@ -265,7 +269,7 @@ relm4-components = &quot;0.1.0-beta.7&quot;
 <li>there are two generic parameters</li>
 <li>a <code>Root</code> type</li>
 </ul>
-<p>The two generic parameters are our model and the parent model. The parent model is only interesting for components which we will discuss later, so again we can simply use <code>()</code> as placeholder.</p>
+<p>The two generic parameters are our model and the parent model. The parent model is only used in components which we will discuss later, so again we can simply use <code>()</code> as placeholder.</p>
 <p>The <code>Root</code> type is the root widget of the app. Components can choose this type freely, but the main application must use a <code>gtk::ApplicationWindow</code>.</p>
 <p>Next up, we want to initialize our UI.</p>
 <pre><code class="language-rust no_run noplayground">    /// Initialize the UI.
@@ -314,20 +318,17 @@ relm4-components = &quot;0.1.0-beta.7&quot;
     }
 </code></pre>
 <p>But what exactly happens here?</p>
-<p>Well, first we initialize each of our widgets, mostly by using builder patterns.</p>
+<p>First, we initialize each of our widgets, mostly by using builder patterns.</p>
 <p>Then we connect the widgets so that GTK4 knows how they are related to each other. The buttons and the label are added to the box, and the box is added to the window.</p>
 <p>Now the magic happens: we connect the &quot;clicked&quot; event for both buttons and send a message from the closures back to the update loop. To do this, we only need to move a clone of our sender into the closures and send the message.</p>
-<blockquote>
-<p>The <code>send!(btn_sender, AppMsg::Increment)</code> macro simply expands to <code>btn_sender.clone().send(AppMsg::Increment).unwrap()</code></p>
-</blockquote>
 <p>Alright, now every time we click our buttons a message will be sent to update our counter!</p>
-<p>Yet our UI will not update itself when the counter is changed. To do this, we need to implement the view function:</p>
+<p>Yet our UI will not updated when the counter is changed. To do this, we need to implement the view function:</p>
 <pre><code class="language-rust no_run noplayground">    /// Update the view to represent the updated model.
     fn view(&amp;mut self, model: &amp;AppModel, _sender: Sender&lt;AppMsg&gt;) {
         self.label.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
     }
 </code></pre>
-<p>Yep, that's it. We just need to update the label to represent the new counter value.</p>
+<p>We just need to update the label to represent the new counter value.</p>
 <p>We're almost done. To complete the <code>Widgets</code> trait we just need to implement the <code>root_widget</code> method.</p>
 <pre><code class="language-rust no_run noplayground">    /// Return the root widget.
     fn root_widget(&amp;self) -&gt; Self::Root {
@@ -346,8 +347,9 @@ relm4-components = &quot;0.1.0-beta.7&quot;
 </code></pre>
 <p>🎉 Congratulations! You just wrote your first app with Relm4! 🎉</p>
 <h3 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h3>
-<p>There are a few concepts in Relm4 that might look complex at first but are actually quite easy to understand and help you keeping your code structured. I hope this chapter made everything clear for you :)</p>
-<p>As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the relm4-macros crate that offers a macro that helps us to reduce the amount of code we need to implement the <code>Widgets</code> trait.</p>
+<p>There are a few concepts in Relm4 that might look complex at first but are actually quite easy to understand and help you keep your code structured. I hope this chapter made everything clear for you :)</p>
+<p>If you found a mistake or there was something unclear, please open an issue <a href="https://github.com/AaronErhardt/relm4/issues">here</a>.</p>
+<p>As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the relm4-macros crate that offers a macro that helps us to reduce the amount of code we need to implement the Widgets trait.</p>
 <blockquote>
 <p>As you might have noticed, storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore, we can remove them from <code>AppWidgets</code> to avoid compiler warnings.</p>
 </blockquote>
@@ -466,7 +468,7 @@ fn main() {
 <p>An almost identical example called &quot;simple&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="what-different"><a class="header" href="#what-different">What different?</a></h2>
-<p>The <code>widgets</code> macro will take care of creating the widgets <code>struct</code> and will also implement the <code>Widgets</code> trait for us. All other parts of the code remain untouched so we can reuse most of the code from our first app.</p>
+<p>The <code>widgets</code> macro will take care of creating the widgets <code>struct</code> and will also implement the <code>Widgets</code> trait for us. All other parts of the code remain untouched, so we can reuse most of the code from the previous chapter.</p>
 <p>Let's have a look at the macro and go through the code step by step:</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
@@ -504,23 +506,24 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p>The first line doesn't change. We still have to define what's the model and what's the parent model. The only difference is that the struct <code>AppWidgets</code> is never explicitly defined in the code, but generated by the macro.</p>
 <p>And then... wait, where do we define the <code>Root</code> type? Actually, the macro knows that your outermost widget is going to be the root widget.</p>
 <p>Next up - the heart of the <code>widget</code> macro - the nested <code>view!</code> macro. Here, we can easily define widgets and assign properties to them.</p>
-<p>As you see, we start with the <code>gtk::ApplicationWindow</code> which is our root. Then we open up brackets and assign properties to the window. There's not much magic here but actually <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_title"><code>set_title</code></a> is a method provided by gtk4-rs. So technically, the macro creates code like this:
-<code>window.set_title(Some(&quot;Simple app&quot;));</code></p>
-<p>Eventually, we assign a new widget to the window with</p>
+<p>As you see, we start with the <code>gtk::ApplicationWindow</code> which is our root. Then we open up brackets and assign properties to the window. There's not much magic here but actually <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_title"><code>set_title</code></a> is a method provided by gtk4-rs. So technically, the macro creates code like this:</p>
+<pre><code class="language-rust no_run noplayground">window.set_title(Some(&quot;Simple app&quot;));
+</code></pre>
+<p>Eventually, we assign a new widget to the window.</p>
 <pre><code class="language-rust no_run noplayground">            set_child = Some(&amp;gtk::Box) {
 </code></pre>
-<p>The only difference to assigning properties is that we use <code>=</code> instead of <code>:</code>. We could also name widgets using the <code>method: name = WIDGET</code> syntax:</p>
+<p>The only difference to assigning properties is that we use <code>=</code> instead of <code>:</code>. We could also name widgets using the <code>method: name = Widget</code> syntax:</p>
 <pre><code class="language-rust no_run noplayground">            set_child: vbox = Some(&amp;gtk::Box) {
 </code></pre>
 <p>To connect events, we use this syntax.</p>
-<pre><code class="language-rust no_run noplayground">method_name(cloned_elems, ...) =&gt; move |args, ...| { code... }
+<pre><code class="language-rust no_run noplayground">method_name(cloned_var1, cloned_var2, ...) =&gt; move |args, ...| { code... }
 </code></pre>
-<p>Again, there's no magic. The macro will simply assign a closure to a method. Because closures often need to capture local variables, we need to clone them. Therefore, we can list the variables we want to clone in the parentheses after the method name.</p>
+<p>Again, there's no magic. The macro will simply assign a closure to a method. Because closures often need to capture local variables that aren't <code>Copy</code>, we need to clone these variables. Therefore, we can list the variables we want to clone in the parentheses after the method name.</p>
 <pre><code class="language-rust no_run noplayground">                    connect_clicked(sender) =&gt; move |_| {
                         send!(sender, AppMsg::Increment);
                     },
 </code></pre>
-<p>The last special syntax of the <code>widgets</code> macro we'll cover here is the <code>watch!</code> macro. It's just like the normal initialization except that it also updates the property in the view function. So without it, the counter label would never be updated.</p>
+<p>The last special syntax of the <code>widgets</code> macro we'll cover here is the <code>watch!</code> macro. It's just like the normal initialization except that it also updates the property in the view function. Without it, the counter label would never be updated.</p>
 <pre><code class="language-rust no_run noplayground">                    set_label: watch! { &amp;format!(&quot;Counter: {}&quot;, model.counter) },
 </code></pre>
 <h2 id="the-complete-code-1"><a class="header" href="#the-complete-code-1">The complete code</a></h2>
@@ -598,23 +601,23 @@ fn main() {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="efficient-ui-updates"><a class="header" href="#efficient-ui-updates">Efficient UI updates</a></h1>
-<p>Relm4 follows the Elm programming model which means that data and widgets are separate. This causes a problem for larger applications: The update function can't update the widgets and the view function doesn't know what has changed.</p>
-<p>Let's have a look at an imaginary example to visualize this problem. Imagine you have an app with 1000 counters and you only increment the first counter. The model receives the increment message for the first counter and increments it. Now the view function gets the updated model with 1000 counters and... well has no idea what changed! So instead of one UI update we need to do 1000 because we don't know which of our counters was modified.</p>
+<p>Relm4 follows the Elm programming model which means that data and widgets are separated. At first glance this might cause a problem. Larger applications need to efficiently update their widgets because rebuilding the whole UI for every update is not an option. But since data and widgets are separated, how do we know which UI elements need to be updated?</p>
+<p>Let's have a look at an imaginary example to visualize this problem. Imagine you have an app with 1000 counters and you only increment the first counter. The model receives the increment message for the first counter and increments it. Now the view function gets the updated model with 1000 counters and... well, has no idea what changed! So instead of one UI update we need to do 1000 because we don't know which of our counters was modified.</p>
 <p>There are two concepts in Relm4 to avoid unnecessary UI updates</p>
 <ul>
-<li>Trackers: keep track of which struct fields were modified and only update the UI if they were modified</li>
+<li>Trackers: keep track of which struct fields were modified and only update the UI if they were modified.</li>
 <li>Factories: store data in a special data structures similar to the data structures in <a href="https://doc.rust-lang.org/std/collections/index.html"><code>std::collections</code></a> that will keep track of changes and will only apply minimal UI updates.</li>
 </ul>
 <p>Both concepts are explained in the following chapters.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tracker"><a class="header" href="#tracker">Tracker</a></h1>
 <p>A tracker in this context just means a data type that's able to track changes to itself. For example, if we increment the counter of the model we used for our first app, the model could tell us later that the counter changed during the last update function.</p>
-<p>Relm4 does not promote any implementation of a tracker you're free to use any implementation you like. You can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for you automatically.</p>
+<p>Relm4 does not promote any implementation of a tracker. You're free to use any implementation you like, you can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for us automatically.</p>
 <h2 id="the-tracker-crate"><a class="header" href="#the-tracker-crate">The tracker crate</a></h2>
 <p>The <code>tracker::track</code> macro implements the following methods for your struct fields:</p>
 <ul>
 <li>
 <p><code>get_#field_name()</code><br />
-Get a immutable reference to your field</p>
+Get an immutable reference to your field.</p>
 </li>
 <li>
 <p><code>get_mut_#field_name()</code><br />
@@ -626,7 +629,7 @@ Get a mutable reference to your field. Marks the field as changed only if the ne
 </li>
 <li>
 <p><code>update_#field_name(fn)</code><br />
-Update your mutable field with a function or closure. Assumes the field will be modified and marks it as changed.</p>
+Update your mutable field with a function or a closure. Assumes the field will be modified and marks it as changed.</p>
 </li>
 </ul>
 <p>To check for changes you can call <code>var_name.changed(StructName::field_name())</code> and it will return a bool indication whether the field was updated.</p>
@@ -661,7 +664,7 @@ fn main() {
 }
 </code></pre>
 <blockquote>
-<p>More information about the tracker crate can be found <a href="https://github.com/AaronErhardt/Tracker">here</a></p>
+<p>More information about the tracker crate can be found <a href="https://github.com/AaronErhardt/Tracker">here</a>.</p>
 </blockquote>
 <p>So in short, the <code>tracker::track</code> macro provides different getters and setters that will mark struct fields as changed. You also get a method that checks for changes and a method to reset the changes.</p>
 <h1 id="using-trackers-in-relm4-apps"><a class="header" href="#using-trackers-in-relm4-apps">Using trackers in Relm4 apps</a></h1>
@@ -670,7 +673,7 @@ fn main() {
 <p>An almost identical example called &quot;tracker&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="the-icons"><a class="header" href="#the-icons">The icons</a></h2>
-<p>Before we can select random icons, we need to quickly implement a function that will return us random images.</p>
+<p>Before we can select random icons, we need to quickly implement a function that will return us random image names that are available in the default GTK icon theme.</p>
 <pre><code class="language-rust no_run noplayground">const ICON_LIST: &amp;[&amp;str] = &amp;[
     &quot;bookmark-new-symbolic&quot;,
     &quot;edit-copy-symbolic&quot;,
@@ -689,7 +692,7 @@ fn random_icon_name() -&gt; &amp;'static str {
 }
 </code></pre>
 <h2 id="the-model-1"><a class="header" href="#the-model-1">The model</a></h2>
-<p>For our model we only need to store the two icon names and if both of them are identical.</p>
+<p>For our model we only need to store the two icon names and whether both of them are identical.</p>
 <pre><code class="language-rust no_run noplayground">#[tracker::track]
 struct AppModel {
     first_icon: &amp;'static str,
@@ -697,7 +700,7 @@ struct AppModel {
     identical: bool,
 }
 </code></pre>
-<p>The message type is also pretty simple: we just want to update the icons.</p>
+<p>The message type is also pretty simple: we just want to update one of the icons.</p>
 <pre><code class="language-rust no_run noplayground">enum AppMsg {
     UpdateFirst,
     UpdateSecond,
@@ -805,7 +808,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p><code>track!(bool_expression, { println!(&quot;Update widget&quot;); argument })</code></p>
 </blockquote>
 <h2 id="the-main-function"><a class="header" href="#the-main-function">The main function</a></h2>
-<p>There's one last thing to point out. When initializing our model, we need to initialize the <code>tracker</code> field as well. The value doesn't really matter because we call <code>reset()</code> in the udpate function anyway, but usually <code>0</code> is used.</p>
+<p>There's one last thing to point out. When initializing our model, we need to initialize the <code>tracker</code> field as well. The initial value doesn't really matter because we call <code>reset()</code> in the udpate function anyway, but usually <code>0</code> is used.</p>
 <pre><code class="language-rust no_run noplayground">fn main() {
     let model = AppModel {
         first_icon: random_icon_name(),
@@ -941,12 +944,12 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="factory"><a class="header" href="#factory">Factory</a></h1>
 <p>Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.</p>
 <h2 id="factories-in-relm4"><a class="header" href="#factories-in-relm4">Factories in Relm4</a></h2>
-<p>Let's have a look at factories in Relm4. We want to write a simple application that can create (and remove) many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.</p>
+<p>Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.</p>
 <blockquote>
 <p>An almost identical example called &quot;factory&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h3 id="the-model-2"><a class="header" href="#the-model-2">The model</a></h3>
-<p>The most natural solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> won't allow us to do efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to create all widgets over and over again which is not very fast. So instead we use a <code>FactoryVec</code> to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the <code>FactoryVec</code>.</p>
+<p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> halp us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the <code>FactoryVec</code>.</p>
 <pre><code class="language-rust no_run noplayground">struct Counter {
     counter: u8,
 }
@@ -956,7 +959,7 @@ struct AppModel {
     counter: u8,
 }
 </code></pre>
-<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a counter. Then we add a <code>FactoryVec</code> of counters to the model. Additionally, we keep one counter in the model itself as a nice starting value for our new counters.</p>
+<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a counter. Then we add a <code>FactoryVec</code> of counters to the model. Additionally, we keep one counter in the model itself as a starting value for our new counters.</p>
 <h2 id="the-message-type"><a class="header" href="#the-message-type">The message type</a></h2>
 <p>The actions we want to perform are</p>
 <ul>
@@ -998,7 +1001,7 @@ enum AppMsg {
 }
 </code></pre>
 <blockquote>
-<p>The <code>get</code> and <code>get_mut</code> methods inside <code>FactoryVec</code> return <code>Some</code> if the element exists and <code>None</code> if the index is invalid. It's recommended to not unwrap this <code>Option</code> because messages (and also the indices sent with them) are queued up if sent before your update and view functions finished and can be stale by the time they are handled.</p>
+<p>The <code>get</code> and <code>get_mut</code> methods inside <code>FactoryVec</code> return <code>Some</code> if the element exists and <code>None</code> if the index is invalid. It's recommended to not unwrap this <code>Option</code> because messages (and also the indices sent with them) are queued up if your update and view functions are slow and can be stale by the time they are handled.</p>
 </blockquote>
 <h2 id="the-factory-implementation"><a class="header" href="#the-factory-implementation">The factory implementation</a></h2>
 <p>So far the code looked pretty normal. Now to the interesting part of the code.</p>
@@ -1020,12 +1023,12 @@ enum AppMsg {
 <ul>
 <li>Factory: the data structure we use to store our elements. In our case, a <code>FactoryVec</code>.</li>
 <li>Widgets: the struct that stores out widgets. That's the <code>FactoryWidgets</code> type we just created.</li>
-<li>Root: similar to the root in the <code>Widgets</code> trait. Represents the outermost widget we create. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
+<li>Root: similar to the root in the <code>Widgets</code> trait, it represents the outermost widget. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
 <li>View: the container we want our widgets to be placed inside. The simplest solution for this is a <code>gtk::Box</code>.</li>
 <li>Msg: the messages we want to send to the model containing this factory.</li>
 </ul>
 <h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
-<p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from given data. You notice that there's an index as well that we can use to send messages that can index the data these widgets represent. The index type might be vary between different factory container you use. The <code>FactoryVec</code> we use indexes elements with the type <code>usize</code>.</p>
+<p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data sturctures. The <code>FactoryVec</code> we use indexes elements with the <code>usize</code> type.</p>
 <pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
         let button = gtk::Button::with_label(&amp;self.counter.to_string());
         let index = *index;
@@ -1036,27 +1039,27 @@ enum AppMsg {
         FactoryWidgets { button }
     }
 </code></pre>
-<p>As you can see, we sent a message with the index back to the update function to decrement this specific counter.</p>
+<p>As you can see, we send a message with the index back to the update function to decrement this specific counter when the button is pressed.</p>
 <h3 id="the-position-function"><a class="header" href="#the-position-function">The position function</a></h3>
 <p>In our case, the function is pretty short:</p>
 <pre><code class="language-rust no_run noplayground">    fn position(&amp;self, _index: &amp;usize) {}
 </code></pre>
-<p>It's not very useful here because a <code>gtk::Box</code> does not use fixed positions for widgets placed inside it. However, if we used a <code>gtk::Grid</code> instead we would need to specify where (row, column, etc.) here to add new elements.</p>
+<p>It's not very useful here because a <code>gtk::Box</code> does not use fixed positions for widgets placed inside it. However, if we used a <code>gtk::Grid</code> instead we would need to specify where (row, column, etc.) to add new elements.</p>
 <h3 id="the-update-function-1"><a class="header" href="#the-update-function-1">The update function</a></h3>
 <p>The update function is similar to <code>view</code> in the <code>Widgets</code> trait: it updates the widgets according to the updated data.</p>
 <pre><code class="language-rust no_run noplayground">    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
         widgets.button.set_label(&amp;self.counter.to_string());
     }
 </code></pre>
-<p>We just update the label to represent the updated counter value.</p>
+<p>We just update the label of the button to represent the updated counter value.</p>
 <h3 id="the-get_root-function"><a class="header" href="#the-get_root-function">The get_root function</a></h3>
-<p>The last function we need is the get_root function. It's again similar to the <code>root_widget</code> in the <code>Widgets</code> trait: it returns the root widget, the outermost of our widgets.</p>
+<p>The last function we need is the <code>get_root</code> function. It's similar to the <code>root_widget</code> in the <code>Widgets</code> trait: it returns the root widget, the outermost of our widgets.</p>
 <pre><code class="language-rust no_run noplayground">    fn get_root(widgets: &amp;FactoryWidgets) -&gt; &amp;gtk::Button {
         &amp;widgets.button
     }
 </code></pre>
 <h2 id="the-widgets-2"><a class="header" href="#the-widgets-2">The widgets</a></h2>
-<p>The last peace to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the <code>factory!</code> macro.</p>
+<p>The last piece to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the <code>factory!</code> macro.</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     view! {
@@ -1232,8 +1235,8 @@ fn main() {
 </blockquote>
 <h2 id="indices"><a class="header" href="#indices">Indices</a></h2>
 <p>Indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
-<p>One solution would be to recreate all signal handlers with the updated index once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
-<p>The solution Relm4 chose was using dynamic indices. These indices can be updated automatically to always point at the same element. This however, requires the user to understand how to use them.</p>
+<p>One solution would be to recreate all signal handlers with the updated indices once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
+<p>The solution Relm4 chose was dynamic indices. These indices are updated automatically to always point at the same element.</p>
 <h3 id="the-message-type-1"><a class="header" href="#the-message-type-1">The message type</a></h3>
 <pre><code class="language-rust no_run noplayground">enum AppMsg {
     AddFirst,
@@ -1244,7 +1247,7 @@ fn main() {
     InsertAfter(Rc&lt;DynamicIndex&gt;),
 }
 </code></pre>
-<p>As you can see, we use a lot of <code>Rc&lt;DynamicIndex&gt;</code>. This allows us to always hold a reference to the updated index value.</p>
+<p>As you can see, we use a lot of <code>Rc&lt;DynamicIndex&gt;</code>. This allows us to always hold a reference to the dynamic index value.</p>
 <blockquote>
 <p>You might consider using <code>Weak</code> instead of <code>Rc</code> for messages because <code>Rc</code> will keep alive indices of removed elements inside queued messages (which rarely happens). For simplicity, we will use <code>Rc</code> here.</p>
 </blockquote>
@@ -1595,9 +1598,9 @@ fn main() {
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="components"><a class="header" href="#components">Components</a></h1>
 <p>I've already mentioned components several times in the previous chapters. Now we'll finally have a look at them.</p>
-<p>In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parents and children.</p>
+<p>In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parent and children.</p>
 <h2 id="when-to-use-components"><a class="header" href="#when-to-use-components">When to use components</a></h2>
-<p>Components are mainly useful for separating parts of the UI into smaller, more manageable parts. As we've seen, components are not necessary but for larger applications, they can be very helpful.</p>
+<p>Components are mainly useful for separating parts of the UI into smaller, more manageable parts. Components are not necessary but for larger applications, they can be very helpful.</p>
 <h1 id="example-application"><a class="header" href="#example-application">Example application</a></h1>
 <p>Let's write a small example app to see how components can be used in action. For this example, we write parts of an app that can edit images.</p>
 <blockquote>
@@ -1623,14 +1626,14 @@ fn main() {
     Export,
 }
 </code></pre>
-<p>For components, we also need to implement the <code>Model</code> trait but it's the same as for the main app. The <code>Components</code> type is empty here because it refers to child components. We don't want any child components for our header bar so we leave it empty with a <code>()</code>.</p>
+<p>For components, we also need to implement the <code>Model</code> trait. The <code>Components</code> type is empty here because it refers to child components. We don't have any child components for our header bar so we use a <code>()</code>.</p>
 <pre><code class="language-rust no_run noplayground">impl Model for HeaderModel {
     type Msg = HeaderMsg;
     type Widgets = HeaderWidgets;
     type Components = ();
 }
 </code></pre>
-<p>The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can simply use the <code>parent_sender</code>. You can see that the message type of the main application is <code>AppMsg</code> and that there's an enum <code>AppMode</code>. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send messages to the app later.</p>
+<p>The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the <code>parent_sender</code>. You can see that the message type of the main application is <code>AppMsg</code> and that there's an enum <code>AppMode</code>. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send <code>SetMode</code> messages to the app.</p>
 <pre><code class="language-rust no_run noplayground">impl ComponentUpdate&lt;AppModel&gt; for HeaderModel {
     fn init_model(_parent_model: &amp;AppModel) -&gt; Self {
         HeaderModel {}
@@ -1657,6 +1660,9 @@ fn main() {
     }
 }
 </code></pre>
+<blockquote>
+<p>We don't use the <code>_parent_model</code> argument of the <code>init_model</code> in this example. Yet you can use it if you need to access information from the parent model during initialization, for example for passing a resource shared with the component.</p>
+</blockquote>
 <h3 id="the-widgets-3"><a class="header" href="#the-widgets-3">The widgets</a></h3>
 <p>There's nothing special about widgets of a component. The only difference to the main app is that the root widget doesn't need to be a <code>gtk::ApplicationWindow</code>. Instead, we use a <code>gtk::HeaderBar</code> here, but theoretically the root widget doesn't even need to be a widget at all (which can be useful in special cases).</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
@@ -1698,7 +1704,7 @@ impl Widgets&lt;HeaderModel, AppModel&gt; for HeaderWidgets {
 }
 </code></pre>
 <h2 id="the-close-alert"><a class="header" href="#the-close-alert">The close alert</a></h2>
-<p>Like a normal application that's used to edit files, we want to notify the user before accidentally closeing the application and discarding all progress. For this - you might have guessed it already - we will use another component.</p>
+<p>Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this - you might have guessed it already - we will use another component.</p>
 <h3 id="the-model-5"><a class="header" href="#the-model-5">The model</a></h3>
 <p>The state of the dialog only needs to store whether or not it's hidden.</p>
 <pre><code class="language-rust no_run noplayground">struct DialogModel {
@@ -1765,8 +1771,8 @@ impl Widgets&lt;DialogModel, AppModel&gt; for DialogWidgets {
     }
 }
 </code></pre>
-<p>Most notably there the <code>args!</code> macro. It allows us to pass values to function that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use <code>args!</code> here.</p>
-<p>Also, we set the <code>set_transient_for</code> property, which actually uses the main window from the parent widgets. So far <code>parent_widgets</code> was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: &quot;[<code>set_transient_for</code>] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window&quot;. So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.</p>
+<p>Most notably there is the <code>args!</code> macro. It allows us to pass values to function that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use <code>args!</code> here.</p>
+<p>Also, we set the <code>set_transient_for</code> property, which actually uses the main window from the parent widgets. So far <code>parent_widgets</code> was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: &quot;[set_transient_for] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window&quot;. So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.</p>
 <h2 id="the-main-app"><a class="header" href="#the-main-app">The main app</a></h2>
 <p>Now all parts come together to form a single app. You might remember that there was a components type we always set to <code>()</code>. Now we actually make use of this type.</p>
 <h3 id="the-components"><a class="header" href="#the-components">The components</a></h3>
@@ -1791,7 +1797,7 @@ impl Widgets&lt;DialogModel, AppModel&gt; for DialogWidgets {
     }
 }
 </code></pre>
-<p>We just need to pass the arguments of the <code>init_components</code> components over to the <code>RelmComponent::new</code> function and the rest will be handled by Relm4.</p>
+<p>We just need to pass the arguments of the <code>init_components</code> function over to the <code>RelmComponent::new</code> function and the rest will be handled by Relm4.</p>
 <h3 id="the-model-6"><a class="header" href="#the-model-6">The model</a></h3>
 <p>Now we're looking at something familiar again, the model of the main app.</p>
 <pre><code class="language-rust no_run noplayground">#[derive(Debug)]
@@ -1839,7 +1845,7 @@ struct AppModel {
 </code></pre>
 <p>You see we can use <code>components.NAME.send()</code> to send messages to a child component, similar to the parent_sender we used to send messages in the other direction. Also we return <code>false</code> if our dialog component sent the <code>Close</code> message to tell Relm4 to close the application.</p>
 <h3 id="the-widgets-5"><a class="header" href="#the-widgets-5">The widgets</a></h3>
-<p>We're almost done! We'll only look at the widgets of the main app.</p>
+<p>We're almost done! We only need to define the widgets of the main app.</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     view! {
@@ -1858,7 +1864,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     }
 }
 </code></pre>
-<p>The <code>component!</code> macro can be used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.</p>
+<p>The <code>component!</code> macro is used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.</p>
 <h2 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h2>
 <p>You now know most of the secrets that Relm4 offers. Components can be powerful and if they are implemented correctly, they are even reusable across different apps. The relm4-components crate offers several reusable components you can use in your applications. In the following chapters, we'll look at an even simpler component type called worker, how to implement reusable components yourself and how to use components with async code and multiple threads.</p>
 <h2 id="the-complete-code-5"><a class="header" href="#the-complete-code-5">The complete code</a></h2>
@@ -2092,9 +2098,9 @@ fn main() {
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="workers"><a class="header" href="#workers">Workers</a></h1>
 <p>Workers are simply components that don't have any widgets. They don't have any advantages over components apart from being simpler and a few performance benefits they get from not having to call the view function (because they don't have widgets).</p>
-<p>You might wonder why they even exist. We're talking about GUIs all the time, right? Well, they can be quite useful for applications that need to handle long tasks while remaining responsible. Imagine your web browser would be completely frozen while it loads content from a slow website. This would in fact happen if you would send the HTTP requests in your update function. If you used a worker for that instead, it could handle the requests from a different thread and send a message back once finished.</p>
+<p>You might wonder why they even exist. We're talking about a GUI library all the time, right? Well, they can be quite useful for applications that need to handle long tasks while remaining responsible. Imagine your web browser would be completely frozen while it loads content from a slow website. This would in fact happen if you would send the HTTP requests in your update function. If you used a worker for that instead, it could handle the requests from a different thread and send a message back once finished.</p>
 <h2 id="implementing-a-worker"><a class="header" href="#implementing-a-worker">Implementing a worker</a></h2>
-<p>A worker is implemented like similar to a component. One difference is that you use <code>()</code> as a placeholder for the <code>Widgets</code> type in the <code>Model</code> trait. Also, since you don't have widgets for the worker, you don't need to implement the <code>Widgets</code> trait.</p>
+<p>A worker is implemented similar to a component. One difference is that you use <code>()</code> as a placeholder for the <code>Widgets</code> type in the <code>Model</code> trait. Also, since you don't have widgets for the worker, you don't need to implement the <code>Widgets</code> trait.</p>
 <pre><code class="language-rust no_run noplayground">impl Model for WorkerModel {
     type Msg = WorkerMsg;
     type Widgets = ();
@@ -2114,7 +2120,7 @@ fn main() {
     }
 }
 </code></pre>
-<p>The rest is pretty standard so I'll won't discuss an example here. You just need to define the messages you want the parent to sent to the worker and handle them in the update function. There you can also send messages back to the parent component or the main app to signal that the worker has finished its work.</p>
+<p>Apart from that workers are just like components so I won't discuss an example here. You just need to define the messages you want the parent to send to the worker and handle them in the update function. There you can also send messages back to the parent component or the main app to signal that the worker has finished its work.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="threads"><a class="header" href="#threads">Threads</a></h1>
 <p>In the previous chapter, we've introduced workers. One of the most common use case for workers is to run long computations or IO-bound operations on a different thread. So how do we do this?</p>
 <h2 id="running-a-component-on-a-different-thread"><a class="header" href="#running-a-component-on-a-different-thread">Running a component on a different thread</a></h2>
@@ -2146,12 +2152,12 @@ fn main() {
     }
 }
 </code></pre>
-<p>It's hard to spot the difference. Instead of <code>RelmComponent::new</code> we used <code>RelmComponent::with_new_thread</code>. The same works for worker. <code>RelmWorker::new</code> runs the worker on the same thread and <code>RelmWorker::with_new_thread</code> spawns a new thread for the worker.</p>
-<p>There's one problem for the components, though. Components have widgets that in the case of GTK4 are neither <code>Send</code> nor <code>Sync</code>. That means we can't run the view function from a different thread, but only the update function that just operates on the model. But then, how does this work? Well, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker because workers don't have this problem.</p>
+<p>It's hard to spot the difference. Instead of <code>RelmComponent::new</code> we used <code>RelmComponent::with_new_thread</code>. The same is true for workers. <code>RelmWorker::new</code> runs the worker on the same thread and <code>RelmWorker::with_new_thread</code> spawns a new thread for the worker.</p>
+<p>There's one problem for the components, though. Components have widgets that, in the case of GTK4, neither implement <code>Send</code> nor <code>Sync</code>. That means we can't run the view function from a different thread, but only the update function that just operates on the model. But then, how does this work? Well, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker because workers don't have this problem.</p>
 <h2 id="async"><a class="header" href="#async">Async</a></h2>
-<p>Async update functions currently exclusive for workers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an <code>AsyncRelmWorker</code> type that uses an async update function. Apart from that, they are just like normal workers that run in a new thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs">&quot;tokio&quot; example</a> shows how this can be used with for async HTTP requests.</p>
+<p>Async update functions are exclusive for workers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an <code>AsyncRelmWorker</code> type that uses an async update function from the <code>AsyncComponentUpdate</code> trait. Apart from that, they are just like normal workers that run in a new thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs">&quot;tokio&quot; example</a> shows how this can be used with for async HTTP requests.</p>
 <h2 id="the-message-queue-problem"><a class="header" href="#the-message-queue-problem">The message queue problem</a></h2>
-<p>Because workers tend to take a lot of time during the update function you should make sure to not bombard them with messages. Imagine you have a button in your application that allows the user to update a web page. If the user presses the button, a new request is sent and then the worker responds with a message. If the button can be clicked and a message is sent for each click while the worker fetches the web page you could quickly have a lot of unprocessed messages in the queue of your worker. To avoid this, make sure to only send the message once and wait until the worker is finished.</p>
+<p>Because workers tend to take a lot of time during the update function you should make sure to not bombard them with messages. Imagine you have a button in your application that allows the user to update a web page. If the user presses the button, a new request is sent by a worker that responds with a message once the request is completed. If the button can be clicked and a message is sent for each click while the worker is fetching the web page you could quickly have a lot of unprocessed messages in the queue of your worker. To avoid this, make sure to only send the message once and wait until the worker is finished.</p>
 <h2 id="multiple-threads-and-async-without-workers"><a class="header" href="#multiple-threads-and-async-without-workers">Multiple threads and async without workers</a></h2>
 <p>One reason you always get a new sender passed into your update function is that you can spawn a new thread and move a cloned sender into it. This can sometimes be more flexible than defining a worker. You can simply use <code>std::thread::spawn</code> for this and even spawn any async runtime you want from that thread.</p>
 <p>For example you could do this in your update function:</p>
@@ -2161,13 +2167,13 @@ fn main() {
 });
 </code></pre>
 <h3 id="async-inside-the-main-event-loop"><a class="header" href="#async-inside-the-main-event-loop">Async inside the main event loop</a></h3>
-<p>GTK uses an event loop from glib to handle asynchronous events. In fact the senders we've been using all the time are just channels on that event loop. This event loop also allows us to execute futures. Relm4 provides a <code>spawn_future</code> function to do exactly that. The only drawback of this is that most crates relying on a tokio runtime won't work and that the future is run on the main thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/future.rs">&quot;future&quot; example</a> shows how this can be used.</p>
+<p>GTK uses an event loop from glib to handle asynchronous events. In fact the senders we've been using all the time use channels on that event loop. This event loop also allows us to execute futures. Relm4 provides a <code>spawn_future</code> function to do exactly that. The only drawback of this is that most crates relying on a tokio runtime won't work and that the future is run on the main thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/future.rs">&quot;future&quot; example</a> shows how this can be used.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reusable-components"><a class="header" href="#reusable-components">Reusable components</a></h1>
 <p>In this chapter, we will implement a simple alert dialog as a reusable component.</p>
 <blockquote>
 <p>You can find more examples of reusable components in the relm4-components crate <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-components">here</a>. You can also contribute your own reusable components to relm4-components :)</p>
 </blockquote>
-<p>Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait that defines how to interact with the components.</p>
+<p>Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait as an interface for the component.</p>
 <h2 id="the-parent-traits"><a class="header" href="#the-parent-traits">The parent traits</a></h2>
 <p>First, we’ll have a look at the traits the parent component, that will eventually use this component, has to implement.</p>
 <p>Because we want our component to be flexible and able to display different messages, we first define a data type for configuring our component.</p>
@@ -2229,7 +2235,7 @@ pub trait AlertParentWidgets {
     Response(gtk::ResponseType),
 }
 </code></pre>
-<p>The <code>ComponentUpdate</code> trait would usually expect the parent component as a generic parameter. We don’t know the parent component yet, so we add trait bounds to a new generic type.</p>
+<p>The <code>ComponentUpdate</code> trait would usually expect the parent component as a generic type. We don’t know the parent component yet, so we add trait bounds to a new generic type.</p>
 <pre><code class="language-rust no_run noplayground">impl&lt;ParentModel&gt; ComponentUpdate&lt;ParentModel&gt; for AlertModel
 where
     ParentModel: AlertParent,
@@ -2311,7 +2317,7 @@ where
 <h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
 <p>We’re done! That’s your first reusable component. If you want to see the alert component, we just wrote, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>.</p>
 <blockquote>
-<p>If you need a component for your application that you expect to be useful to others, too, we’d be happy if you’d consider contributing to relm4-components, a crate that offers reusable components.</p>
+<p>If you need a component for your application that you expect to be useful to others, too, we’d be happy if you consider contributing to relm4-components, a crate that offers reusable components.</p>
 </blockquote>
 <h2 id="the-complete-code-6"><a class="header" href="#the-complete-code-6">The complete code</a></h2>
 <p>Let’s review our code in one piece one more time to see how all these parts work together:</p>
@@ -2510,9 +2516,9 @@ where
 }
 </code></pre>
 <h2 id="manual"><a class="header" href="#manual">Manual</a></h2>
-<p>Sometimes the macro just isn't flexible enough. In this case, you can always use manual functions that will not be modified by the macro.</p>
+<p>Sometimes the macro isn't flexible enough. In this case, you can always use manual code that will not be modified by the macro.</p>
 <p>Here's a list of all the options available.</p>
-<pre><code>#[relm4_macros::widget]
+<pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
 impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     view! {
         // ...
@@ -2541,13 +2547,13 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     // ...
 }
 </code></pre>
-<p>You can use the <code>post_init</code> function to run code after the initialization of the view macro. This can be used to modify your widgets further for manual initialization. All variables used in the view macro and the <code>pre_init</code> function can still be used here.</p>
+<p>You can use the <code>post_init</code> function to run code after the initialization of the view macro. This can be used to modify the widgets generated by the view macro for manual initialization. All variables and widget names used in the view macro and the <code>pre_init</code> function can still be used here.</p>
 <pre><code class="language-rust no_run noplayground">fn post_init() {
     // ...
 }
 </code></pre>
 <h3 id="add-more-fields-to-your-widgets"><a class="header" href="#add-more-fields-to-your-widgets">Add more fields to your widgets</a></h3>
-<p>The widgets struct is automatically generated by the macro, but sometimes you want to add your own fields. To do so, use the <code>additional_fields!</code></p>
+<p>The widgets struct is automatically generated by the macro, but sometimes you want to add your own fields. To do so, use the <code>additional_fields!</code> macro:</p>
 <pre><code class="language-rust no_run noplayground">additional_fields! {
     test: u8,
 }
@@ -2561,6 +2567,153 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p>You can also implement your own view logic that's added to the view code the view macro generates. To refer to the widgets, use <code>self</code> and <code>model</code> for the model.</p>
 <pre><code class="language-rust no_run noplayground">fn manual_view() {
     // ...
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="templates"><a class="header" href="#templates">Templates</a></h1>
+<p>The following chapter contain templates for implementing apps, components and workers that help you develop your apps even faster.</p>
+<p>The structs have names like <code>AppModel</code> or <code>ComponentWidgets</code>. You can use search and replace to insert your own names.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="app-template"><a class="header" href="#app-template">App template</a></h1>
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{WidgetExt};
+use relm4::*;
+
+struct AppComponents {
+    component: RelmComponent&lt;ComponentModel, AppModel&gt;,
+}
+
+impl Components&lt;AppModel&gt; for AppComponents {
+    fn init_components(
+        parent_model: &amp;AppModel,
+        parent_widgets: &amp;AppWidgets,
+        parent_sender: Sender&lt;AppMsg&gt;,
+    ) -&gt; Self {
+        AppComponents {
+            component: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
+        }
+    }
+}
+
+enum AppMsg {
+	
+}
+
+struct AppModel {
+
+}
+
+impl Model for AppModel {
+    type Msg = AppMsg;
+    type Widgets = AppWidgets;
+    type Components = AppComponents;
+}
+
+impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, components: &amp;AppComponents, sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+
+        }
+        true
+    }
+}
+
+#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        main_window = gtk::ApplicationWindow {
+            
+        }
+    }
+}
+
+fn main() {
+    let model = AppModel {
+        
+    };
+    let relm = RelmApp::new(model);
+    relm.run();
+}
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="component-template"><a class="header" href="#component-template">Component template</a></h1>
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{WidgetExt};
+use relm4::*;
+
+struct ComponentModel {
+
+}
+
+enum ComponentMsg {
+
+}
+
+impl Model for ComponentModel {
+    type Msg = ComponentMsg;
+    type Widgets = ComponentWidgets;
+    type Components = ();
+}
+
+impl ComponentUpdate&lt;AppModel&gt; for ComponentModel {
+    fn init_model(_parent_model: &amp;AppModel) -&gt; Self {
+        ComponentModel {
+
+        }
+    }
+
+    fn update(
+        &amp;mut self,
+        msg: ComponentMsg,
+        _components: &amp;(),
+        sender: Sender&lt;ComponentMsg&gt;,
+        parent_sender: Sender&lt;AppMsg&gt;,
+    ) {
+        match msg {
+
+        }
+    }
+}
+
+#[relm4_macros::widget]
+impl Widgets&lt;ComponentModel, AppModel&gt; for ComponentWidgets {
+    view! {
+        
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="worker-template"><a class="header" href="#worker-template">Worker template</a></h1>
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{WidgetExt};
+use relm4::*;
+
+struct WorkerModel {
+
+}
+
+enum WorkerMsg {
+
+}
+
+impl Model for WorkerModel {
+    type Msg = WorkerMsg;
+    type Widgets = ();
+    type Workers = ();
+}
+
+impl WorkerUpdate&lt;AppModel&gt; for WorkerModel {
+    fn init_model(_parent_model: &amp;AppModel) -&gt; Self {
+        WorkerModel {
+
+        }
+    }
+
+    fn update(
+        &amp;mut self,
+        msg: WorkerMsg,
+        _Workers: &amp;(),
+        sender: Sender&lt;WorkerMsg&gt;,
+        parent_sender: Sender&lt;AppMsg&gt;,
+    ) {
+        match msg {
+
+        }
+    }
 }
 </code></pre>
 

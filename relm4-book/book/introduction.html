@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html" class="active">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> Implementation checklists</div></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html" class="active">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -140,21 +140,28 @@
                         <h1 id="about"><a class="header" href="#about">About</a></h1>
 <p>Relm4 is an idiomatic GUI library inspired by <a href="https://elm-lang.org/">Elm</a> and based on <a href="https://crates.io/crates/gtk4">gtk4-rs</a>. 
 It is a new version of <a href="https://github.com/antoyo/relm">relm</a> that's built from scratch and is compatible with <a href="https://www.gtk.org/">GTK4</a>.</p>
-<h1 id="platform-support"><a class="header" href="#platform-support">Platform support</a></h1>
-<p>Relm4 is based on GTK4 so all platforms supported by GTK4 are available for Relm4 as well:</p>
+<h2 id="goals"><a class="header" href="#goals">Goals</a></h2>
+<ul>
+<li>⏱️ <strong>Productivity:</strong> Writing an application should require as few overhead as possible</li>
+<li>⚡ <strong>Flexibility:</strong> Anything that's possible to do with GTK4 should be possible in Relm4 as well</li>
+<li>✨ <strong>Simplicity:</strong> Writing an application should be as easy and straight forward as possible</li>
+<li>🔧 <strong>Maintainability</strong>: The Elm programming model used by Relm4 provides a simple and clear structure for app development</li>
+</ul>
+<h2 id="platform-support"><a class="header" href="#platform-support">Platform support</a></h2>
+<p>All platforms supported by GTK4 are available for Relm4 as well:</p>
 <ul>
 <li>Linux</li>
 <li>Windows</li>
 <li>MacOS</li>
 </ul>
-<h1 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h1>
-<p>I can recommend reading the <a href="https://gtk-rs.org/gtk4-rs/git/book/">gtk4-rs book</a> for getting more insight into development with GTK4 yet knowledge of GTK4 is not required for understanding this book.</p>
+<h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
+<p>I can recommend reading the <a href="https://gtk-rs.org/gtk4-rs/git/book/">gtk4-rs book</a> for getting more insight into development with GTK4. Yet, knowledge of GTK4 is not required for this book.</p>
 <ul>
 <li><a href="https://www.gtk.org/docs/installations/">How to install GTK4</a></li>
 <li><a href="https://gtk-rs.org/gtk4-rs/git/book/">gtk4-rs book</a></li>
 <li><a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/index.html">gtk4-rs docs</a></li>
 </ul>
-<h2 id="cargo"><a class="header" href="#cargo">Cargo</a></h2>
+<h3 id="cargo"><a class="header" href="#cargo">Cargo</a></h3>
 <p>Add the packages you need to your Cargo.toml:</p>
 <pre><code class="language-toml">gtk = { version = &quot;0.2&quot;, package = &quot;gtk4&quot; }
 relm4 = &quot;0.1.0-beta.7&quot;
@@ -165,7 +172,7 @@ relm4-components = &quot;0.1.0-beta.7&quot;
 <p>If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at <a href="https://github.com/AaronErhardt/relm4/issues">GitHub</a> or chat with us on <a href="https://matrix.to/#/#relm4:matrix.org">Matrix</a>.</p>
 <h1 id="special-thanks"><a class="header" href="#special-thanks">Special thanks</a></h1>
 <p>I want to thank all contributors of <a href="https://github.com/antoyo/relm">relm</a> especially <a href="https://github.com/antoyo">antoyo</a> for building relm that inspired much of the work on Relm4.</p>
-<p>Also I want to thank all contributors of <a href="https://gtk-rs.org/">gtk-rs</a> that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.</p>
+<p>Also, I want to thank all contributors of <a href="https://gtk-rs.org/">gtk-rs</a> that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.</p>
 
                     </main>
 
