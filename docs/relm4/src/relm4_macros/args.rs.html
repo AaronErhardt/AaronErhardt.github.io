@@ -46,6 +46,9 @@
 <span id="46">46</span>
 <span id="47">47</span>
 <span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">proc_macro2::TokenStream</span> <span class="kw">as</span> <span class="ident">TokenStream2</span>;
 <span class="kw">use</span> <span class="ident">quote</span>::{<span class="ident">quote_spanned</span>, <span class="ident">ToTokens</span>};
@@ -53,7 +56,7 @@
     <span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>},
     <span class="ident">punctuated::Punctuated</span>,
     <span class="ident">spanned::Spanned</span>,
-    <span class="prelude-ty">Result</span>, <span class="ident">Token</span>,
+    <span class="ident">Error</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>,
 };
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
@@ -69,7 +72,10 @@
     <span class="ident">T</span>: <span class="ident">Parse</span> <span class="op">+</span> <span class="ident">ToTokens</span>,
 {
     <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">input</span>: <span class="ident">ParseStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">punct</span>: <span class="ident">Punctuated</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="macro">Token!</span>[,]<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">call</span>(<span class="ident">Punctuated::parse_separated_nonempty</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">punct</span>: <span class="ident">Punctuated</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="macro">Token!</span>[,]<span class="op">&gt;</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">call</span>(<span class="ident">Punctuated::parse_terminated</span>)<span class="question-mark">?</span>;
+        <span class="kw">if</span> <span class="ident">punct</span>.<span class="ident">is_empty</span>() {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::new</span>(<span class="ident">input</span>.<span class="ident">span</span>(), <span class="string">&quot;Expected at least one element. This is probably caused by empty arguments and macros.&quot;</span>));
+        }
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">punct</span>.<span class="ident">into_pairs</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">pair</span><span class="op">|</span> <span class="ident">pair</span>.<span class="ident">into_value</span>()).<span class="ident">collect</span>();
 
         <span class="prelude-val">Ok</span>(<span class="ident">Args</span> { <span class="ident">inner</span> })

@@ -131,7 +131,7 @@
     <span class="kw">fn</span> <span class="ident">span</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Span2</span> {
         <span class="self">self</span>.<span class="ident">path_segments</span>
             .<span class="ident">first</span>()
-            .<span class="ident">expect</span>(<span class="string">&quot;No segments in WidgetFunc&quot;</span>)
+            .<span class="ident">expect</span>(<span class="string">&quot;Expected path segments in WidgetFunc&quot;</span>)
             .<span class="ident">span</span>()
     }
 }
