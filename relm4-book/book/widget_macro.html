@@ -201,6 +201,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p>The last special syntax of the <code>widgets</code> macro we'll cover here is the <code>watch!</code> macro. It's just like the normal initialization except that it also updates the property in the view function. Without it, the counter label would never be updated.</p>
 <pre><code class="language-rust no_run noplayground">                    set_label: watch! { &amp;format!(&quot;Counter: {}&quot;, model.counter) },
 </code></pre>
+<blockquote>
+<p>The full reference for the syntax of the widget macro can be found <a href="https://aaronerhardt.github.io/relm4-book/book/widget_macro_reference.html">here</a>.</p>
+</blockquote>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
