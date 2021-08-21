@@ -10,7 +10,7 @@ Let's have a look at factories in Relm4. We want to write a simple application t
 
 ### The model
 
-The most common solution for storing collections of data is a `Vec`. Yet a `Vec` halp us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the `FactoryVec`.
+The most common solution for storing collections of data is a `Vec`. Yet a `Vec` help us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the `FactoryVec`.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:model }}
