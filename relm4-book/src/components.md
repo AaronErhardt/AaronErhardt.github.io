@@ -46,7 +46,7 @@ For components, we also need to implement the `Model` trait. The `Components` ty
 {{#include ../listings/components.rs:header_model_impl }}
 ```
 
-The update function is rather minimal. If our header bar was more complex, storing the state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
+The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:header_update }}
@@ -100,7 +100,7 @@ You've probably seen enough widget implementations by now to know roughly how th
 
 Most notably there is the `args!` macro. It allows us to pass values to functions that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use `args!` here.
 
-Also, we set the `set_transient_for` property, which actually uses the main window from the parent widgets. So far `parent_widgets` was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: "[set_transient_for] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window". So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.
+Also, we set the `set_transient_for` property, which actually uses the main window from the parent widget. So far `parent_widgets` was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: "[set_transient_for] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window". So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.
 
 ## The main app
 
