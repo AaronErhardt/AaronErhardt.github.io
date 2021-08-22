@@ -116,7 +116,7 @@ Because each app and each component can have any amount of child components we n
 
 To do this, just implement a struct with the components wrapped into a `RelmComponent` (which is similar to `RelmApp`). The first generic type of `RelmComponent` is the model of the component and the second one the parent model.
 
-To make this work and initialize our components, we need to implement the `Components` trait for our struct.
+To make this work and to initialize our components, we need to implement the `Components` trait for our struct.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:components_impl }}
@@ -146,7 +146,7 @@ The update function of the model is pretty straight forward.
 {{#include ../listings/components.rs:app_update }}
 ```
 
-You see we can use `components.NAME.send()` to send messages to a child component, similar to the parent_sender we used to send messages in the other direction. Also we return `false` if our dialog component sent the `Close` message to tell Relm4 to close the application.
+You see we can use `components.NAME.send()` to send messages to a child component, similar to the parent_sender we used to send messages in the other direction. Also we return `false` if our dialog component sends the `Close` message to tell Relm4 to close the application.
 
 ### The widgets
 
