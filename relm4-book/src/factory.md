@@ -72,7 +72,7 @@ Alright, there are quite a few types! Let's look at them step by step:
 
 ### The generate function
 
-The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data sturctures. The `FactoryVec` we use indexes elements with the `usize` type.
+The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. The `FactoryVec` we use indexes elements with the `usize` type.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:generate }}
