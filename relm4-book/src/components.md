@@ -46,7 +46,7 @@ For components, we also need to implement the `Model` trait. The `Components` ty
 {{#include ../listings/components.rs:header_model_impl }}
 ```
 
-The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
+The update function is rather minimal. If our header bar was more complex, storing the state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:header_update }}
