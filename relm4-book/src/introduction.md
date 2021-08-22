@@ -48,3 +48,5 @@ If you find a mistake or something unclear in Relm4 or this book, let me know! S
 I want to thank all contributors of [relm](https://github.com/antoyo/relm) especially [antoyo](https://github.com/antoyo) for building relm that inspired much of the work on Relm4.
 
 Also, I want to thank all contributors of [gtk-rs](https://gtk-rs.org/) that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.
+
+I want to thank [tronta](https://github.com/tronta) for fixing a lot of spelling mistakes and grammatical errors in this book.

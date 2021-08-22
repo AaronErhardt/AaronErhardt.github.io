@@ -137,13 +137,12 @@
 <span id="137">137</span>
 <span id="138">138</span>
 <span id="139">139</span>
-</pre><pre class="rust">
-<span class="doccomment">//! Reusable and easily configurable alert component.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Reusable and easily configurable alert component.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! **[Example implementation](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs)**</span>
 
 <span class="kw">use</span> <span class="ident">gtk::prelude</span>::{<span class="ident">DialogExt</span>, <span class="ident">GtkWindowExt</span>, <span class="ident">WidgetExt</span>};
-<span class="kw">use</span> <span class="ident">relm4</span>::{<span class="ident">send</span>, <span class="ident">ComponentUpdate</span>, <span class="ident">Model</span>, <span class="ident">Sender</span>, <span class="ident">WidgetPlus</span>};
+<span class="kw">use</span> <span class="ident">relm4</span>::{<span class="ident">send</span>, <span class="ident">ComponentUpdate</span>, <span class="ident">Model</span>, <span class="ident">Sender</span>};
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AlertSettings</span> {
     <span class="doccomment">/// Large text</span>
@@ -273,11 +272,11 @@
             <span class="kw">let</span> <span class="ident">accept_widget</span> <span class="op">=</span> <span class="ident">dialog</span>
                 .<span class="ident">widget_for_response</span>(<span class="ident">gtk::ResponseType::Accept</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;No button for accept response set&quot;</span>);
-            <span class="ident">accept_widget</span>.<span class="ident">add_class_name</span>(<span class="string">&quot;destructive-action&quot;</span>);
+            <span class="ident">accept_widget</span>.<span class="ident">add_css_class</span>(<span class="string">&quot;destructive-action&quot;</span>);
         }
     }
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="relm4_components" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

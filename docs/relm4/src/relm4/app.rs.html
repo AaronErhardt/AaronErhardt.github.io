@@ -81,9 +81,12 @@
 <span id="81">81</span>
 <span id="82">82</span>
 <span id="83">83</span>
-</pre><pre class="rust">
-<span class="kw">use</span> <span class="ident">gtk::glib</span>;
-<span class="kw">use</span> <span class="ident">gtk::prelude</span>::{<span class="ident">ApplicationExt</span>, <span class="ident">ApplicationExtManual</span>, <span class="ident">GtkWindowExt</span>};
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">gtk::glib</span>;
+<span class="kw">use</span> <span class="ident">gtk::prelude</span>::{<span class="ident">ApplicationExt</span>, <span class="ident">ApplicationExtManual</span>, <span class="ident">GtkWindowExt</span>, <span class="ident">IsA</span>};
 
 <span class="kw">use</span> <span class="ident">std::marker::PhantomData</span>;
 
@@ -99,7 +102,9 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RelmApp</span><span class="op">&lt;</span><span class="ident">Model</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Model</span>: <span class="ident">ModelTrait</span> <span class="op">+</span> <span class="ident">AppUpdate</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    <span class="ident">Model::Widgets</span>: <span class="ident">WidgetsTrait</span><span class="op">&lt;</span><span class="ident">Model</span>, (), <span class="ident">Root</span> <span class="op">=</span> <span class="ident">gtk::ApplicationWindow</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    <span class="ident">Model::Widgets</span>: <span class="ident">WidgetsTrait</span><span class="op">&lt;</span><span class="ident">Model</span>, ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    <span class="op">&lt;</span><span class="ident">Model::Widgets</span> <span class="kw">as</span> <span class="ident">WidgetsTrait</span><span class="op">&lt;</span><span class="ident">Model</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Root</span>:
+        <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gtk::ApplicationWindow</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gtk::Window</span><span class="op">&gt;</span>,
     <span class="ident">Model::Components</span>: <span class="ident">Components</span><span class="op">&lt;</span><span class="ident">Model</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="ident">model</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">Model</span><span class="op">&gt;</span>,
@@ -109,7 +114,9 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Model</span><span class="op">&gt;</span> <span class="ident">RelmApp</span><span class="op">&lt;</span><span class="ident">Model</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">Model</span>: <span class="ident">ModelTrait</span> <span class="op">+</span> <span class="ident">AppUpdate</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-    <span class="ident">Model::Widgets</span>: <span class="ident">WidgetsTrait</span><span class="op">&lt;</span><span class="ident">Model</span>, (), <span class="ident">Root</span> <span class="op">=</span> <span class="ident">gtk::ApplicationWindow</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    <span class="ident">Model::Widgets</span>: <span class="ident">WidgetsTrait</span><span class="op">&lt;</span><span class="ident">Model</span>, ()<span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
+    <span class="op">&lt;</span><span class="ident">Model::Widgets</span> <span class="kw">as</span> <span class="ident">WidgetsTrait</span><span class="op">&lt;</span><span class="ident">Model</span>, ()<span class="op">&gt;</span><span class="op">&gt;</span><span class="ident">::Root</span>:
+        <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gtk::ApplicationWindow</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">IsA</span><span class="op">&lt;</span><span class="ident">gtk::Window</span><span class="op">&gt;</span>,
     <span class="ident">Model::Components</span>: <span class="ident">Components</span><span class="op">&lt;</span><span class="ident">Model</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
     <span class="doccomment">/// Runs the application, returns once the application is closed.</span>
@@ -165,7 +172,7 @@
         }
     }
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="relm4" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

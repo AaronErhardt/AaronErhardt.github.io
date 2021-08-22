@@ -9,13 +9,12 @@ reorder the fields manually, but when working with maps (such as <code>BTreeMap<
 or <code>HashMap</code>) this can lead to serialization errors. In those situations you
 may use the <code>tables_last</code> function in this module like so:</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>)]</span>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Serialize</span>)]</span>
 <span class="kw">struct</span> <span class="ident">Manifest</span> {
     <span class="ident">package</span>: <span class="ident">Package</span>,
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">serialize_with</span> <span class="op">=</span> <span class="string">&quot;toml::ser::tables_last&quot;</span>)]</span>
     <span class="ident">dependencies</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Dependency</span><span class="op">&gt;</span>,
-}</pre></div>
+}</code></pre></div>
 </div></details><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
 <div class="item-table"><div class="item-left module-item"><a class="struct" href="struct.Serializer.html" title="toml::ser::Serializer struct">Serializer</a></div><div class="item-right docblock-short"><p>Serialization implementation for TOML.</p>
 </div></div><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2>

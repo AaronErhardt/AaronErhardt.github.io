@@ -148,8 +148,7 @@
 <span id="148">148</span>
 <span id="149">149</span>
 <span id="150">150</span>
-</pre><pre class="rust">
-<span class="doccomment">//! Facility to emit dummy implementations (or whatever) in case</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Facility to emit dummy implementations (or whatever) in case</span>
 <span class="doccomment">//! an error happen.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! `compile_error!` does not abort a compilation right away. This means</span>
@@ -299,7 +298,7 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">cleanup</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TokenStream</span><span class="op">&gt;</span> {
     <span class="ident">DUMMY_IMPL</span>.<span class="ident">with</span>(<span class="op">|</span><span class="ident">old_dummy</span><span class="op">|</span> <span class="ident">old_dummy</span>.<span class="ident">replace</span>(<span class="prelude-val">None</span>))
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="proc_macro_error" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
 </body></html>

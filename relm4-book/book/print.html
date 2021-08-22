@@ -174,6 +174,7 @@ relm4-components = &quot;0.1.0-beta.8&quot;
 <h1 id="special-thanks"><a class="header" href="#special-thanks">Special thanks</a></h1>
 <p>I want to thank all contributors of <a href="https://github.com/antoyo/relm">relm</a> especially <a href="https://github.com/antoyo">antoyo</a> for building relm that inspired much of the work on Relm4.</p>
 <p>Also, I want to thank all contributors of <a href="https://gtk-rs.org/">gtk-rs</a> that put a lot of effort into the project for creating outstanding Rust bindings for GTK4.</p>
+<p>I want to thank <a href="https://github.com/tronta">tronta</a> for fixing a lot of spelling mistakes and grammatical errors in this book.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="your-first-app"><a class="header" href="#your-first-app">Your first app</a></h1>
 <p>For our first app, let's create something original: A simple counter app.</p>
 <blockquote>
@@ -1774,7 +1775,7 @@ impl Widgets&lt;DialogModel, AppModel&gt; for DialogWidgets {
     }
 }
 </code></pre>
-<p>Most notably there is the <code>args!</code> macro. It allows us to pass values to function that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use <code>args!</code> here.</p>
+<p>Most notably there is the <code>args!</code> macro. It allows us to pass values to functions that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use <code>args!</code> here.</p>
 <p>Also, we set the <code>set_transient_for</code> property, which actually uses the main window from the parent widgets. So far <code>parent_widgets</code> was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: &quot;[set_transient_for] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window&quot;. So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.</p>
 <h2 id="the-main-app"><a class="header" href="#the-main-app">The main app</a></h2>
 <p>Now all parts come together to form a single app. You might remember that there was a components type we always set to <code>()</code>. Now we actually make use of this type.</p>
@@ -1786,7 +1787,7 @@ impl Widgets&lt;DialogModel, AppModel&gt; for DialogWidgets {
 }
 </code></pre>
 <p>To do this, just implement a struct with the components wrapped into a <code>RelmComponent</code> (which is similar to <code>RelmApp</code>). The first generic type of <code>RelmComponent</code> is the model of the component and the second one the parent model.</p>
-<p>To make this work and initialize our components, we need to implement the <code>Components</code> trait for our struct.</p>
+<p>To make this work and to initialize our components, we need to implement the <code>Components</code> trait for our struct.</p>
 <pre><code class="language-rust no_run noplayground">impl Components&lt;AppModel&gt; for AppComponents {
     fn init_components(
         parent_model: &amp;AppModel,
@@ -1846,7 +1847,7 @@ struct AppModel {
     }
 }
 </code></pre>
-<p>You see we can use <code>components.NAME.send()</code> to send messages to a child component, similar to the parent_sender we used to send messages in the other direction. Also we return <code>false</code> if our dialog component sent the <code>Close</code> message to tell Relm4 to close the application.</p>
+<p>You see we can use <code>components.NAME.send()</code> to send messages to a child component, similar to the parent_sender we used to send messages in the other direction. Also we return <code>false</code> if our dialog component sends the <code>Close</code> message to tell Relm4 to close the application.</p>
 <h3 id="the-widgets-5"><a class="header" href="#the-widgets-5">The widgets</a></h3>
 <p>We're almost done! We only need to define the widgets of the main app.</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
@@ -2101,7 +2102,7 @@ fn main() {
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="workers"><a class="header" href="#workers">Workers</a></h1>
 <p>Workers are simply components that don't have any widgets. They don't have any advantages over components apart from being simpler and a few performance benefits they get from not having to call the view function (because they don't have widgets).</p>
-<p>You might wonder why they even exist. We're talking about a GUI library all the time, right? Well, they can be quite useful for applications that need to handle long tasks while remaining responsible. Imagine your web browser would be completely frozen while it loads content from a slow website. This would in fact happen if you would send the HTTP requests in your update function. If you used a worker for that instead, it could handle the requests from a different thread and send a message back once finished.</p>
+<p>You might wonder why they even exist. We're talking about a GUI library all the time, right? Well, they can be quite useful for applications that need to handle long tasks while remaining responsive. Imagine your web browser would be completely frozen while it loads content from a slow website. This would in fact happen if you would send the HTTP requests in your update function. If you use a worker for that instead, it could handle the requests from a different thread and send a message back once finished.</p>
 <h2 id="implementing-a-worker"><a class="header" href="#implementing-a-worker">Implementing a worker</a></h2>
 <p>A worker is implemented similar to a component. One difference is that you use <code>()</code> as a placeholder for the <code>Widgets</code> type in the <code>Model</code> trait. Also, since you don't have widgets for the worker, you don't need to implement the <code>Widgets</code> trait.</p>
 <pre><code class="language-rust no_run noplayground">impl Model for WorkerModel {
@@ -2585,7 +2586,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="templates"><a class="header" href="#templates">Templates</a></h1>
-<p>The following chapter contain templates for implementing apps, components and workers that help you develop your apps even faster.</p>
+<p>The following chapter contains templates for implementing apps, components and workers that help you develop your apps even faster.</p>
 <p>The structs have names like <code>AppModel</code> or <code>ComponentWidgets</code>. You can use search and replace to insert your own names.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="app-template"><a class="header" href="#app-template">App template</a></h1>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{WidgetExt};

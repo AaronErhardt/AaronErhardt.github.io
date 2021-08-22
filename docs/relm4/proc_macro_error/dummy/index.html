@@ -5,8 +5,7 @@ an error happen.</p>
 compilation process looking for other errors to report.</p>
 <p>Let’s consider an example:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
-<span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
 <span class="kw">use</span> <span class="ident">proc_macro_error</span>::<span class="kw-2">*</span>;
 
 <span class="kw">trait</span> <span class="ident">MyTrait</span> {
@@ -37,11 +36,11 @@ compilation process looking for other errors to report.</p>
 
 <span class="kw">fn</span> <span class="ident">main</span>() {
     <span class="ident">Foo::do_thing</span>(); <span class="comment">// second BOOM!</span>
-}</pre></div>
+}</code></pre></div>
 <p>The problem is: the generated token stream contains only <code>compile_error!</code>
 invocation, the impl was not generated. That means user will see two compilation
 errors:</p>
-<div class="example-wrap"><pre class="language-text">error: something&#39;s wrong
+<div class="example-wrap"><pre class="language-text"><code>error: something&#39;s wrong
  --&gt; $DIR/probe.rs:9:10
   |
 9 |#[proc_macro_derive(MyTrait)]
@@ -54,14 +53,13 @@ error[E0599]: no function or associated item named `do_thing` found for type `Fo
   | ----------- function or associated item `do_thing` not found for this
 2 | fn main() {
 3 |     Foo::do_thing(); // second BOOM!
-  |          ^^^^^^^^ function or associated item not found in `Foo`</pre></div>
+  |          ^^^^^^^^ function or associated item not found in `Foo`</code></pre></div>
 <p>But the second error is meaningless! We definitely need to fix this.</p>
 <p>Most used approach in cases like this is “dummy implementation” -
 omit <code>impl MyTrait for #name</code> and fill functions bodies with <code>unimplemented!()</code>.</p>
 <p>This is how you do it:</p>
 
-<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore">
-<span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
 <span class="kw">use</span> <span class="ident">proc_macro_error</span>::<span class="kw-2">*</span>;
 
  <span class="kw">trait</span> <span class="ident">MyTrait</span> {
@@ -100,7 +98,7 @@ omit <code>impl MyTrait for #name</code> and fill functions bodies with <code>un
 
  <span class="kw">fn</span> <span class="ident">main</span>() {
      <span class="ident">Foo::do_thing</span>(); <span class="comment">// no more errors!</span>
- }</pre></div>
+ }</code></pre></div>
 </div></details><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
 <div class="item-table"><div class="item-left module-item"><a class="fn" href="fn.append_dummy.html" title="proc_macro_error::dummy::append_dummy fn">append_dummy</a></div><div class="item-right docblock-short"><p>Same as <a href="fn.set_dummy.html" title="set_dummy"><code>set_dummy</code></a> but, instead of resetting, appends tokens to the
 existing dummy (if any). Behaves as <code>set_dummy</code> if no dummy is present.</p>

@@ -244,8 +244,18 @@
 <span id="244">244</span>
 <span id="245">245</span>
 <span id="246">246</span>
-</pre><pre class="rust">
-<span class="kw">use</span> <span class="ident">syn</span>::{
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">syn</span>::{
     <span class="ident">braced</span>, <span class="ident">parenthesized</span>,
     <span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseBuffer</span>, <span class="ident">ParseStream</span>},
     <span class="ident">parse_macro_input</span>,
@@ -255,7 +265,7 @@
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util</span>;
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Properties</span>, <span class="ident">Property</span>, <span class="ident">PropertyType</span>, <span class="ident">Tracker</span>, <span class="ident">Widget</span>, <span class="ident">WidgetFunc</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Properties</span>, <span class="ident">Property</span>, <span class="ident">PropertyName</span>, <span class="ident">PropertyType</span>, <span class="ident">Tracker</span>, <span class="ident">Widget</span>, <span class="ident">WidgetFunc</span>};
 
 <span class="kw">impl</span> <span class="ident">Parse</span> <span class="kw">for</span> <span class="ident">Tracker</span> {
     <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">input</span>: <span class="ident">ParseStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
@@ -278,27 +288,38 @@
     }
 }
 
+<span class="kw">impl</span> <span class="ident">Parse</span> <span class="kw">for</span> <span class="ident">PropertyName</span> {
+    <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">input</span>: <span class="ident">ParseStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span>[::]) <span class="op">|</span><span class="op">|</span> <span class="ident">input</span>.<span class="ident">peek2</span>(<span class="macro">Token!</span> [::]) {
+            <span class="ident">PropertyName::Path</span>(<span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
+        } <span class="kw">else</span> {
+            <span class="ident">PropertyName::Ident</span>(<span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
+        })
+    }
+}
+
 <span class="kw">impl</span> <span class="ident">Parse</span> <span class="kw">for</span> <span class="ident">Property</span> {
     <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">input</span>: <span class="ident">ParseStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">name</span>: <span class="ident">Ident</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">optional_assign</span> <span class="op">=</span> <span class="bool-val">false</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iterative</span> <span class="op">=</span> <span class="bool-val">false</span>;
 
         <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span>[<span class="op">!</span>]) {
-            <span class="kw">return</span> <span class="kw">if</span> <span class="ident">name</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;factory&quot;</span> {
-                <span class="kw">let</span> <span class="ident">_exclm</span>: <span class="macro">Token!</span>[<span class="op">!</span>] <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">paren_input</span>;
-                <span class="macro">parenthesized!</span>(<span class="ident">paren_input</span> <span class="kw">in</span> <span class="ident">input</span>);
-                <span class="prelude-val">Ok</span>(<span class="ident">Property</span> {
-                    <span class="ident">name</span>,
-                    <span class="ident">ty</span>: <span class="ident">PropertyType::Factory</span>(<span class="ident">paren_input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
-                    <span class="ident">optional_assign</span>,
-                    <span class="ident">iterative</span>,
-                    <span class="ident">args</span>: <span class="prelude-val">None</span>,
-                })
-            } <span class="kw">else</span> {
-                <span class="prelude-val">Err</span>(<span class="ident">input</span>.<span class="ident">error</span>(<span class="string">&quot;Expected macro factory&quot;</span>))
-            };
+            <span class="kw">if</span> <span class="kw">let</span> <span class="ident">PropertyName::Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident_name</span>) <span class="op">=</span> <span class="ident">name</span> {
+                <span class="kw">if</span> <span class="ident">ident_name</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;factory&quot;</span> {
+                    <span class="kw">let</span> <span class="ident">_exclm</span>: <span class="macro">Token!</span>[<span class="op">!</span>] <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
+                    <span class="kw">let</span> <span class="ident">paren_input</span>;
+                    <span class="macro">parenthesized!</span>(<span class="ident">paren_input</span> <span class="kw">in</span> <span class="ident">input</span>);
+                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Property</span> {
+                        <span class="ident">name</span>,
+                        <span class="ident">ty</span>: <span class="ident">PropertyType::Factory</span>(<span class="ident">paren_input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>),
+                        <span class="ident">optional_assign</span>,
+                        <span class="ident">iterative</span>,
+                        <span class="ident">args</span>: <span class="prelude-val">None</span>,
+                    });
+                }
+            }
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">input</span>.<span class="ident">error</span>(<span class="string">&quot;Expected factory macro&quot;</span>));
         }
 
         <span class="comment">// check for property(a, b, c): ...</span>
@@ -491,7 +512,7 @@
         })
     }
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="relm4_macros" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script>
 </body></html>

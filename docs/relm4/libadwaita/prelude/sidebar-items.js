@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["ActionRowExt",""],["ApplicationWindowExt",""],["BinExt",""],["ComboRowExt",""],["ComboRowExtManual",""],["ExpanderRowExt",""],["PreferencesGroupExt",""],["PreferencesPageExt",""],["PreferencesRowExt",""],["PreferencesWindowExt",""],["SwipeableExt",""],["WindowExt",""]]});
