@@ -54,7 +54,7 @@ To get the current index value from the dynamic index, we simply call `index.cur
 
 ## The factory implementation
 
-The factory implementation is mostly the same, so we'll just have a look at what's changed.
+The factory implementation is mostly the same, so we'll just have a look at what has changed.
 
 ### The widgets type
 
