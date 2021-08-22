@@ -245,7 +245,7 @@ where
     }
 </code></pre>
 <h2 id="the-widgets"><a class="header" href="#the-widgets">The widgets</a></h2>
-<p>The widgets have also a generic type for the parent component with the expected trait bounds. Apart from that, there is nothing special.</p>
+<p>The widgets have a generic type for the parent component with the expected trait bounds, too. Because they are part of a public interface, we also add the <code>pub</code> attribute to the widget macro. Apart from that, there is nothing special.</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget(pub)]
 impl&lt;ParentModel&gt; relm4::Widgets&lt;AlertModel, ParentModel&gt; for AlertWidgets
 where

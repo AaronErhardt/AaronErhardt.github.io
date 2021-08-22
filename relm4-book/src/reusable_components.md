@@ -62,7 +62,7 @@ The update function handles the `Show` message from our parent component and the
 
 ## The widgets
 
-The widgets have also a generic type for the parent component with the expected trait bounds. Apart from that, there is nothing special.
+The widgets have a generic type for the parent component with the expected trait bounds, too. Because they are part of a public interface, we also add the `pub` attribute to the widget macro. Apart from that, there is nothing special.
 
 ```rust,no_run,noplayground
 {{#include ../listings/alert.rs:widgets }}
