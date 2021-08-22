@@ -98,7 +98,7 @@ You've probably seen enough widget implementations by now to know roughly how th
 {{#include ../listings/components.rs:dialog_widgets }}
 ```
 
-Most notably there is the `args!` macro. It allows us to pass values to function that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use `args!` here.
+Most notably there is the `args!` macro. It allows us to pass values to functions that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use `args!` here.
 
 Also, we set the `set_transient_for` property, which actually uses the main window from the parent widgets. So far `parent_widgets` was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: "[set_transient_for] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window". So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.
 
