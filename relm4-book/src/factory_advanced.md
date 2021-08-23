@@ -30,7 +30,7 @@ As you can see, we use a lot of `Rc<DynamicIndex>`. This allows us to always hol
 
 ### The model
 
-The model is very similar to the previous chapter. The only difference is that we use `FactoryVecDeque` as a data structure now.
+The model is very similar to the previous chapter. The only difference is that we now use `FactoryVecDeque` as a data structure.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory_advanced.rs:model }}
