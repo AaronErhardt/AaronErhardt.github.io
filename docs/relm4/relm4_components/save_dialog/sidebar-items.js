@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["SaveDialogMsg",""]],"struct":[["SaveDialogModel",""],["SaveDialogSettings",""],["SaveDialogWidgets",""]],"trait":[["SaveDialogParent","Interface for the parent model"],["SaveDialogParentWidgets","Get the parent window that allows setting the parent window of the dialog with [`gtk::prelude::GtkWindowExt::set_transient_for`]."]]});
+initSidebarItems({"enum":[["SaveDialogMsg",""]],"struct":[["SaveDialogModel",""],["SaveDialogSettings",""],["SaveDialogWidgets",""]],"trait":[["SaveDialogParent","Interface for the parent model"]]});

@@ -144,11 +144,6 @@
 <span id="144">144</span>
 <span id="145">145</span>
 <span id="146">146</span>
-<span id="147">147</span>
-<span id="148">148</span>
-<span id="149">149</span>
-<span id="150">150</span>
-<span id="151">151</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Reusable and easily configurable save dialog component.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! **[Example implementation](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/save_dialog.rs)**</span>
@@ -158,6 +153,9 @@
 
 <span class="kw">use</span> <span class="ident">std::path::PathBuf</span>;
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ParentWindow</span>;
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SaveDialogSettings</span> {
     <span class="doccomment">/// Label for cancel button</span>
     <span class="kw">pub</span> <span class="ident">cancel_label</span>: <span class="ident">String</span>,
@@ -202,7 +200,7 @@
 <span class="doccomment">/// Interface for the parent model</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SaveDialogParent</span>: <span class="ident">Model</span>
 <span class="kw">where</span>
-    <span class="ident"><span class="self">Self</span>::Widgets</span>: <span class="ident">SaveDialogParentWidgets</span>,
+    <span class="ident"><span class="self">Self</span>::Widgets</span>: <span class="ident">ParentWindow</span>,
 {
     <span class="doccomment">/// Configure the save dialog</span>
     <span class="kw">fn</span> <span class="ident">dialog_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">SaveDialogSettings</span>;
@@ -211,16 +209,10 @@
     <span class="kw">fn</span> <span class="ident">save_msg</span>(<span class="ident">path</span>: <span class="ident">PathBuf</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Msg</span>;
 }
 
-<span class="doccomment">/// Get the parent window that allows setting the parent window of the dialog with</span>
-<span class="doccomment">/// [`gtk::prelude::GtkWindowExt::set_transient_for`].</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SaveDialogParentWidgets</span> {
-    <span class="kw">fn</span> <span class="ident">parent_window</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">gtk::Window</span><span class="op">&gt;</span>;
-}
-
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">ParentModel</span><span class="op">&gt;</span> <span class="ident">ComponentUpdate</span><span class="op">&lt;</span><span class="ident">ParentModel</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SaveDialogModel</span>
 <span class="kw">where</span>
     <span class="ident">ParentModel</span>: <span class="ident">SaveDialogParent</span>,
-    <span class="op">&lt;</span><span class="ident">ParentModel</span> <span class="kw">as</span> <span class="ident">relm4::Model</span><span class="op">&gt;</span><span class="ident">::Widgets</span>: <span class="ident">SaveDialogParentWidgets</span>,
+    <span class="op">&lt;</span><span class="ident">ParentModel</span> <span class="kw">as</span> <span class="ident">relm4::Model</span><span class="op">&gt;</span><span class="ident">::Widgets</span>: <span class="ident">ParentWindow</span>,
 {
     <span class="kw">fn</span> <span class="ident">init_model</span>(<span class="ident">parent_model</span>: <span class="kw-2">&amp;</span><span class="ident">ParentModel</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident">SaveDialogModel</span> {
@@ -265,10 +257,8 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">ParentModel</span><span class="op">&gt;</span> <span class="ident">relm4::Widgets</span><span class="op">&lt;</span><span class="ident">SaveDialogModel</span>, <span class="ident">ParentModel</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SaveDialogWidgets</span>
 <span class="kw">where</span>
     <span class="ident">ParentModel</span>: <span class="ident">Model</span>,
-    <span class="ident">ParentModel::Widgets</span>: <span class="ident">SaveDialogParentWidgets</span>,
+    <span class="ident">ParentModel::Widgets</span>: <span class="ident">ParentWindow</span>,
 {
-    <span class="comment">//type Model = SaveDialogModel;</span>
-
     <span class="macro">view!</span> {
         <span class="ident">gtk::FileChooserNative</span> {
             <span class="ident">set_action</span>: <span class="ident">gtk::FileChooserAction::Save</span>,

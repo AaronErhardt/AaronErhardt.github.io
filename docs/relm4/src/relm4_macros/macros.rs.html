@@ -62,17 +62,15 @@
 <span id="62">62</span>
 <span id="63">63</span>
 <span id="64">64</span>
-<span id="65">65</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">proc_macro::Span</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">spanned::Spanned</span>, <span class="ident">Error</span>, <span class="ident">Macro</span>, <span class="prelude-ty">Result</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::args::Args</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::struct_field::StructField</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::additional_fields::AdditionalFields</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::widgets::Widget</span>;
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct</span> <span class="ident">Macros</span> {
     <span class="kw">pub</span> <span class="ident">widgets</span>: <span class="ident">Widget</span>,
-    <span class="kw">pub</span> <span class="ident">additional_fields</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Args</span><span class="op">&lt;</span><span class="ident">StructField</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">additional_fields</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AdditionalFields</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Macros</span> {
@@ -110,7 +108,7 @@
                         <span class="string">&quot;additional_fields macro defined multiple times&quot;</span>,
                     ));
                 }
-                <span class="ident">additional_fields</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">syn::parse_macro_input::parse</span>::<span class="op">&lt;</span><span class="ident">Args</span><span class="op">&lt;</span><span class="ident">StructField</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+                <span class="ident">additional_fields</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">syn::parse_macro_input::parse</span>::<span class="op">&lt;</span><span class="ident">AdditionalFields</span><span class="op">&gt;</span>(
                     <span class="ident">tokens</span>.<span class="ident">into</span>(),
                 )<span class="question-mark">?</span>);
             } <span class="kw">else</span> {

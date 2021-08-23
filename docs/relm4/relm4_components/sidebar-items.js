@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["alert","Reusable and easily configurable alert component."],["save_dialog","Reusable and easily configurable save dialog component."]]});
+initSidebarItems({"mod":[["alert","Reusable and easily configurable alert component."],["open_button",""],["open_dialog","Reusable and easily configurable open dialog component."],["save_dialog","Reusable and easily configurable save dialog component."]],"trait":[["ParentWindow","Get the parent window that allows setting the parent window of a dialog with [`gtk::prelude::GtkWindowExt::set_transient_for`]."]]});
