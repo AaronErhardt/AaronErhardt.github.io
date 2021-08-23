@@ -26,7 +26,7 @@ To reset all previous changes, you can call `var_name.reset()`.
 
 ## Example
 
-First one needs to add the tracker library to `Cargo.toml`:
+First we have to add the tracker library to `Cargo.toml`:
 ```toml
 tracker = "0.1"
 ```
