@@ -55,8 +55,9 @@ impl Widgets<AppModel, ()> for AppWidgets {
                     },
                     // ANCHOR_END: connect
                 },
-                append = &gtk::Button {
-                    set_label: "Decrement",
+                // ANCHOR: widget_assign_fn
+                append = &gtk::Button::with_label("Decrement") {
+                // ANCHOR_END: widget_assign_fn
                     connect_clicked(sender) => move |_| {
                         send!(sender, AppMsg::Decrement);
                     },
