@@ -2587,6 +2587,25 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     let test = 0;
 }
 </code></pre>
+<p>The macro will then put all parts together to create the widgets struct and the <code>init_view</code> function.</p>
+<pre><code class="language-rust no_run noplayground">struct AppWidgets {
+    ...
+    test: u8,
+}
+
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    ...
+    fn init_view(model: &amp;AppModel, parent_widgets: &amp;(), sender: Sender&lt;AppMsg&gt;) -&gt; Self {
+        ...
+        let test = 0;
+        AppWidgets {
+            ...
+            test,
+        }
+    }
+    ...
+}
+</code></pre>
 <h3 id="manual-view"><a class="header" href="#manual-view">Manual view</a></h3>
 <p>You can also implement your own view logic that's added to the view code the view macro generates. To refer to the widgets, use <code>self</code> and <code>model</code> for the model.</p>
 <pre><code class="language-rust no_run noplayground">fn manual_view() {

@@ -198,6 +198,28 @@ fn post_init() {
 }
 ```
 
+The macro will then put all parts together to create the widgets struct and the `init_view` function.
+
+```rust,no_run,noplayground
+struct AppWidgets {
+    ...
+    test: u8,
+}
+
+impl Widgets<AppModel, ()> for AppWidgets {
+    ...
+    fn init_view(model: &AppModel, parent_widgets: &(), sender: Sender<AppMsg>) -> Self {
+        ...
+        let test = 0;
+        AppWidgets {
+            ...
+            test,
+        }
+    }
+    ...
+}
+```
+
 ### Manual view
 
 You can also implement your own view logic that's added to the view code the view macro generates. To refer to the widgets, use `self` and `model` for the model.
