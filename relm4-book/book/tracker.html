@@ -163,7 +163,10 @@ Update your mutable field with a function or a closure. Assumes the field will b
 <p>To check for changes you can call <code>var_name.changed(StructName::field_name())</code> and it will return a bool indication whether the field was updated.</p>
 <p>To reset all previous changes, you can call <code>var_name.reset()</code>.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
-<p>Let's have a look at a small example.</p>
+<p>First we have to add the tracker library to <code>Cargo.toml</code>:</p>
+<pre><code class="language-toml">tracker = &quot;0.1&quot;
+</code></pre>
+<p>Now let's have a look at a small example.</p>
 <pre><code class="language-rust no_run noplayground">#[tracker::track]
 struct Test {
     x: u8,

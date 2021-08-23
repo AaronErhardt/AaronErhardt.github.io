@@ -644,7 +644,10 @@ Update your mutable field with a function or a closure. Assumes the field will b
 <p>To check for changes you can call <code>var_name.changed(StructName::field_name())</code> and it will return a bool indication whether the field was updated.</p>
 <p>To reset all previous changes, you can call <code>var_name.reset()</code>.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
-<p>Let's have a look at a small example.</p>
+<p>First we have to add the tracker library to <code>Cargo.toml</code>:</p>
+<pre><code class="language-toml">tracker = &quot;0.1&quot;
+</code></pre>
+<p>Now let's have a look at a small example.</p>
 <pre><code class="language-rust no_run noplayground">#[tracker::track]
 struct Test {
     x: u8,
@@ -1237,13 +1240,13 @@ fn main() {
 <blockquote>
 <p>If you're not familiar with the <code>Rc</code> type of the standard library, have a look at <a href="https://doc.rust-lang.org/std/rc/index.html">this</a>.</p>
 </blockquote>
-<p>The <code>FactoryVec</code> we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces more complexity that needs to be taken care of but fortunately is mostly handled by Relm4.</p>
-<p>To show this, we'll create a similar counter app to the one of the previous chapter, but on <strong>steroids</strong>: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the flexibility we need for this, we'll use the <code>FactoryVecDeque</code> type instead of a <code>FactoryVec</code>.</p>
+<p>The <code>FactoryVec</code> we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces additional complexity that needs to be taken care of but fortunately this is mostly handled by Relm4.</p>
+<p>To show this, we'll create a similar counter app to the one of the previous chapter, but this time on <strong>steroids</strong>: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the required flexibility, we'll use the <code>FactoryVecDeque</code> type instead of a <code>FactoryVec</code>.</p>
 <blockquote>
 <p>An almost identical example called &quot;factory_advanced&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="indices"><a class="header" href="#indices">Indices</a></h2>
-<p>Indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
+<p>The indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
 <p>One solution would be to recreate all signal handlers with the updated indices once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
 <p>The solution Relm4 chose was dynamic indices. These indices are updated automatically to always point at the same element.</p>
 <h3 id="the-message-type-1"><a class="header" href="#the-message-type-1">The message type</a></h3>
@@ -2180,7 +2183,7 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reusable-components"><a class="header" href="#reusable-components">Reusable components</a></h1>
 <p>In this chapter, we will implement a simple alert dialog as a reusable component.</p>
 <blockquote>
-<p>You can find more examples of reusable components in the relm4-components crate <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-components">here</a>. You can also contribute your own reusable components to relm4-components :)</p>
+<p>If you want to see the alert component, we will write in this chapter, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>.</p>
 </blockquote>
 <p>Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait as an interface for the component.</p>
 <h2 id="the-parent-traits"><a class="header" href="#the-parent-traits">The parent traits</a></h2>
@@ -2324,9 +2327,9 @@ where
 }
 </code></pre>
 <h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
-<p>We’re done! That’s your first reusable component. If you want to see the alert component, we just wrote, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>.</p>
+<p>We’re done! That’s your first reusable component.</p>
 <blockquote>
-<p>If you need a component for your application that you expect to be useful to others, too, we’d be happy if you consider contributing to relm4-components, a crate that offers reusable components.</p>
+<p>You can find more examples of reusable components in the relm4-components crate <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-components">here</a>. You can also contribute your own reusable components to relm4-components :)</p>
 </blockquote>
 <h2 id="the-complete-code-6"><a class="header" href="#the-complete-code-6">The complete code</a></h2>
 <p>Let’s review our code in one piece one more time to see how all these parts work together:</p>
