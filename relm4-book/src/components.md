@@ -16,7 +16,7 @@ Let's write a small example app to see how components can be used in action. For
 
 ## The header bar
 
-Our first component will be a header bar. There are not a lot of advantages cowriting this component except for reducing the complexity in other parts of our UI.
+Our first component will be a header bar. There are not a lot of advantages for writing this component except for reducing the complexity in other parts of our UI.
 
 The header bar will have three buttons for three modes that our application can have:
 
