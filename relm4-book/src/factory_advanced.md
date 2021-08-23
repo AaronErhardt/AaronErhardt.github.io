@@ -2,15 +2,15 @@
 
 > If you're not familiar with the `Rc` type of the standard library, have a look at [this](https://doc.rust-lang.org/std/rc/index.html).
 
-The `FactoryVec` we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces more complexity that needs to be taken care of but fortunately is mostly handled by Relm4.
+The `FactoryVec` we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces additional complexity that needs to be taken care of but fortunately this is mostly handled by Relm4.
 
-To show this, we'll create a similar counter app to the one of the previous chapter, but on **steroids**: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the flexibility we need for this, we'll use the `FactoryVecDeque` type instead of a `FactoryVec`.
+To show this, we'll create a similar counter app to the one of the previous chapter, but this time on **steroids**: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the required flexibility we need for this, we'll use the `FactoryVecDeque` type instead of a `FactoryVec`.
 
 > An almost identical example called "factory_advanced" is available [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## Indices
 
-Indices of a `FactoryVec` were just numbers of type `usize`. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index `0`, the element that had index `0` before now has index `1` and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.
+The indices of a `FactoryVec` were just numbers of type `usize`. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index `0`, the element that had index `0` before now has index `1` and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.
 
 One solution would be to recreate all signal handlers with the updated indices once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.
 
