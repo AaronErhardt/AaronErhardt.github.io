@@ -4,7 +4,7 @@
 
 The `FactoryVec` we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces additional complexity that needs to be taken care of but fortunately this is mostly handled by Relm4.
 
-To show this, we'll create a similar counter app to the one of the previous chapter, but this time on **steroids**: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get this flexibility we need for this, we'll use the `FactoryVecDeque` type instead of a `FactoryVec`.
+To show this, we'll create a similar counter app to the one of the previous chapter, but this time on **steroids**: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the flexibility we need for this, we'll use the `FactoryVecDeque` type instead of a `FactoryVec`.
 
 > An almost identical example called "factory_advanced" is available [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
