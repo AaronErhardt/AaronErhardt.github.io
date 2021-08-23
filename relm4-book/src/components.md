@@ -6,7 +6,7 @@ In short, components are independent parts of your application that can communic
 
 ## When to use components
 
-Components are mainly useful for separating parts of the UI into smaller, more manageable parts. Components are not necessary but for larger applications, they can be very helpful.
+Components are mainly useful for separating parts of the UI into smaller, more manageable parts. They are not necessary but for larger applications, they can be very helpful.
 
 # Example application
 
@@ -16,7 +16,7 @@ Let's write a small example app to see how components can be used in action. For
 
 ## The header bar
 
-Our first component will be a header bar. There are not a lot of advantages for writing this component except for reducing the complexity in other parts of our UI.
+Our first component will be a header bar. There are not a lot of advantages cowriting this component except for reducing the complexity in other parts of our UI.
 
 The header bar will have three buttons for three modes that our application can have:
 
@@ -40,7 +40,7 @@ The message type allows us to switch between the modes.
 {{#include ../listings/components.rs:header_msg }}
 ```
 
-For components, we also need to implement the `Model` trait. The `Components` type is empty here because it refers to child components. We don't have any child components for our header bar so we use a `()`.
+For components we also need to implement the `Model` trait. The `Components` type is empty here because it refers to child components. We don't have any child components for our header bar so we use a `()`.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:header_model_impl }}
@@ -64,7 +64,7 @@ There's nothing special about widgets of a component. The only difference to the
 
 ## The close alert
 
-Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this - you might have guessed it already - we will use another component.
+Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this &mdash; you might have guessed it already &mdash; we will use another component.
 
 ### The model
 
