@@ -16,7 +16,7 @@ The most common solution for storing collections of data is a `Vec`. Yet a `Vec`
 {{#include ../listings/factory.rs:model }}
 ```
 
-As you can see, we first define the struct `Counter` that just stores the value of a counter. Then we add a `FactoryVec` of counters to the model. Additionally, we keep one counter in the model itself as a starting value for our new counters.
+As you can see, we first define the struct `Counter` that stores the value for initializing the freshly created counter. Then we add a `FactoryVec` for storing the button widgets.
 
 ## The message type
 
@@ -32,7 +32,7 @@ Accordingly, our message type looks like this:
 {{#include ../listings/factory.rs:msg }}
 ```
 
-You'll notice that an index is passed with `AppMsg::Clicked`. This allows us to select the counter that emitted the clicked signal.
+You'll notice that an index is passed with `AppMsg::Clicked`. This allows us to identify the counter button which emitted the clicked signal.
 
 ## The update function
 
