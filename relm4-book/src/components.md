@@ -162,7 +162,7 @@ The `component!` macro is used to interact with components. We just need to get 
 
 You now know most of the secrets that Relm4 offers. Components can be powerful and if they are implemented correctly, they are even reusable across different apps. The relm4-components crate offers several reusable components you can use in your applications. In the following chapters, we'll look at an even simpler component type called worker, how to implement reusable components yourself and how to use components with async code and multiple threads.
 
-## The complete code of a compont
+## The complete code of a component
 
 Let's review our code in one piece one more time to see how all these parts work together:
 
