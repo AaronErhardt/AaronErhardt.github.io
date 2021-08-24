@@ -12,7 +12,7 @@ Components are mainly useful for separating parts of the UI into smaller, more m
 
 Let's write a small example app to see how components can be used in action. For this example, we write parts of an app that can edit images.
 
-> An almost identical example called "components" is available [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> An almost identical example is available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/components.rs) if you want to see the code in action.
 
 ## The header bar
 
@@ -162,7 +162,7 @@ The `component!` macro is used to interact with components. We just need to get 
 
 You now know most of the secrets that Relm4 offers. Components can be powerful and if they are implemented correctly, they are even reusable across different apps. The relm4-components crate offers several reusable components you can use in your applications. In the following chapters, we'll look at an even simpler component type called worker, how to implement reusable components yourself and how to use components with async code and multiple threads.
 
-## The complete code
+## The complete code of a compont
 
 Let's review our code in one piece one more time to see how all these parts work together:
 
