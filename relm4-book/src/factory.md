@@ -16,7 +16,7 @@ The most common solution for storing collections of data is a `Vec`. Yet a `Vec`
 {{#include ../listings/factory.rs:model }}
 ```
 
-As you can see, we first define the struct `Counter` that stores the value for initializing the freshly created counter. Then we add a `FactoryVec` for storing the button widgets.
+As you can see, we first define the struct `Counter` that stores the value for initializing a freshly created counter. Then we add a `FactoryVec` for storing the button widgets.
 
 ## The message type
 
