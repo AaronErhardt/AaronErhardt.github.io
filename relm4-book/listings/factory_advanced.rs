@@ -20,12 +20,12 @@ enum AppMsg {
 
 // ANCHOR: model
 struct Counter {
-    counter: u8,
+    value: u8,
 }
 
 struct AppModel {
-    data: FactoryVecDeque<Counter>,
-    counter: u8,
+    counters: FactoryVecDeque<Counter>,
+    received_messages: u8,
 }
 // ANCHOR_END: model
 
@@ -40,39 +40,39 @@ impl AppUpdate for AppModel {
     fn update(&mut self, msg: AppMsg, _components: &(), _sender: Sender<AppMsg>) -> bool {
         match msg {
             AppMsg::AddFirst => {
-                self.data.push_front(Counter {
-                    counter: self.counter,
+                self.counters.push_front(Counter {
+                    value: self.received_messages,
                 });
             }
             AppMsg::RemoveLast => {
-                self.data.pop_back();
+                self.counters.pop_back();
             }
             AppMsg::CountAt(index) => {
-                if let Some(data) = self.data.get_mut(index.current_index()) {
-                    data.counter = data.counter.wrapping_sub(1);
+                if let Some(counter) = self.counters.get_mut(index.current_index()) {
+                    counter.value = counter.value.wrapping_sub(1);
                 }
             }
             AppMsg::RemoveAt(index) => {
-                self.data.remove(index.current_index());
+                self.counters.remove(index.current_index());
             }
             AppMsg::InsertBefore(index) => {
-                self.data.insert(
+                self.counters.insert(
                     index.current_index(),
                     Counter {
-                        counter: self.counter,
+                        value: self.received_messages,
                     },
                 );
             }
             AppMsg::InsertAfter(index) => {
-                self.data.insert(
+                self.counters.insert(
                     index.current_index() + 1,
                     Counter {
-                        counter: self.counter,
+                        value: self.received_messages,
                     },
                 );
             }
         }
-        self.counter += 1;
+        self.received_messages += 1;
         true
     }
 }
@@ -92,29 +92,29 @@ impl FactoryPrototype for Counter {
     type View = gtk::Box;
     type Msg = AppMsg;
 
-// ANCHOR: generate_start
+    // ANCHOR: generate_start
     fn generate(&self, index: &Rc<DynamicIndex>, sender: Sender<AppMsg>) -> FctryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
             .spacing(5)
             .build();
 
-        let counter_button = gtk::Button::with_label(&self.counter.to_string());
+        let counter_button = gtk::Button::with_label(&self.value.to_string());
         let index: Rc<DynamicIndex> = index.clone();
 
         let remove_button = gtk::Button::with_label("Remove");
         let ins_above_button = gtk::Button::with_label("Add above");
         let ins_below_button = gtk::Button::with_label("Add below");
-// ANCHOR_END: generate_start
+        // ANCHOR_END: generate_start
 
-// ANCHOR: append
+        // ANCHOR: append
         hbox.append(&counter_button);
         hbox.append(&remove_button);
         hbox.append(&ins_above_button);
         hbox.append(&ins_below_button);
-// ANCHOR_END: append
+        // ANCHOR_END: append
 
-// ANCHOR: connect
+        // ANCHOR: connect
         {
             let sender = sender.clone();
             let index = index.clone();
@@ -142,20 +142,20 @@ impl FactoryPrototype for Counter {
         ins_below_button.connect_clicked(move |_| {
             send!(sender, AppMsg::InsertAfter(index.clone()));
         });
-// ANCHOR_END: connect
+        // ANCHOR_END: connect
 
-// ANCHOR: return
+        // ANCHOR: return
         FctryWidgets {
             hbox,
             counter_button,
         }
-// ANCHOR_END: return
+        // ANCHOR_END: return
     }
 
     fn position(&self, _index: &Rc<DynamicIndex>) {}
 
     fn update(&self, _index: &Rc<DynamicIndex>, widgets: &FctryWidgets) {
-        widgets.counter_button.set_label(&self.counter.to_string());
+        widgets.counter_button.set_label(&self.value.to_string());
     }
     fn get_root(widget: &FctryWidgets) -> &gtk::Box {
         &widget.hbox
@@ -215,7 +215,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
     }
 
     fn view(&mut self, model: &AppModel, sender: Sender<AppMsg>) {
-        model.data.generate(&self.gen_box, sender);
+        model.counters.generate(&self.gen_box, sender);
     }
 
     fn root_widget(&self) -> gtk::ApplicationWindow {
@@ -225,8 +225,8 @@ impl Widgets<AppModel, ()> for AppWidgets {
 
 fn main() {
     let model = AppModel {
-        data: FactoryVecDeque::new(),
-        counter: 0,
+        counters: FactoryVecDeque::new(),
+        received_messages: 0,
     };
 
     let relm = RelmApp::new(model);

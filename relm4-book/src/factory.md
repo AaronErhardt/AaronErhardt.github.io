@@ -10,13 +10,13 @@ Let's have a look at factories in Relm4. We want to write a simple application t
 
 ### The model
 
-The most common solution for storing collections of data is a `Vec`. Yet a `Vec` help us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the `FactoryVec`.
+The most common solution for storing collections of data is a `Vec`. Yet a `Vec` can't help us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. A `FactoryVec` is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Also, it automatically keeps track of all the changes made its data.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:model }}
 ```
 
-As you can see, we first define the struct `Counter` that just stores the value of a counter. Then we add a `FactoryVec` of counters to the model. Additionally, we keep one counter in the model itself as a starting value for our new counters.
+As you can see, we first define the struct `Counter` that just stores the value of a counter. Then we use a `FactoryVec` to store our counters in the model. Additionally, we add one separate counter to the model to count the amount of counters we created.
 
 ## The message type
 

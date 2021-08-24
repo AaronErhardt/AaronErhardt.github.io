@@ -145,17 +145,17 @@
 <p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs">here</a>. Run <code>cargo run --example factory</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
-<p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> help us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the <code>FactoryVec</code>.</p>
+<p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> can't help us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. A <code>FactoryVec</code> is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Also, it automatically keeps track of all the changes made its data.</p>
 <pre><code class="language-rust no_run noplayground">struct Counter {
-    counter: u8,
+    value: u8,
 }
 
 struct AppModel {
-    data: FactoryVec&lt;Counter&gt;,
-    counter: u8,
+    counters: FactoryVec&lt;Counter&gt;,
+    created_counters: u8,
 }
 </code></pre>
-<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a counter. Then we add a <code>FactoryVec</code> of counters to the model. Additionally, we keep one counter in the model itself as a starting value for our new counters.</p>
+<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a counter. Then we use a <code>FactoryVec</code> to store our counters in the model. Additionally, we add one separate counter to the model to count the amount of counters we created.</p>
 <h2 id="the-message-type"><a class="header" href="#the-message-type">The message type</a></h2>
 <p>The actions we want to perform are</p>
 <ul>
@@ -178,17 +178,17 @@ enum AppMsg {
     fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
         match msg {
             AppMsg::Add =&gt; {
-                self.data.push(Counter {
-                    counter: self.counter,
+                self.counters.push(Counter {
+                    value: self.created_counters,
                 });
-                self.counter += 1;
+                self.created_counters += 1;
             }
             AppMsg::Remove =&gt; {
-                self.data.pop();
+                self.counters.pop();
             }
             AppMsg::Clicked(index) =&gt; {
-                if let Some(data) = self.data.get_mut(index) {
-                    data.counter = data.counter.wrapping_sub(1);
+                if let Some(counter) = self.counters.get_mut(index) {
+                    counter.value = counter.value.wrapping_sub(1);
                 }
             }
         }
@@ -226,7 +226,7 @@ enum AppMsg {
 <h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
 <p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. For the factory type <code>FactoryVec</code> an index of the type <code>usize</code> is being used.</p>
 <pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
-        let button = gtk::Button::with_label(&amp;self.counter.to_string());
+        let button = gtk::Button::with_label(&amp;self.value.to_string());
         let index = *index;
         button.connect_clicked(move |_| {
             sender.send(AppMsg::Clicked(index)).unwrap();
@@ -244,7 +244,7 @@ enum AppMsg {
 <h3 id="the-update-function-1"><a class="header" href="#the-update-function-1">The update function</a></h3>
 <p>The update function is similar to <code>view</code> in the <code>Widgets</code> trait: it updates the widgets according to the updated data.</p>
 <pre><code class="language-rust no_run noplayground">    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
-        widgets.button.set_label(&amp;self.counter.to_string());
+        widgets.button.set_label(&amp;self.value.to_string());
     }
 </code></pre>
 <p>We just update the label of the button to represent the updated counter value.</p>
@@ -282,7 +282,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
                     set_orientation: gtk::Orientation::Vertical,
                     set_margin_all: 5,
                     set_spacing: 5,
-                    factory!(model.data),
+                    factory!(model.counters),
                 }
             }
         }
@@ -309,12 +309,12 @@ enum AppMsg {
 }
 
 struct Counter {
-    counter: u8,
+    value: u8,
 }
 
 struct AppModel {
-    data: FactoryVec&lt;Counter&gt;,
-    counter: u8,
+    counters: FactoryVec&lt;Counter&gt;,
+    created_counters: u8,
 }
 
 impl Model for AppModel {
@@ -327,17 +327,17 @@ impl AppUpdate for AppModel {
     fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
         match msg {
             AppMsg::Add =&gt; {
-                self.data.push(Counter {
-                    counter: self.counter,
+                self.counters.push(Counter {
+                    value: self.created_counters,
                 });
-                self.counter += 1;
+                self.created_counters += 1;
             }
             AppMsg::Remove =&gt; {
-                self.data.pop();
+                self.counters.pop();
             }
             AppMsg::Clicked(index) =&gt; {
-                if let Some(data) = self.data.get_mut(index) {
-                    data.counter = data.counter.wrapping_sub(1);
+                if let Some(counter) = self.counters.get_mut(index) {
+                    counter.value = counter.value.wrapping_sub(1);
                 }
             }
         }
@@ -357,7 +357,7 @@ impl FactoryPrototype for Counter {
     type Msg = AppMsg;
 
     fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
-        let button = gtk::Button::with_label(&amp;self.counter.to_string());
+        let button = gtk::Button::with_label(&amp;self.value.to_string());
         let index = *index;
         button.connect_clicked(move |_| {
             sender.send(AppMsg::Clicked(index)).unwrap();
@@ -369,7 +369,7 @@ impl FactoryPrototype for Counter {
     fn position(&amp;self, _index: &amp;usize) {}
 
     fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
-        widgets.button.set_label(&amp;self.counter.to_string());
+        widgets.button.set_label(&amp;self.value.to_string());
     }
 
     fn get_root(widgets: &amp;FactoryWidgets) -&gt; &amp;gtk::Button {
@@ -403,7 +403,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
                     set_orientation: gtk::Orientation::Vertical,
                     set_margin_all: 5,
                     set_spacing: 5,
-                    factory!(model.data),
+                    factory!(model.counters),
                 }
             }
         }
@@ -412,8 +412,8 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 
 fn main() {
     let model = AppModel {
-        data: FactoryVec::new(),
-        counter: 0,
+        counters: FactoryVec::new(),
+        created_counters: 0,
     };
 
     let relm = RelmApp::new(model);
