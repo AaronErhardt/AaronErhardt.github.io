@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["OpenDialogMsg",""]],"struct":[["OpenDialogModel",""],["OpenDialogSettings",""],["OpenDialogWidgets",""]],"trait":[["OpenDialogParent","Interface for the parent model"]]});
+initSidebarItems({"enum":[["OpenDialogMsg","Messages that can be sent to the open dialog component"]],"struct":[["OpenDialogModel","Model of the open dialog component"],["OpenDialogSettings","Configuration for the open dialog component"],["OpenDialogWidgets","Widgets of the open dialog component"]],"trait":[["OpenDialogParent","Interface for the parent model"]]});

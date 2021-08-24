@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["SaveDialogMsg",""]],"struct":[["SaveDialogModel",""],["SaveDialogSettings",""],["SaveDialogWidgets",""]],"trait":[["SaveDialogParent","Interface for the parent model"]]});
+initSidebarItems({"enum":[["SaveDialogMsg","Messages that can be sent to the save dialog component"]],"struct":[["SaveDialogModel","Model of the save dialog component"],["SaveDialogSettings","Configuration for the save dialog component"],["SaveDialogWidgets","Widgets for the save dialog"]],"trait":[["SaveDialogParent","Interface for the parent model of the save dialog"]]});

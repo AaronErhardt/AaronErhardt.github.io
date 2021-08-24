@@ -165,9 +165,9 @@ It is a new version of <a href="https://github.com/antoyo/relm">relm</a> that's 
 <h3 id="cargo"><a class="header" href="#cargo">Cargo</a></h3>
 <p>Add the packages you need to your Cargo.toml:</p>
 <pre><code class="language-toml">gtk = { version = &quot;0.2&quot;, package = &quot;gtk4&quot; }
-relm4 = &quot;0.1.0-beta.8&quot;
-relm4-macros = &quot;0.1.0-beta.8&quot;
-relm4-components = &quot;0.1.0-beta.8&quot;
+relm4 = &quot;0.1.0-beta.9&quot;
+relm4-macros = &quot;0.1.0-beta.9&quot;
+relm4-components = &quot;0.1.0-beta.9&quot;
 </code></pre>
 <h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
 <p>Many code examples in this book can also be found in the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">relm4-examples crate</a>. Whenever an example is discussed in the book, the introdutction will mention the name of the example and provide a link to it.</p>
@@ -478,7 +478,7 @@ fn main() {
 <blockquote>
 <p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple.rs">here</a>. Run <code>cargo run --example simple</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
-<h2 id="what-different"><a class="header" href="#what-different">What different?</a></h2>
+<h2 id="whats-different"><a class="header" href="#whats-different">What's different</a></h2>
 <p>The <code>widgets</code> macro will take care of creating the widgets <code>struct</code> and will also implement the <code>Widgets</code> trait for us. All other parts of the code remain untouched, so we can reuse most of the code from the previous chapter.</p>
 <p>Let's have a look at the macro and go through the code step by step:</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
@@ -1622,7 +1622,7 @@ fn main() {
 <p>I've already mentioned components several times in the previous chapters. Now we'll finally have a look at them.</p>
 <p>In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parent and children.</p>
 <h2 id="when-to-use-components"><a class="header" href="#when-to-use-components">When to use components</a></h2>
-<p>Components are mainly useful for separating parts of the UI into smaller, more manageable parts. Components are not necessary but for larger applications, they can be very helpful.</p>
+<p>Components are mainly useful for separating parts of the UI into smaller, more manageable parts. They are not necessary but for larger applications, they can be very helpful.</p>
 <h1 id="example-application"><a class="header" href="#example-application">Example application</a></h1>
 <p>Let's write a small example app to see how components can be used in action. For this example, we write parts of an app that can edit images.</p>
 <blockquote>
@@ -1648,7 +1648,7 @@ fn main() {
     Export,
 }
 </code></pre>
-<p>For components, we also need to implement the <code>Model</code> trait. The <code>Components</code> type is empty here because it refers to child components. We don't have any child components for our header bar so we use a <code>()</code>.</p>
+<p>For components we also need to implement the <code>Model</code> trait. The <code>Components</code> type is empty here because it refers to child components. We don't have any child components for our header bar so we use a <code>()</code>.</p>
 <pre><code class="language-rust no_run noplayground">impl Model for HeaderModel {
     type Msg = HeaderMsg;
     type Widgets = HeaderWidgets;
@@ -1726,7 +1726,7 @@ impl Widgets&lt;HeaderModel, AppModel&gt; for HeaderWidgets {
 }
 </code></pre>
 <h2 id="the-close-alert"><a class="header" href="#the-close-alert">The close alert</a></h2>
-<p>Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this - you might have guessed it already - we will use another component.</p>
+<p>Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this — you might have guessed it already — we will use another component.</p>
 <h3 id="the-model-5"><a class="header" href="#the-model-5">The model</a></h3>
 <p>The state of the dialog only needs to store whether or not it's hidden.</p>
 <pre><code class="language-rust no_run noplayground">struct DialogModel {

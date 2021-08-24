@@ -141,7 +141,7 @@
 <p>I've already mentioned components several times in the previous chapters. Now we'll finally have a look at them.</p>
 <p>In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parent and children.</p>
 <h2 id="when-to-use-components"><a class="header" href="#when-to-use-components">When to use components</a></h2>
-<p>Components are mainly useful for separating parts of the UI into smaller, more manageable parts. Components are not necessary but for larger applications, they can be very helpful.</p>
+<p>Components are mainly useful for separating parts of the UI into smaller, more manageable parts. They are not necessary but for larger applications, they can be very helpful.</p>
 <h1 id="example-application"><a class="header" href="#example-application">Example application</a></h1>
 <p>Let's write a small example app to see how components can be used in action. For this example, we write parts of an app that can edit images.</p>
 <blockquote>
@@ -167,7 +167,7 @@
     Export,
 }
 </code></pre>
-<p>For components, we also need to implement the <code>Model</code> trait. The <code>Components</code> type is empty here because it refers to child components. We don't have any child components for our header bar so we use a <code>()</code>.</p>
+<p>For components we also need to implement the <code>Model</code> trait. The <code>Components</code> type is empty here because it refers to child components. We don't have any child components for our header bar so we use a <code>()</code>.</p>
 <pre><code class="language-rust no_run noplayground">impl Model for HeaderModel {
     type Msg = HeaderMsg;
     type Widgets = HeaderWidgets;
@@ -245,7 +245,7 @@ impl Widgets&lt;HeaderModel, AppModel&gt; for HeaderWidgets {
 }
 </code></pre>
 <h2 id="the-close-alert"><a class="header" href="#the-close-alert">The close alert</a></h2>
-<p>Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this - you might have guessed it already - we will use another component.</p>
+<p>Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this — you might have guessed it already — we will use another component.</p>
 <h3 id="the-model-1"><a class="header" href="#the-model-1">The model</a></h3>
 <p>The state of the dialog only needs to store whether or not it's hidden.</p>
 <pre><code class="language-rust no_run noplayground">struct DialogModel {

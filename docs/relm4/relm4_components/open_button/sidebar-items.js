@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["OpenButtonComponents",""],["OpenButtonModel",""],["OpenButtonSettings",""],["OpenButtonWidgets",""]],"trait":[["OpenButtonParent",""]]});
+initSidebarItems({"struct":[["OpenButtonComponents","Components of the open button component"],["OpenButtonModel","Model of the open button component"],["OpenButtonSettings","Configuration for the open button component"],["OpenButtonWidgets","Widgets of the open button component"]],"trait":[["OpenButtonParent","Interface for the parent model of the open button component"]]});
