@@ -169,6 +169,16 @@ relm4 = &quot;0.1.0-beta.8&quot;
 relm4-macros = &quot;0.1.0-beta.8&quot;
 relm4-components = &quot;0.1.0-beta.8&quot;
 </code></pre>
+<h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
+<p>Many code examples in this book can also be found in the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">relm4-examples crate</a>. Whenever an example is discussed in the book, the introdutction will mention the name of the example and provide a link to it.</p>
+<p>To setup the examples run</p>
+<pre><code class="language-bash">git clone https://github.com/AaronErhardt/relm4.git
+cd relm4
+cd relm4-examples
+</code></pre>
+<p>And to run an example, simply type</p>
+<pre><code>cargo run --example NAME
+</code></pre>
 <h1 id="issues-and-feedback"><a class="header" href="#issues-and-feedback">Issues and feedback</a></h1>
 <p>If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at <a href="https://github.com/AaronErhardt/relm4/issues">GitHub</a> or chat with us on <a href="https://matrix.to/#/#relm4:matrix.org">Matrix</a>.</p>
 <h1 id="special-thanks"><a class="header" href="#special-thanks">Special thanks</a></h1>
@@ -178,7 +188,7 @@ relm4-components = &quot;0.1.0-beta.8&quot;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="your-first-app"><a class="header" href="#your-first-app">Your first app</a></h1>
 <p>For our first app, let's create something original: A simple counter app.</p>
 <blockquote>
-<p>An almost identical example called &quot;simple_manual&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple_manual.rs">here</a>. Run <code>cargo run --example simple_manual</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="the-basic-structure"><a class="header" href="#the-basic-structure">The basic structure</a></h2>
 <p>Relm4 builds on the Elm programming model. This means there are three important data types you need to define:</p>
@@ -466,7 +476,7 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-widget-macro"><a class="header" href="#the-widget-macro">The widget macro</a></h1>
 <p>To simplify the implementation of the <code>Widgets</code> trait, let's use the relm4-macros crate!</p>
 <blockquote>
-<p>An almost identical example called &quot;simple&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple.rs">here</a>. Run <code>cargo run --example simple</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="what-different"><a class="header" href="#what-different">What different?</a></h2>
 <p>The <code>widgets</code> macro will take care of creating the widgets <code>struct</code> and will also implement the <code>Widgets</code> trait for us. All other parts of the code remain untouched, so we can reuse most of the code from the previous chapter.</p>
@@ -682,7 +692,7 @@ fn main() {
 <h1 id="using-trackers-in-relm4-apps"><a class="header" href="#using-trackers-in-relm4-apps">Using trackers in Relm4 apps</a></h1>
 <p>Let's build a simple app that shows two random icons and allows the user to set each of them to a new random icon. As a bonus, we want to show a fancy background color if both icons are the same.</p>
 <blockquote>
-<p>An almost identical example called &quot;tracker&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tracker.rs">here</a>. Run <code>cargo run --example tracker</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="the-icons"><a class="header" href="#the-icons">The icons</a></h2>
 <p>Before we can select random icons, we need to quickly implement a function that will return us random image names that are available in the default GTK icon theme.</p>
@@ -958,7 +968,7 @@ fn main() {
 <h2 id="factories-in-relm4"><a class="header" href="#factories-in-relm4">Factories in Relm4</a></h2>
 <p>Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.</p>
 <blockquote>
-<p>An almost identical example called &quot;factory&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs">here</a>. Run <code>cargo run --example factory</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h3 id="the-model-2"><a class="header" href="#the-model-2">The model</a></h3>
 <p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> help us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. This is a simple data type provided by Relm4 that allows us to push, pop and modify elements and keep track of the changes made to the <code>FactoryVec</code>.</p>
@@ -1243,7 +1253,7 @@ fn main() {
 <p>The <code>FactoryVec</code> we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces additional complexity that needs to be taken care of but fortunately this is mostly handled by Relm4.</p>
 <p>To show this, we'll create a similar counter app to the one of the previous chapter, but this time on <strong>steroids</strong>: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the required flexibility, we'll use the <code>FactoryVecDeque</code> type instead of a <code>FactoryVec</code>.</p>
 <blockquote>
-<p>An almost identical example called &quot;factory_advanced&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory_advanced.rs">here</a>. Run <code>cargo run --example factory_advanced</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="indices"><a class="header" href="#indices">Indices</a></h2>
 <p>The indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
@@ -1616,7 +1626,7 @@ fn main() {
 <h1 id="example-application"><a class="header" href="#example-application">Example application</a></h1>
 <p>Let's write a small example app to see how components can be used in action. For this example, we write parts of an app that can edit images.</p>
 <blockquote>
-<p>An almost identical example called &quot;components&quot; is available <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">here</a> if you want to see the code in action.</p>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/components.rs">here</a>. Run <code>cargo run --example components</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h2 id="the-header-bar"><a class="header" href="#the-header-bar">The header bar</a></h2>
 <p>Our first component will be a header bar. There are not a lot of advantages for writing this component except for reducing the complexity in other parts of our UI.</p>
@@ -2183,7 +2193,7 @@ fn main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reusable-components"><a class="header" href="#reusable-components">Reusable components</a></h1>
 <p>In this chapter, we will implement a simple alert dialog as a reusable component.</p>
 <blockquote>
-<p>If you want to see the alert component, we will write in this chapter, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>.</p>
+<p>If you want to see an alert component, very similar to the one we will write in this chapter, used inside a Relm4 application have a look at the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs">“alert” example</a>. Run <code>cargo run --example alert</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <p>Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model defines a trait as an interface for the component.</p>
 <h2 id="the-parent-traits"><a class="header" href="#the-parent-traits">The parent traits</a></h2>

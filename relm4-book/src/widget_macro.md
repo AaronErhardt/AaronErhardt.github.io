@@ -2,7 +2,7 @@
 
 To simplify the implementation of the `Widgets` trait, let's use the relm4-macros crate!
 
-> An almost identical example called "simple" is available [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple.rs). Run `cargo run --example simple` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## What's different
 

@@ -39,6 +39,24 @@ relm4-macros = "0.1.0-beta.8"
 relm4-components = "0.1.0-beta.8"
 ```
 
+# Examples
+
+Many code examples in this book can also be found in the [relm4-examples crate](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples). Whenever an example is discussed in the book, the introdutction will mention the name of the example and provide a link to it.
+
+To setup the examples run
+
+```bash
+git clone https://github.com/AaronErhardt/relm4.git
+cd relm4
+cd relm4-examples
+```
+
+And to run an example, simply type
+
+```
+cargo run --example NAME
+```
+
 # Issues and feedback
 
 If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at [GitHub](https://github.com/AaronErhardt/relm4/issues) or chat with us on [Matrix](https://matrix.to/#/#relm4:matrix.org).
