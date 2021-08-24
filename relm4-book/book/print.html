@@ -981,7 +981,8 @@ struct AppModel {
     created_counters: u8,
 }
 </code></pre>
-<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a counter. Then we use a <code>FactoryVec</code> to store our counters in the model. Additionally, we add one separate counter to the model to count the amount of counters we created.</p>
+<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a single counter. Then we use a <code>FactoryVec</code> to store our counters in the model. For now, all of this is just data. Similar to the model type, we need to define the data structures we need for our UI first. Then we will define how to create widgets from this data. Yet unlike the model type, we can have many counters in a <code>FactoryVec</code> and each of them will be represented by its own widgets.</p>
+<p>To give our counters an unique value at initialization, we also add a separate counter to the model to count the amount of counters we did already create. </p>
 <h2 id="the-message-type"><a class="header" href="#the-message-type">The message type</a></h2>
 <p>The actions we want to perform are</p>
 <ul>
@@ -1339,14 +1340,14 @@ struct AppModel {
 <p>The factory implementation is mostly the same, so we'll just have a look at what has changed.</p>
 <h3 id="the-widgets-type"><a class="header" href="#the-widgets-type">The widgets type</a></h3>
 <p>Because we have four actions per counter now, we also need an additional box to store these buttons.</p>
-<pre><code class="language-rust no_run noplayground">struct FctryWidgets {
+<pre><code class="language-rust no_run noplayground">struct FactoryWidgets {
     hbox: gtk::Box,
     counter_button: gtk::Button,
 }
 </code></pre>
 <h3 id="the-generate-function-1"><a class="header" href="#the-generate-function-1">The generate function</a></h3>
 <p>For the generate function, we need to first generate the new buttons and the box.</p>
-<pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FctryWidgets {
+<pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
             .spacing(5)
@@ -1473,19 +1474,19 @@ impl AppUpdate for AppModel {
     }
 }
 
-struct FctryWidgets {
+struct FactoryWidgets {
     hbox: gtk::Box,
     counter_button: gtk::Button,
 }
 
 impl FactoryPrototype for Counter {
     type Factory = FactoryVecDeque&lt;Self&gt;;
-    type Widgets = FctryWidgets;
+    type Widgets = FactoryWidgets;
     type Root = gtk::Box;
     type View = gtk::Box;
     type Msg = AppMsg;
 
-    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FctryWidgets {
+    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
             .spacing(5)
@@ -1531,7 +1532,7 @@ impl FactoryPrototype for Counter {
             send!(sender, AppMsg::InsertAfter(index.clone()));
         });
 
-        FctryWidgets {
+        FactoryWidgets {
             hbox,
             counter_button,
         }
@@ -1539,10 +1540,10 @@ impl FactoryPrototype for Counter {
 
     fn position(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;) {}
 
-    fn update(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;, widgets: &amp;FctryWidgets) {
+    fn update(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;, widgets: &amp;FactoryWidgets) {
         widgets.counter_button.set_label(&amp;self.value.to_string());
     }
-    fn get_root(widget: &amp;FctryWidgets) -&gt; &amp;gtk::Box {
+    fn get_root(widget: &amp;FactoryWidgets) -&gt; &amp;gtk::Box {
         &amp;widget.hbox
     }
 }

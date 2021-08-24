@@ -230,14 +230,14 @@ struct AppModel {
 <p>The factory implementation is mostly the same, so we'll just have a look at what has changed.</p>
 <h3 id="the-widgets-type"><a class="header" href="#the-widgets-type">The widgets type</a></h3>
 <p>Because we have four actions per counter now, we also need an additional box to store these buttons.</p>
-<pre><code class="language-rust no_run noplayground">struct FctryWidgets {
+<pre><code class="language-rust no_run noplayground">struct FactoryWidgets {
     hbox: gtk::Box,
     counter_button: gtk::Button,
 }
 </code></pre>
 <h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
 <p>For the generate function, we need to first generate the new buttons and the box.</p>
-<pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FctryWidgets {
+<pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
             .spacing(5)
@@ -364,19 +364,19 @@ impl AppUpdate for AppModel {
     }
 }
 
-struct FctryWidgets {
+struct FactoryWidgets {
     hbox: gtk::Box,
     counter_button: gtk::Button,
 }
 
 impl FactoryPrototype for Counter {
     type Factory = FactoryVecDeque&lt;Self&gt;;
-    type Widgets = FctryWidgets;
+    type Widgets = FactoryWidgets;
     type Root = gtk::Box;
     type View = gtk::Box;
     type Msg = AppMsg;
 
-    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FctryWidgets {
+    fn generate(&amp;self, index: &amp;Rc&lt;DynamicIndex&gt;, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
             .spacing(5)
@@ -422,7 +422,7 @@ impl FactoryPrototype for Counter {
             send!(sender, AppMsg::InsertAfter(index.clone()));
         });
 
-        FctryWidgets {
+        FactoryWidgets {
             hbox,
             counter_button,
         }
@@ -430,10 +430,10 @@ impl FactoryPrototype for Counter {
 
     fn position(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;) {}
 
-    fn update(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;, widgets: &amp;FctryWidgets) {
+    fn update(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;, widgets: &amp;FactoryWidgets) {
         widgets.counter_button.set_label(&amp;self.value.to_string());
     }
-    fn get_root(widget: &amp;FctryWidgets) -&gt; &amp;gtk::Box {
+    fn get_root(widget: &amp;FactoryWidgets) -&gt; &amp;gtk::Box {
         &amp;widget.hbox
     }
 }

@@ -16,7 +16,9 @@ The most common solution for storing collections of data is a `Vec`. Yet a `Vec`
 {{#include ../listings/factory.rs:model }}
 ```
 
-As you can see, we first define the struct `Counter` that just stores the value of a counter. Then we use a `FactoryVec` to store our counters in the model. Additionally, we add one separate counter to the model to count the amount of counters we created.
+As you can see, we first define the struct `Counter` that just stores the value of a single counter. Then we use a `FactoryVec` to store our counters in the model. For now, all of this is just data. Similar to the model type, we need to define the data structures we need for our UI first. Then we will define how to create widgets from this data. Yet unlike the model type, we can have many counters in a `FactoryVec` and each of them will be represented by its own widgets.
+
+To give our counters an unique value at initialization, we also add a separate counter to the model to count the amount of counters we did already create. 
 
 ## The message type
 

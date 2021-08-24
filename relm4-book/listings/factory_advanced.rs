@@ -79,7 +79,7 @@ impl AppUpdate for AppModel {
 // ANCHOR_END: app_update
 
 // ANCHOR: factory_widgets
-struct FctryWidgets {
+struct FactoryWidgets {
     hbox: gtk::Box,
     counter_button: gtk::Button,
 }
@@ -87,13 +87,13 @@ struct FctryWidgets {
 
 impl FactoryPrototype for Counter {
     type Factory = FactoryVecDeque<Self>;
-    type Widgets = FctryWidgets;
+    type Widgets = FactoryWidgets;
     type Root = gtk::Box;
     type View = gtk::Box;
     type Msg = AppMsg;
 
     // ANCHOR: generate_start
-    fn generate(&self, index: &Rc<DynamicIndex>, sender: Sender<AppMsg>) -> FctryWidgets {
+    fn generate(&self, index: &Rc<DynamicIndex>, sender: Sender<AppMsg>) -> FactoryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
             .spacing(5)
@@ -145,7 +145,7 @@ impl FactoryPrototype for Counter {
         // ANCHOR_END: connect
 
         // ANCHOR: return
-        FctryWidgets {
+        FactoryWidgets {
             hbox,
             counter_button,
         }
@@ -154,10 +154,10 @@ impl FactoryPrototype for Counter {
 
     fn position(&self, _index: &Rc<DynamicIndex>) {}
 
-    fn update(&self, _index: &Rc<DynamicIndex>, widgets: &FctryWidgets) {
+    fn update(&self, _index: &Rc<DynamicIndex>, widgets: &FactoryWidgets) {
         widgets.counter_button.set_label(&self.value.to_string());
     }
-    fn get_root(widget: &FctryWidgets) -> &gtk::Box {
+    fn get_root(widget: &FactoryWidgets) -> &gtk::Box {
         &widget.hbox
     }
 }
