@@ -58,7 +58,7 @@ In our case, we just need a simple button that will decrement the counter when c
 {{#include ../listings/factory.rs:factory_widgets }}
 ```
 
-The `FactoryPrototype` trait we need next is very similar to the `Widgets` trait, too: it defines how widgets are created and updated. Let's have a look at the implementation:
+The `FactoryPrototype` trait we need next is also very similar to the `Widgets` trait: it defines how widgets are created and updated. Let's have a look at the implementation:
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory.rs:factory_prototype_start }}
