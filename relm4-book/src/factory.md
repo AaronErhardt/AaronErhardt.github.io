@@ -66,11 +66,11 @@ The `FactoryPrototype` trait we need next is very similar to the `Widgets` trait
 
 Alright, there are quite a few types! Let's look at them step by step:
 
-+ Factory: the data structure we use to store our elements. In our case, a `FactoryVec`.
-+ Widgets: the struct that stores out widgets. That's the `FactoryWidgets` type we just created.
-+ Root: similar to the root in the `Widgets` trait, it represents the outermost widget. This is usually a container like `gtk::Box` but in our case we just have a `gtk::Button`.
-+ View: the container we want our widgets to be placed inside. The simplest solution for this is a `gtk::Box`.
-+ Msg: the messages we want to send to the model containing this factory.
++ **Factory:** the data structure we use to store our elements. In our case, a `FactoryVec`.
++ **Widgets:** the struct that stores out widgets. That's the `FactoryWidgets` type we just created.
++ **Root:** similar to the root in the `Widgets` trait, it represents the outermost widget. This is usually a container like `gtk::Box` but in our case we just have a `gtk::Button`.
++ **View:** the container we want our widgets to be placed inside. The simplest solution for this is a `gtk::Box`.
++ **Msg:** the messages we want to send to the model containing this factory.
 
 ### The generate function
 
