@@ -64,7 +64,7 @@ The `FactoryPrototype` trait we need next is very similar to the `Widgets` trait
 {{#include ../listings/factory.rs:factory_prototype_start }}
 ```
 
-Alright, there are quite a few types! Let's look at them step by step:
+Alright, there are quite a few types! Let's look at them one by one:
 
 + **Factory:** the data structure we use to store our elements. In our case, a `FactoryVec`.
 + **Widgets:** the struct that stores out widgets. That's the `FactoryWidgets` type we just created.
