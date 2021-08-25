@@ -50,7 +50,7 @@ The update function takes care of adding, removing and decrementing counters. Ea
 
 So far the code looked pretty normal. Now to the interesting part of the code.
 
-The first thing we need to implement a factory is a widgets type. That sounds familiar, right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets represent an element inside a factory data structure like `FactoryVec`.
+The first thing we need to implement for a factory is a widgets type. That sounds familiar, right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets represent an element inside a factory data structure like `FactoryVec`.
 
 In our case, we just need a simple button that will decrement the counter when clicked and will also display the counter value.
 
