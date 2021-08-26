@@ -58,7 +58,7 @@ The factory implementation is mostly the same, so we'll just have a look at what
 
 ### The widgets type
 
-Because we have four actions per counter now, we also need an additional box to store these buttons.
+Because we need to be able to provide the root widget of the factory, in our case a box to contain the bottons, we add it to the data structure.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory_advanced.rs:factory_widgets }}
