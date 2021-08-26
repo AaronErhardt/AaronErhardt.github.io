@@ -20,9 +20,9 @@ Our first component will be a header bar. There are not a lot of advantages for 
 
 The header bar will have three buttons for three modes that our application can have:
 
-+ View: View the image.
-+ Edit: Edit the image.
-+ Export: Export the image in different formats.
++ **View:** View the image.
++ **Edit:** Edit the image.
++ **Export:** Export the image in different formats.
 
 We will not implement the actual functionality, but use placeholders instead to keep things simple.
 
