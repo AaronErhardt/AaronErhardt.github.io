@@ -59,7 +59,6 @@ The factory implementation is mostly the same, so we'll just have a look at what
 ### The widgets type
 
 Because we have four actions per counter now, we also need an additional box to store these buttons.
-
 To be able to provide the root widget via the `get_root` function we need add the box to the data structure.
 
 ```rust,no_run,noplayground
