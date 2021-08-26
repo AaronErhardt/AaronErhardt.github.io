@@ -28,7 +28,7 @@ We will not implement the actual functionality, but use placeholders instead to 
 
 ### The model
 
-Since we don't have any state to save in this component, we can leave the model empty.
+To keep this component simple we don't want to store the application's state here, but in the root component. Therefore we can leave the model empty.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:header_model }}
