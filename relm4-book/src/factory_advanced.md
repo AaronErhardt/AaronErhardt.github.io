@@ -12,7 +12,7 @@ To show this, we'll create a similar counter app to the one of the previous chap
 
 The indices of a `FactoryVec` were just numbers of type `usize`. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index `0`, the element that had index `0` before now has index `1` and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.
 
-One solution would be to recreate all signal handlers with the updated indices once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.
+One solution would be to recreate all signal handlers with the updated indices once an element's index has been changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.
 
 The solution Relm4 chose was dynamic indices. These indices are updated automatically to always point at the same element.
 
