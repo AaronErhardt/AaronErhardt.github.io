@@ -69,12 +69,12 @@
 <span id="69">69</span>
 <span id="70">70</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">proc_macro2</span>::{<span class="ident">Span</span>, <span class="ident">TokenStream</span> <span class="kw">as</span> <span class="ident">TokenStream2</span>};
+<span class="kw">use</span> <span class="ident">quote::quote</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::{
     <span class="ident">braced</span>,
     <span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseStream</span>},
-    <span class="ident">Generics</span>, <span class="ident">ImplItemMethod</span>, <span class="ident">Macro</span>, <span class="ident">Path</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>, <span class="ident">Type</span>, <span class="ident">WhereClause</span>, <span class="ident">Attribute</span>,
+    <span class="ident">Attribute</span>, <span class="ident">Generics</span>, <span class="ident">ImplItemMethod</span>, <span class="ident">Macro</span>, <span class="ident">Path</span>, <span class="prelude-ty">Result</span>, <span class="ident">Token</span>, <span class="ident">Type</span>, <span class="ident">WhereClause</span>,
 };
-<span class="kw">use</span> <span class="ident">quote::quote</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct</span> <span class="ident">ItemImpl</span> {
