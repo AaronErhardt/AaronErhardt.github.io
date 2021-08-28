@@ -971,7 +971,7 @@ fn main() {
 <p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs">here</a>. Run <code>cargo run --example factory</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
 <h3 id="the-model-2"><a class="header" href="#the-model-2">The model</a></h3>
-<p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> can't help us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. A <code>FactoryVec</code> is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Also, it automatically keeps track of all the changes made its data.</p>
+<p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> can't help us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. A <code>FactoryVec</code> is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Additionally, it automatically keeps track of all the changes made to itself.</p>
 <pre><code class="language-rust no_run noplayground">struct Counter {
     value: u8,
 }
@@ -1028,7 +1028,7 @@ enum AppMsg {
 </blockquote>
 <h2 id="the-factory-implementation"><a class="header" href="#the-factory-implementation">The factory implementation</a></h2>
 <p>So far the code looked pretty normal. Now to the interesting part of the code.</p>
-<p>The first thing we need to implement a factory is a widgets type. That sounds familiar, right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets represent an element inside a factory data structure like <code>FactoryVec</code>.</p>
+<p>The first thing we need to implement for a factory is a widgets type. That sounds familiar, right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets represent an element inside a factory data structure like <code>FactoryVec</code>.</p>
 <p>In our case, we just need a simple button that will decrement the counter when clicked and will also display the counter value.</p>
 <pre><code class="language-rust no_run noplayground">struct FactoryWidgets {
     button: gtk::Button,
@@ -1042,13 +1042,13 @@ enum AppMsg {
     type View = gtk::Box;
     type Msg = AppMsg;
 </code></pre>
-<p>Alright, there are quite a few types! Let's look at them step by step:</p>
+<p>Alright, there are quite a few types! Let's look at them one by one:</p>
 <ul>
-<li>Factory: the data structure we use to store our elements. In our case, a <code>FactoryVec</code>.</li>
-<li>Widgets: the struct that stores out widgets. That's the <code>FactoryWidgets</code> type we just created.</li>
-<li>Root: similar to the root in the <code>Widgets</code> trait, it represents the outermost widget. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
-<li>View: the container we want our widgets to be placed inside. The simplest solution for this is a <code>gtk::Box</code>.</li>
-<li>Msg: the messages we want to send to the model containing this factory.</li>
+<li><strong>Factory:</strong> the data structure we use to store our elements. In our case, a <code>FactoryVec</code>.</li>
+<li><strong>Widgets:</strong> the struct that stores out widgets. That's the <code>FactoryWidgets</code> type we just created.</li>
+<li><strong>Root:</strong> similar to the root in the <code>Widgets</code> trait, it represents the outermost widget. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
+<li><strong>View:</strong> the container we want our widgets to be placed inside. The simplest solution for this is a <code>gtk::Box</code>.</li>
+<li><strong>Msg:</strong> the messages we want to send to the model containing this factory.</li>
 </ul>
 <h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
 <p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. For the factory type <code>FactoryVec</code> an index of the type <code>usize</code> is being used.</p>
@@ -1258,7 +1258,7 @@ fn main() {
 </blockquote>
 <h2 id="indices"><a class="header" href="#indices">Indices</a></h2>
 <p>The indices of a <code>FactoryVec</code> were just numbers of type <code>usize</code>. That's great unless elements can move and change their index. This tragedy starts when we, for example, add an element to the front: the new element now has index <code>0</code>, the element that had index <code>0</code> before now has index <code>1</code> and so on. Adding one element will shift the indices of all following elements. If we naively create a signal handler similar to the previous chapter were we just copied the index at start and moved it into the closure, we will quickly end up with quite wrong or even out-of-bounds indices as elements are added and removed at arbitrary positions.</p>
-<p>One solution would be to recreate all signal handlers with the updated indices once an element's index is changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
+<p>One solution would be to recreate all signal handlers with the updated indices once an element's index has been changed. However, that's complicated because you need to remove the old signal handlers first and therefore you have to store all signal handler IDs.</p>
 <p>The solution Relm4 chose was dynamic indices. These indices are updated automatically to always point at the same element.</p>
 <h3 id="the-message-type-1"><a class="header" href="#the-message-type-1">The message type</a></h3>
 <pre><code class="language-rust no_run noplayground">enum AppMsg {
@@ -1543,6 +1543,7 @@ impl FactoryPrototype for Counter {
     fn update(&amp;self, _index: &amp;Rc&lt;DynamicIndex&gt;, widgets: &amp;FactoryWidgets) {
         widgets.counter_button.set_label(&amp;self.value.to_string());
     }
+    
     fn get_root(widget: &amp;FactoryWidgets) -&gt; &amp;gtk::Box {
         &amp;widget.hbox
     }
@@ -1633,9 +1634,9 @@ fn main() {
 <p>Our first component will be a header bar. There are not a lot of advantages for writing this component except for reducing the complexity in other parts of our UI.</p>
 <p>The header bar will have three buttons for three modes that our application can have:</p>
 <ul>
-<li>View: View the image.</li>
-<li>Edit: Edit the image.</li>
-<li>Export: Export the image in different formats.</li>
+<li><strong>View:</strong> View the image.</li>
+<li><strong>Edit:</strong> Edit the image.</li>
+<li><strong>Export:</strong> Export the image in different formats.</li>
 </ul>
 <p>We will not implement the actual functionality, but use placeholders instead to keep things simple.</p>
 <h3 id="the-model-4"><a class="header" href="#the-model-4">The model</a></h3>

@@ -157,6 +157,7 @@ impl FactoryPrototype for Counter {
     fn update(&self, _index: &Rc<DynamicIndex>, widgets: &FactoryWidgets) {
         widgets.counter_button.set_label(&self.value.to_string());
     }
+    
     fn get_root(widget: &FactoryWidgets) -> &gtk::Box {
         &widget.hbox
     }
