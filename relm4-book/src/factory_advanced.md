@@ -24,9 +24,9 @@ The solution Relm4 chose was dynamic indices. These indices are updated automati
 {{#include ../listings/factory_advanced.rs:msg }}
 ```
 
-As you can see, we use a lot of `Rc<DynamicIndex>`. This allows us to always hold a reference to the dynamic index value.
+As you can see, we use a lot of `MsgIndex` aka `Weak<DynamicIndex>`. This allows us to always hold a reference to the dynamic index value.
 
-> You might consider using `Weak` instead of `Rc` for messages because `Rc` will keep alive indices of removed elements inside queued messages (which rarely happens). For simplicity, we will use `Rc` here.
+The reason we use weak pointers here is that we don’t want to hold references to invalid indices. We don’t know if our messages are handled immediately or queued up instead, so the data the index was pointing at could have been replaced by a new data in the meantime. Usually this happens so rarely that this can be ignored, but with the weak pointers we guarantee that the indices are not kept alive in the message queue and we will never use a stale index.
 
 ### The model
 
@@ -59,7 +59,7 @@ The factory implementation is mostly the same, so we'll just have a look at what
 ### The widgets type
 
 Because we have four actions per counter now, we also need an additional box to store these buttons.
-To be able to provide the root widget via the `get_root` function we need to store the box in the widget type.
+To be able to provide the root widget via the `get_root` function we need to store the box in the widgets type.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory_advanced.rs:factory_widgets }}
@@ -79,7 +79,7 @@ Then we need to place the buttons inside of the box.
 {{#include ../listings/factory_advanced.rs:append }}
 ```
 
-Now we can connect the messages. Note that we always send a cloned `Rc` of our dynamic index.
+Now we can connect the messages. We always send a weak pointer of our dynamic index.
 
 ```rust,no_run,noplayground
 {{#include ../listings/factory_advanced.rs:connect }}

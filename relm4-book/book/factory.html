@@ -146,6 +146,9 @@
 </blockquote>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
 <p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> can't help us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. A <code>FactoryVec</code> is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Additionally, it automatically keeps track of all the changes made to itself.</p>
+<blockquote>
+<p>An overview over all available factory data structures can be found in the documentation <a href="https://aaronerhardt.github.io/docs/relm4/relm4/factory/collections/index.html">here</a>.</p>
+</blockquote>
 <pre><code class="language-rust no_run noplayground">struct Counter {
     value: u8,
 }
