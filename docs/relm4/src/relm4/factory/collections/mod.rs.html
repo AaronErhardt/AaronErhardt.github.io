@@ -11,13 +11,31 @@
 <span id="11">11</span>
 <span id="12">12</span>
 <span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Containers similar to [`std::collections`] that implement the [`Factory`](super::Factory) trait.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Which factory type to use</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Use [`FactoryVec`] if you only need to push and pop at the back.</span>
 <span class="doccomment">//! If you need more flexibility for example for pushing or removing items at</span>
-<span class="doccomment">//! arbitraty indices use [`FactoryVecDeque`].</span>
+<span class="doccomment">//! arbitrary indices use [`FactoryVecDeque`].</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Also, [`FactoryVec`] works with all container widgets that implement</span>
+<span class="doccomment">//! [`FactoryView`](super::FactoryView) such as [`gtk::Box`] or [`gtk::Grid`].</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [`FactoryVecDeque`] additionally needs container widgets to implement the</span>
+<span class="doccomment">//! [`FactoryListView`](super::FactoryListView) trait that&#39;s implements support</span>
+<span class="doccomment">//! for adding and removing widgets at arbitrary positions.</span>
+<span class="doccomment">//! [`gtk::Grid`] for example only works with [`FactoryVec`] but not with</span>
+<span class="doccomment">//! [`FactoryVecDeque`] because widgets can&#39;t be inserted at arbitrary positions.</span>
 
 <span class="kw">mod</span> <span class="ident">factory_vec</span>;
 <span class="kw">mod</span> <span class="ident">factory_vec_deque</span>;
