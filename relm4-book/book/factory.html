@@ -244,7 +244,9 @@ enum AppMsg {
 <p>In our case, the function is pretty short:</p>
 <pre><code class="language-rust no_run noplayground">    fn position(&amp;self, _index: &amp;usize) {}
 </code></pre>
-<p>It's not very useful here because a <code>gtk::Box</code> does not use fixed positions for widgets placed inside it. However, if we used a <code>gtk::Grid</code> instead we would need to specify where (row, column, etc.) to add new elements.</p>
+<p>Some container widgets such as <code>gtk::Grid</code> need to know exactly where to add new elements (row, column, width and height). Because the factory can't guess where you want to add new widgets, you need to specify the widget placement in the position function. For example, you could have three elements per row or per column or any other layout you want.</p>
+<p><img src="img/grid_layout.svg" alt="Grid layout example" /></p>
+<p>However, in our case we don't need that because we use a <code>gtk::Box</code> that does not have fixed positions but acts like a stack that shifts all items when a new item is added at the front.</p>
 <h3 id="the-update-function-1"><a class="header" href="#the-update-function-1">The update function</a></h3>
 <p>The update function is similar to <code>view</code> in the <code>Widgets</code> trait: it updates the widgets according to the updated data.</p>
 <pre><code class="language-rust no_run noplayground">    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
