@@ -28,7 +28,7 @@ We will not implement the actual functionality, but use placeholders instead to 
 
 ### The model
 
-Since we don't have any state to save in this component, we can leave the model empty.
+Usually you want to store everything that only affects your component in the state of the component. In this case however, there is no state that can be stored in the component, but only state that affects the root component (app). Therefore, we leave the model empty and only send messages to the root component.
 
 ```rust,no_run,noplayground
 {{#include ../listings/components.rs:header_model }}

@@ -157,7 +157,7 @@
 </ul>
 <p>We will not implement the actual functionality, but use placeholders instead to keep things simple.</p>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
-<p>Since we don't have any state to save in this component, we can leave the model empty.</p>
+<p>Usually you want to store everything that only affects your component in the state of the component. In this case however, there is no state that can be stored in the component, but only state that affects the root component (app). Therefore, we leave the model empty and only send messages to the root component.</p>
 <pre><code class="language-rust no_run noplayground">struct HeaderModel {}
 </code></pre>
 <p>The message type allows us to switch between the modes.</p>
