@@ -105,6 +105,12 @@ As reference in an `Option`:
 property_name = Some(&gtk::Box) { ... }
 ```
 
+Pass additional arguments with the widget. This will call `widget.property_name(box_widget, value1, value2, ...)` and can be used to call [attach](https://aaronerhardt.github.io/docs/relm4/gtk4/prelude/trait.GridExt.html#tymethod.attach) on a `gtk::Grid` for example.
+
+```rust,no_run,noplayground
+property_name(value1, value2, ...) = gtk::Box { ... }
+```
+
 The type of the widget created in all the examples above will always be `gtk::Box`. However, some properties are set with references or references in `Options` where this syntax becomes handy.
 
 ### Functions

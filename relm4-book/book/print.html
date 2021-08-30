@@ -2567,6 +2567,9 @@ where
 <p>As reference in an <code>Option</code>:</p>
 <pre><code class="language-rust no_run noplayground">property_name = Some(&amp;gtk::Box) { ... }
 </code></pre>
+<p>Pass additional arguments with the widget. This will call <code>widget.property_name(box_widget, value1, value2, ...)</code> and can be used to call <a href="https://aaronerhardt.github.io/docs/relm4/gtk4/prelude/trait.GridExt.html#tymethod.attach">attach</a> on a <code>gtk::Grid</code> for example.</p>
+<pre><code class="language-rust no_run noplayground">property_name(value1, value2, ...) = gtk::Box { ... }
+</code></pre>
 <p>The type of the widget created in all the examples above will always be <code>gtk::Box</code>. However, some properties are set with references or references in <code>Options</code> where this syntax becomes handy.</p>
 <h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
 <p>Sometimes there's no default implementation for a widget, so you need a constructor or you want to pass a function that returns the widget.</p>
