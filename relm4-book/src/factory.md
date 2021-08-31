@@ -92,11 +92,9 @@ In our case, the function is pretty short:
 {{#include ../listings/factory.rs:position }}
 ```
 
-Some container widgets such as `gtk::Grid` need to know exactly where to add new elements (row, column, width and height). Because the factory can't guess where you want to add new widgets, you need to specify the widget placement in the position function. For example, you could have three elements per row or per column or any other layout you want.
+The `gtk::Box` we use here is one-dimensional. This means that a `FactoryVec` can perfectly resemble the layout with its own internal structure because it's one-dimenational as well. In other words, the first element of the `FactoryVec` is also the first in the `gtk::Box`. Yet, some container widgets such as `gtk::Grid` place widgets at fixed two-dimensional positions and rely in the position function to know where a new widget should be added.
 
-![Grid layout example](img/grid_layout.svg)
-
-However, in our case we don't need that because we use a `gtk::Box` that does not have fixed positions but acts like a stack that shifts all items when a new item is added at the front.
+Because we don't use it here, the position function is explained in the next chapter.
 
 ### The update function
 

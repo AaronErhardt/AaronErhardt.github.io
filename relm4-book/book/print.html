@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="widget_macro_expansion.html"><strong aria-hidden="true">8.1.</strong> Macro expansion</a></li></ol></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="factory_position.html"><strong aria-hidden="true">3.2.1.</strong> The position function</a></li></ol></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="widget_macro_expansion.html"><strong aria-hidden="true">8.1.</strong> Macro expansion</a></li></ol></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -140,7 +140,7 @@
                     <main>
                         <h1 id="about"><a class="header" href="#about">About</a></h1>
 <p>Relm4 is an idiomatic GUI library inspired by <a href="https://elm-lang.org/">Elm</a> and based on <a href="https://crates.io/crates/gtk4">gtk4-rs</a>. 
-It is a new version of <a href="https://github.com/antoyo/relm">relm</a> that's built from scratch and is compatible with <a href="https://www.gtk.org/">GTK4</a>.</p>
+It's is a new version of <a href="https://github.com/antoyo/relm">relm</a> that's built from scratch and is compatible with <a href="https://www.gtk.org/">GTK4</a> and <a href="https://gitlab.gnome.org/GNOME/libadwaita">libadwaita</a>.</p>
 <h2 id="goals"><a class="header" href="#goals">Goals</a></h2>
 <ul>
 <li>⏱️ <strong>Productivity:</strong> Writing Relm4 applications should be intuitive and efficient</li>
@@ -1070,9 +1070,8 @@ enum AppMsg {
 <p>In our case, the function is pretty short:</p>
 <pre><code class="language-rust no_run noplayground">    fn position(&amp;self, _index: &amp;usize) {}
 </code></pre>
-<p>Some container widgets such as <code>gtk::Grid</code> need to know exactly where to add new elements (row, column, width and height). Because the factory can't guess where you want to add new widgets, you need to specify the widget placement in the position function. For example, you could have three elements per row or per column or any other layout you want.</p>
-<p><img src="img/grid_layout.svg" alt="Grid layout example" /></p>
-<p>However, in our case we don't need that because we use a <code>gtk::Box</code> that does not have fixed positions but acts like a stack that shifts all items when a new item is added at the front.</p>
+<p>The <code>gtk::Box</code> we use here is one-dimensional. This means that a <code>FactoryVec</code> can perfectly resemble the layout with its own internal structure because it's one-dimenational as well. In other words, the first element of the <code>FactoryVec</code> is also the first in the <code>gtk::Box</code>. Yet, some container widgets such as <code>gtk::Grid</code> place widgets at fixed two-dimensional positions and rely in the position function to know where a new widget should be added.</p>
+<p>Because we don't use it here, the position function is explained in the next chapter.</p>
 <h3 id="the-update-function-1"><a class="header" href="#the-update-function-1">The update function</a></h3>
 <p>The update function is similar to <code>view</code> in the <code>Widgets</code> trait: it updates the widgets according to the updated data.</p>
 <pre><code class="language-rust no_run noplayground">    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
@@ -1252,6 +1251,55 @@ fn main() {
     relm.run();
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-position-function-1"><a class="header" href="#the-position-function-1">The position function</a></h1>
+<p>Most widgets such as <code>gtk::Box</code> don't use the position function because they are one-dimensional and place widgets relative to each other. However, a few widgets such as <code>gtk::Grid</code> use fixed positions and need the position function to work inside a factory.</p>
+<blockquote>
+<p>The code we will use in this chapter is based on the grid_factory example <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/grid_factory.rs">here</a>. Run <code>cargo run --example grid_factory</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
+</blockquote>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<p>Let's take a grid as an example. For a grid, there are many possibilities to place your widgets. You can, for example, place three, four or five widgets per row or you could place a certain amount of widgets per column. You can even create patterns like a chess grid if you want to.</p>
+<p>However, we want to use a factory for generating our widgets, which means we only have the index to calculate the desired two-dimensional position. In the simplest case, we create a layout that places a certain amount of widgets per row or per column.</p>
+<p><img src="img/grid_layout.svg" alt="Grid layout example" /></p>
+<p>To place 3 elements per row from left to right in a <code>gtk::Grid</code> we could use the following position function.</p>
+<pre><code class="language-rust no_run noplayground">    fn position(&amp;self, index: &amp;usize) -&gt; GridPosition {
+        let index = *index as i32;
+
+        let row = index / 3;
+        let column = index % 3;
+
+        GridPosition {
+            column,
+            row,
+            width: 1,
+            height: 1,
+        }
+    }
+</code></pre>
+<p>And indeed, it works as expected.</p>
+<p><img src="img/row_grid_screenshot.png" alt="Row placement grid screenshot" /></p>
+<h2 id="a-chess-grid"><a class="header" href="#a-chess-grid">A chess grid</a></h2>
+<p>Let's have a look at a more complex layout. It's unlikely that this would be used in a real application, but it's still interesting to have a look at it.</p>
+<p>To create a chess grid layout, we need to place our widgets only on fields of one color and leave the other fields empty. Or in other words, we only place widgets on the fields a bishop can reach.</p>
+<p><img src="img/chess_layout.svg" alt="Grid layout example" /></p>
+<p>Actually, the code isn't too complicated.</p>
+<pre><code class="language-rust no_run noplayground">    fn position(&amp;self, index: &amp;usize) -&gt; GridPosition {
+        let index = *index as i32;
+
+        // add a new row for every 5 elements
+        let row = index / 5;
+        // use every second column and move columns in uneven rows by 1
+        let column = (index % 5) * 2 + row % 2;
+
+        GridPosition {
+            column,
+            row,
+            width: 1,
+            height: 1,
+        }
+    }
+</code></pre>
+<p>And as you can see, it works!</p>
+<p><img src="img/chess_grid_screenshot.png" alt="Chess grid layout screenshot" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="advanced-factories"><a class="header" href="#advanced-factories">Advanced factories</a></h1>
 <blockquote>
 <p>If you're not familiar with the <code>Rc</code> type of the standard library, have a look at <a href="https://doc.rust-lang.org/std/rc/index.html">this</a>.</p>

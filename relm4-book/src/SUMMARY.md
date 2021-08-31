@@ -7,6 +7,7 @@
 - [Efficient UI updates](./efficient_ui.md)
   - [Tracker](./tracker.md)
   - [Factories](./factory.md)
+    - [The position function](./factory_position.md)
   - [Advanced factories](./factory_advanced.md)
 - [Components](./components.md)
 - [Workers](./worker.md)
