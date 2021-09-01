@@ -35,6 +35,17 @@ There's one problem for the components, though. Components have widgets that, in
 
 Async update functions are exclusive for workers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an `AsyncRelmWorker` type that uses an async update function from the `AsyncComponentUpdate` trait. Apart from that, they are just like normal workers that run in a new thread. The ["tokio" example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs) shows how this can be used with for async HTTP requests.
 
+### Non blocking async
+
+Technically, async workers will always block between messages. They can run non-blocking code from their update function but they can not handle more than one message at the time. This can be too slow in some cases. 
+
+For example, if you have an app that fetches the avatar images of many users and you send one message to your worker for every avatar image, the worker will fetch the images one after the other. This wouldn't be much better than blocking requests and may take some time.
+
+There are two ways to improve this: 
+
++ Send a vector with all avatar images you need to your worker, so it can send all asynchronous requests at once.
++ Create your own async runtime that handles messages truly asynchronous. This is shown in the [non_blocking_async example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs).
+
 ## The message queue problem
 
 Because workers tend to take a lot of time during the update function you should make sure to not bombard them with messages. Imagine you have a button in your application that allows the user to update a web page. If the user presses the button, a new request is sent by a worker that responds with a message once the request is completed. If the button can be clicked and a message is sent for each click while the worker is fetching the web page you could quickly have a lot of unprocessed messages in the queue of your worker. To avoid this, make sure to only send the message once and wait until the worker is finished.
