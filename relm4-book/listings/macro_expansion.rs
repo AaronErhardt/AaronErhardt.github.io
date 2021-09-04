@@ -152,20 +152,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
         sender: ::gtk::glib::Sender<<AppModel as ::relm4::Model>::Msg>,
     ) -> Self {
         let mut test_field = 0;
-        {
-            ::std::io::_print(
-                match match (&test_field,) {
-                    (arg0,) => [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args => unsafe {
-                        ::core::fmt::Arguments::new_v1(&["Pre init! test_field: ", "\n"], args)
-                    },
-                },
-            );
-        };
+        println!("Pre init! test_field: {}", test_field);
 // ANCHOR_END: pre_init
 // ANCHOR: widget_init
         let main_window =
@@ -205,35 +192,9 @@ impl Widgets<AppModel, ()> for AppWidgets {
             inc_button.add_css_class(__elem);
         }
 // ANCHOR_END: property_assign
-        _gtk_button_new_1.set_label(&{
-            let res = ::alloc::fmt::format(
-                match match (&model.counter,) {
-                    (arg0,) => [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args => unsafe {
-                        ::core::fmt::Arguments::new_v1(&["Last decrement at "], args)
-                    },
-                },
-            );
-            res
-        });
+        _gtk_button_new_1.set_label(&format!("Last decrement at {}", model.counter));
         _new_label_2.set_margin_all(5);
-        _new_label_2.set_label(&{
-            let res = ::alloc::fmt::format(
-                match match (&model.counter,) {
-                    (arg0,) => [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args => unsafe { ::core::fmt::Arguments::new_v1(&["Counter: "], args) },
-                },
-            );
-            res
-        });
+        _new_label_2.set_label(&format!("Counter: {}", model.counter));
         _gtk_grid_6.set_vexpand(true);
         _gtk_grid_6.set_hexpand(true);
         _gtk_grid_6.set_row_spacing(10);
@@ -250,40 +211,21 @@ impl Widgets<AppModel, ()> for AppWidgets {
             #[allow(clippy::redundant_clone)]
             let sender = sender.clone();
             inc_button.connect_clicked(move |_| {
-                sender
-                    .clone()
-                    .send(AppMsg::Increment)
-                    .expect("Receiver was dropped!");
+                send!(sender, AppMsg::Increment);
             });
         }
         {
             #[allow(clippy::redundant_clone)]
             let sender = sender.clone();
             _gtk_button_new_1.connect_clicked(move |_| {
-                sender
-                    .clone()
-                    .send(AppMsg::Decrement)
-                    .expect("Receiver was dropped!");
+                send!(sender, AppMsg::Decrement);
             });
         }
 // ANCHOR_END: connect
 // ANCHOR: post_init
         relm4::set_global_css(b".first { color: green; } .second { border: 1px solid orange; }");
         test_field = 42;
-        {
-            ::std::io::_print(
-                match match (&test_field,) {
-                    (arg0,) => [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args => unsafe {
-                        ::core::fmt::Arguments::new_v1(&["Post init! test_field: ", "\n"], args)
-                    },
-                },
-            );
-        };
+        println!("Post init! test_field: {}", test_field);
 // ANCHOR_END: post_init
 // ANCHOR: return
         Self {
@@ -298,8 +240,8 @@ impl Widgets<AppModel, ()> for AppWidgets {
             _gtk_label_5,
             test_field,
         }
-// ANCHOR_END: return
     }
+// ANCHOR_END: return
     
 // ANCHOR: connect_components
     fn connect_components(&self, components: &<AppModel as ::relm4::Model>::Components) {
@@ -323,53 +265,14 @@ impl Widgets<AppModel, ()> for AppWidgets {
         sender: ::gtk::glib::Sender<<AppModel as ::relm4::Model>::Msg>,
     ) {
         self.test_field += 1;
-        {
-            ::std::io::_print(
-                match match (&self.test_field,) {
-                    (arg0,) => [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args => unsafe {
-                        ::core::fmt::Arguments::new_v1(&["Manual view! test_field: ", "\n"], args)
-                    },
-                },
-            );
-        };
+        println!("Manual view! test_field: {}", self.test_field);
 // ANCHOR_END: manual_view
 
 // ANCHOR: macro_view
-        self._new_label_2.set_label(&{
-            let res = ::alloc::fmt::format(
-                match match (&model.counter,) {
-                    (arg0,) => [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args => unsafe { ::core::fmt::Arguments::new_v1(&["Counter: "], args) },
-                },
-            );
-            res
-        });
+        self._new_label_2.set_label(&format!("Counter: {}", model.counter));
         
         if model.decrement {
-            self._gtk_button_new_1.set_label(&{
-                let res = ::alloc::fmt::format(
-                    match match (&model.counter,) {
-                        (arg0,) => [::core::fmt::ArgumentV1::new(
-                            arg0,
-                            ::core::fmt::Display::fmt,
-                        )],
-                    } {
-                        ref args => unsafe {
-                            ::core::fmt::Arguments::new_v1(&["Last decrement at "], args)
-                        },
-                    },
-                );
-                res
-            });
+            self._gtk_button_new_1.set_label(&format!("Last decrement at {}", model.counter));
         }
 // ANCHOR_END: macro_view
     }

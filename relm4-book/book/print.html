@@ -2910,22 +2910,9 @@ struct AppWidgets {
         sender: ::gtk::glib::Sender&lt;&lt;AppModel as ::relm4::Model&gt;::Msg&gt;,
     ) -&gt; Self {
         let mut test_field = 0;
-        {
-            ::std::io::_print(
-                match match (&amp;test_field,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe {
-                        ::core::fmt::Arguments::new_v1(&amp;[&quot;Pre init! test_field: &quot;, &quot;\n&quot;], args)
-                    },
-                },
-            );
-        };
+        println!(&quot;Pre init! test_field: {}&quot;, test_field);
 </code></pre>
-<p>The code looks different because the <code>println!</code> macro was expanded, too, but apart from that, the code is identical.</p>
+<p>It's exactly the the code of the <code>pre_init()</code> function.</p>
 <pre><code class="language-rust no_run noplayground">    fn pre_init() {
         let mut test_field = 0;
         println!(&quot;Pre init! test_field: {}&quot;, test_field);
@@ -2973,27 +2960,23 @@ struct AppWidgets {
 <p>At the end we have our iterator from the macro. </p>
 <pre><code class="language-rust no_run noplayground">                    add_css_class: iterate!(&amp;model.classes),
 </code></pre>
+<blockquote>
 <p>There are some properties missing here because I only showed the relevant section for the purpose of this book.</p>
+</blockquote>
 <h4 id="events-1"><a class="header" href="#events-1">Events</a></h4>
 <p>Now the macro generates the code for connecting events.</p>
 <pre><code class="language-rust no_run noplayground">        {
             #[allow(clippy::redundant_clone)]
             let sender = sender.clone();
             inc_button.connect_clicked(move |_| {
-                sender
-                    .clone()
-                    .send(AppMsg::Increment)
-                    .expect(&quot;Receiver was dropped!&quot;);
+                send!(sender, AppMsg::Increment);
             });
         }
         {
             #[allow(clippy::redundant_clone)]
             let sender = sender.clone();
             _gtk_button_new_1.connect_clicked(move |_| {
-                sender
-                    .clone()
-                    .send(AppMsg::Decrement)
-                    .expect(&quot;Receiver was dropped!&quot;);
+                send!(sender, AppMsg::Decrement);
             });
         }
 </code></pre>
@@ -3002,27 +2985,14 @@ struct AppWidgets {
                         send!(sender, AppMsg::Decrement);
                     },
 </code></pre>
-<p>The <code>send!</code> macro was expanded, too, and the sender we put in the parenthesis is cloned as we requested.</p>
+<p>Most notably, the sender we put in the parenthesis is cloned as we requested.</p>
 <h4 id="post-initialization"><a class="header" href="#post-initialization">Post-initialization</a></h4>
 <p>At the end, we find the code of our <code>post_init()</code> function.</p>
 <pre><code class="language-rust no_run noplayground">        relm4::set_global_css(b&quot;.first { color: green; } .second { border: 1px solid orange; }&quot;);
         test_field = 42;
-        {
-            ::std::io::_print(
-                match match (&amp;test_field,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe {
-                        ::core::fmt::Arguments::new_v1(&amp;[&quot;Post init! test_field: &quot;, &quot;\n&quot;], args)
-                    },
-                },
-            );
-        };
+        println!(&quot;Post init! test_field: {}&quot;, test_field);
 </code></pre>
-<p>Again, the greatest difference is the expanded <code>println!</code> macro.</p>
+<p>Again, the code is exactly the same.</p>
 <pre><code class="language-rust no_run noplayground">    fn post_init() {
         relm4::set_global_css(b&quot;.first { color: green; } .second { border: 1px solid orange; }&quot;);
         test_field = 42;
@@ -3043,6 +3013,7 @@ struct AppWidgets {
             _gtk_label_5,
             test_field,
         }
+    }
 </code></pre>
 <h4 id="components-1"><a class="header" href="#components-1">Components</a></h4>
 <p>In the macro we used the nested <code>component!</code> macro to add a component to our UI.</p>
@@ -3070,22 +3041,9 @@ struct AppWidgets {
         sender: ::gtk::glib::Sender&lt;&lt;AppModel as ::relm4::Model&gt;::Msg&gt;,
     ) {
         self.test_field += 1;
-        {
-            ::std::io::_print(
-                match match (&amp;self.test_field,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe {
-                        ::core::fmt::Arguments::new_v1(&amp;[&quot;Manual view! test_field: &quot;, &quot;\n&quot;], args)
-                    },
-                },
-            );
-        };
+        println!(&quot;Manual view! test_field: {}&quot;, self.test_field);
 </code></pre>
-<p>Again, most of the new code was created by the <code>println!</code> macro expansion.</p>
+<p>Just like with <code>pre_init()</code> and <code>post_init()</code> the code is exectöly the same, too.</p>
 <pre><code class="language-rust no_run noplayground">    fn manual_view() {
         self.test_field += 1;
         println!(&quot;Manual view! test_field: {}&quot;, self.test_field);
@@ -3093,42 +3051,16 @@ struct AppWidgets {
 </code></pre>
 <h4 id="generated-ui-updates"><a class="header" href="#generated-ui-updates">Generated UI updates</a></h4>
 <p>After the manually defined update logic, the macro generates its own code.</p>
-<pre><code class="language-rust no_run noplayground">        self._new_label_2.set_label(&amp;{
-            let res = ::alloc::fmt::format(
-                match match (&amp;model.counter,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe { ::core::fmt::Arguments::new_v1(&amp;[&quot;Counter: &quot;], args) },
-                },
-            );
-            res
-        });
+<pre><code class="language-rust no_run noplayground">        self._new_label_2.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
         
         if model.decrement {
-            self._gtk_button_new_1.set_label(&amp;{
-                let res = ::alloc::fmt::format(
-                    match match (&amp;model.counter,) {
-                        (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                            arg0,
-                            ::core::fmt::Display::fmt,
-                        )],
-                    } {
-                        ref args =&gt; unsafe {
-                            ::core::fmt::Arguments::new_v1(&amp;[&quot;Last decrement at &quot;], args)
-                        },
-                    },
-                );
-                res
-            });
+            self._gtk_button_new_1.set_label(&amp;format!(&quot;Last decrement at {}&quot;, model.counter));
         }
 </code></pre>
-<p>The first update comes from the nested <code>watch!</code> macro.</p>
+<p>The first update comes from the nested <code>watch!</code> macro and is unconditional.</p>
 <pre><code class="language-rust no_run noplayground">                    set_label: watch! { &amp;format!(&quot;Counter: {}&quot;, model.counter) },
 </code></pre>
-<p>The second update rule that sits behind an <code>if</code> statement comes from the nested <code>track!</code> macro.</p>
+<p>The second update rule sits behind an <code>if</code> statement because it comes from the nested <code>track!</code> macro. In this case, the condition for the tracker is simply the <code>model.decrement</code> field.</p>
 <pre><code class="language-rust no_run noplayground">                    set_label: track!(model.decrement, &amp;format!(&quot;Last decrement at {}&quot;, model.counter)),
 </code></pre>
 <h2 id="conclusion-3"><a class="header" href="#conclusion-3">Conclusion</a></h2>
@@ -3284,20 +3216,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
         sender: ::gtk::glib::Sender&lt;&lt;AppModel as ::relm4::Model&gt;::Msg&gt;,
     ) -&gt; Self {
         let mut test_field = 0;
-        {
-            ::std::io::_print(
-                match match (&amp;test_field,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe {
-                        ::core::fmt::Arguments::new_v1(&amp;[&quot;Pre init! test_field: &quot;, &quot;\n&quot;], args)
-                    },
-                },
-            );
-        };
+        println!(&quot;Pre init! test_field: {}&quot;, test_field);
         let main_window =
             &lt;gtk::ApplicationWindow as relm4::util::default_widgets::DefaultWidget&gt;::default_widget(
             );
@@ -3332,35 +3251,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
         for __elem in &amp;model.classes {
             inc_button.add_css_class(__elem);
         }
-        _gtk_button_new_1.set_label(&amp;{
-            let res = ::alloc::fmt::format(
-                match match (&amp;model.counter,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe {
-                        ::core::fmt::Arguments::new_v1(&amp;[&quot;Last decrement at &quot;], args)
-                    },
-                },
-            );
-            res
-        });
+        _gtk_button_new_1.set_label(&amp;format!(&quot;Last decrement at {}&quot;, model.counter));
         _new_label_2.set_margin_all(5);
-        _new_label_2.set_label(&amp;{
-            let res = ::alloc::fmt::format(
-                match match (&amp;model.counter,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe { ::core::fmt::Arguments::new_v1(&amp;[&quot;Counter: &quot;], args) },
-                },
-            );
-            res
-        });
+        _new_label_2.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
         _gtk_grid_6.set_vexpand(true);
         _gtk_grid_6.set_hexpand(true);
         _gtk_grid_6.set_row_spacing(10);
@@ -3376,38 +3269,19 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
             #[allow(clippy::redundant_clone)]
             let sender = sender.clone();
             inc_button.connect_clicked(move |_| {
-                sender
-                    .clone()
-                    .send(AppMsg::Increment)
-                    .expect(&quot;Receiver was dropped!&quot;);
+                send!(sender, AppMsg::Increment);
             });
         }
         {
             #[allow(clippy::redundant_clone)]
             let sender = sender.clone();
             _gtk_button_new_1.connect_clicked(move |_| {
-                sender
-                    .clone()
-                    .send(AppMsg::Decrement)
-                    .expect(&quot;Receiver was dropped!&quot;);
+                send!(sender, AppMsg::Decrement);
             });
         }
         relm4::set_global_css(b&quot;.first { color: green; } .second { border: 1px solid orange; }&quot;);
         test_field = 42;
-        {
-            ::std::io::_print(
-                match match (&amp;test_field,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe {
-                        ::core::fmt::Arguments::new_v1(&amp;[&quot;Post init! test_field: &quot;, &quot;\n&quot;], args)
-                    },
-                },
-            );
-        };
+        println!(&quot;Post init! test_field: {}&quot;, test_field);
         Self {
             main_window,
             _gtk_box_7,
@@ -3439,51 +3313,12 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
         sender: ::gtk::glib::Sender&lt;&lt;AppModel as ::relm4::Model&gt;::Msg&gt;,
     ) {
         self.test_field += 1;
-        {
-            ::std::io::_print(
-                match match (&amp;self.test_field,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe {
-                        ::core::fmt::Arguments::new_v1(&amp;[&quot;Manual view! test_field: &quot;, &quot;\n&quot;], args)
-                    },
-                },
-            );
-        };
+        println!(&quot;Manual view! test_field: {}&quot;, self.test_field);
 
-        self._new_label_2.set_label(&amp;{
-            let res = ::alloc::fmt::format(
-                match match (&amp;model.counter,) {
-                    (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                        arg0,
-                        ::core::fmt::Display::fmt,
-                    )],
-                } {
-                    ref args =&gt; unsafe { ::core::fmt::Arguments::new_v1(&amp;[&quot;Counter: &quot;], args) },
-                },
-            );
-            res
-        });
+        self._new_label_2.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
         
         if model.decrement {
-            self._gtk_button_new_1.set_label(&amp;{
-                let res = ::alloc::fmt::format(
-                    match match (&amp;model.counter,) {
-                        (arg0,) =&gt; [::core::fmt::ArgumentV1::new(
-                            arg0,
-                            ::core::fmt::Display::fmt,
-                        )],
-                    } {
-                        ref args =&gt; unsafe {
-                            ::core::fmt::Arguments::new_v1(&amp;[&quot;Last decrement at &quot;], args)
-                        },
-                    },
-                );
-                res
-            });
+            self._gtk_button_new_1.set_label(&amp;format!(&quot;Last decrement at {}&quot;, model.counter));
         }
     }
 }

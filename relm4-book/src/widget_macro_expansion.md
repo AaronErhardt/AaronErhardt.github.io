@@ -86,7 +86,7 @@ At the start of the view initialization, we find &mdash; to no surprise &mdash; 
 {{#include ../listings/macro_expansion.rs:pre_init }}
 ```
 
-The code looks different because the `println!` macro was expanded, too, but apart from that, the code is identical.
+It's exactly the the code of the `pre_init()` function.
 
 ```rust,no_run,noplayground
 {{#include ../listings/macro_test.rs:pre_init }}
@@ -128,7 +128,7 @@ At the end we have our iterator from the macro.
 {{#include ../listings/macro_test.rs:iterative_assign }}
 ```
 
-There are some properties missing here because I only showed the relevant section for the purpose of this book.
+> There are some properties missing here because I only showed the relevant section for the purpose of this book.
 
 #### Events
 
@@ -144,7 +144,7 @@ The code looks very similar to what we wrote in the macro.
 {{#include ../listings/macro_test.rs:connect }}
 ```
 
-The `send!` macro was expanded, too, and the sender we put in the parenthesis is cloned as we requested.
+Most notably, the sender we put in the parenthesis is cloned as we requested.
 
 #### Post-initialization
 
@@ -154,7 +154,7 @@ At the end, we find the code of our `post_init()` function.
 {{#include ../listings/macro_expansion.rs:post_init }}
 ```
 
-Again, the greatest difference is the expanded `println!` macro.
+Again, the code is exactly the same.
 
 ```rust,no_run,noplayground
 {{#include ../listings/macro_test.rs:post_init }}
@@ -198,7 +198,7 @@ The last step of the macro is to generate the update logic with the `view` funct
 {{#include ../listings/macro_expansion.rs:manual_view }}
 ```
 
-Again, most of the new code was created by the `println!` macro expansion.
+Just like with `pre_init()` and `post_init()` the code is exectöly the same, too.
 
 ```rust,no_run,noplayground
 {{#include ../listings/macro_test.rs:manual_view }}
@@ -212,13 +212,13 @@ After the manually defined update logic, the macro generates its own code.
 {{#include ../listings/macro_expansion.rs:macro_view }}
 ```
 
-The first update comes from the nested `watch!` macro.
+The first update comes from the nested `watch!` macro and is unconditional.
 
 ```rust,no_run,noplayground
 {{#include ../listings/macro_test.rs:watch }}
 ```
 
-The second update rule that sits behind an `if` statement comes from the nested `track!` macro.
+The second update rule sits behind an `if` statement because it comes from the nested `track!` macro. In this case, the condition for the tracker is simply the `model.decrement` field.
 
 ```rust,no_run,noplayground
 {{#include ../listings/macro_test.rs:track }}
