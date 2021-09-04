@@ -198,7 +198,7 @@ The last step of the macro is to generate the update logic with the `view` funct
 {{#include ../listings/macro_expansion.rs:manual_view }}
 ```
 
-Just like with `pre_init()` and `post_init()` the code is exectöly the same, too.
+Just like with `pre_init()` and `post_init()` the code is exactly the same, too.
 
 ```rust,no_run,noplayground
 {{#include ../listings/macro_test.rs:manual_view }}
