@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="factory_position.html"><strong aria-hidden="true">3.2.1.</strong> The position function</a></li></ol></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">6.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">7.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">8.</strong> Widget macro reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="widget_macro_expansion.html"><strong aria-hidden="true">8.1.</strong> Macro expansion</a></li></ol></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">9.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">9.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">9.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">9.3.</strong> Worker template</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="factory_position.html"><strong aria-hidden="true">3.2.1.</strong> The position function</a></li></ol></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="message_handler.html"><strong aria-hidden="true">6.</strong> Message handlers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">7.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">8.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">9.</strong> Widget macro reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="widget_macro_expansion.html"><strong aria-hidden="true">9.1.</strong> Macro expansion</a></li></ol></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">10.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">10.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">10.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">10.3.</strong> Worker template</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1129,7 +1129,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::glib::Sender;
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
-use relm4::factory::{Factory, FactoryPrototype, FactoryVec};
+use relm4::factory::{FactoryPrototype, FactoryVec};
 use relm4::{send, AppUpdate, Model, RelmApp, WidgetPlus, Widgets};
 
 #[derive(Debug)]
@@ -2223,9 +2223,388 @@ fn main() {
 }
 </code></pre>
 <p>Apart from that workers are just like components so I won't discuss an example here. You just need to define the messages you want the parent to send to the worker and handle them in the update function. There you can also send messages back to the parent component or the main app to signal that the worker has finished its work.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="threads"><a class="header" href="#threads">Threads</a></h1>
-<p>In the previous chapter, we've introduced workers. One of the most common use case for workers is to run long computations or IO-bound operations on a different thread. So how do we do this?</p>
-<h2 id="running-a-component-on-a-different-thread"><a class="header" href="#running-a-component-on-a-different-thread">Running a component on a different thread</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="message-handlers"><a class="header" href="#message-handlers">Message handlers</a></h1>
+<p>We've already seen that workers are basically components without widgets. In this chapter, we will talk about message handlers that are even simpler: like workers but without a model.</p>
+<h2 id="the-motivation"><a class="header" href="#the-motivation">The motivation</a></h2>
+<p>You might wonder why we even need message handlers. Components and workers are already some kind of message handlers, right? That's true, but components and workers do more than just handling messages: they also have a model that represents their state.</p>
+<p>The problem with the state is that Rust doesn't like sharing mutable data. Only one mutable reference can exist at the time to prevent race conditions and other bugs. However, both components and workers can update their state in the update function while handling messages. This means that components and workers can only handle one message at the time. Otherwise, there would be multiple mutable references to the model.</p>
+<p>Handling one message at the time is perfectly fine in most cases. However, if you, for example, want to handle a lot of HTTP requests and you send one message to a worker for each request you want to handle, that'd mean that one message is sent after another. This could cause a huge delay. Fortunately, message handlers can solve this issue.</p>
+<h2 id="implementing-a-message-handler"><a class="header" href="#implementing-a-message-handler">Implementing a message handler</a></h2>
+<p>To keep it simple, we will create another counter app. Yet this time, every click will be delayed by one second. If a user clicks the increment button, the counter will be incremented exactly one second later.</p>
+<blockquote>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs">here</a>. Run <code>cargo run --example non_blocking_async</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
+</blockquote>
+<h3 id="the-timing"><a class="header" href="#the-timing">The timing</a></h3>
+<p>Let's have a look at a simple timing diagram that shows what would happen if we used a worker for our app.</p>
+<p><img src="img/blocking_timing.svg" alt="Blocking timing diagram" /></p>
+<p>All three clicks happen in one second. But because we can only handle one message at a time in a worker, we have to wait one second, only for processing the first message. The second and the third message are then handled too late because our worker was <strong>blocking</strong> while handling the first message (see the striped parts in the diagram).</p>
+<p>But how would our ideal timing diagram look like?</p>
+<p><img src="img/non_blocking_timing.svg" alt="Blocking timing diagram" /></p>
+<p>In the second diagram, there's no blocking. The second and the third message are handled instantly, so they can increment the counter exactly one second after the user clicked the button for the second and third time.</p>
+<p>Alright, let's implement it!</p>
+<h3 id="the-includes"><a class="header" href="#the-includes">The includes</a></h3>
+<p>In this example, the includes are a little special. We have two kinds of senders: one sender that's used by Relm4 (<code>relm4::Sender</code>) and the sender we use for the message handler (<code>tokio::sync::mpsc::Sender</code>). Because both are called <code>Sender</code> by default we rename the latter to <code>TokioSender</code> in the last line of the includes.</p>
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
+use relm4::{
+    send, AppUpdate, Components, MessageHandler, Model, RelmApp, RelmMsgHandler, Sender,
+    WidgetPlus, Widgets,
+};
+
+use tokio::runtime::{Builder, Runtime};
+use tokio::sync::mpsc::{channel, Sender as TokioSender};
+</code></pre>
+<h3 id="the-model-7"><a class="header" href="#the-model-7">The model</a></h3>
+<p>The model and the message type are the same as in our first app.</p>
+<pre><code class="language-rust no_run noplayground">struct AppModel {
+    counter: u8,
+}
+
+#[derive(Debug)]
+enum AppMsg {
+    Increment,
+    Decrement,
+}
+</code></pre>
+<p>The update function is identical, too.</p>
+<pre><code class="language-rust no_run noplayground">impl AppUpdate for AppModel {
+    fn update(
+        &amp;mut self,
+        msg: AppMsg,
+        _components: &amp;AppComponents,
+        _sender: Sender&lt;AppMsg&gt;,
+    ) -&gt; bool {
+        match msg {
+            AppMsg::Increment =&gt; {
+                self.counter = self.counter.wrapping_add(1);
+            }
+            AppMsg::Decrement =&gt; {
+                self.counter = self.counter.wrapping_sub(1);
+            }
+        }
+        true
+    }
+}
+</code></pre>
+<h3 id="the-message-handler"><a class="header" href="#the-message-handler">The message handler</a></h3>
+<p>Our message handler needs to store our sender and also the tokio runtime we use to process our messages (to keep the runtime alive).</p>
+<p>And of course, we need a message type as well.</p>
+<pre><code class="language-rust no_run noplayground">struct AsyncHandler {
+    _rt: Runtime,
+    sender: TokioSender&lt;AsyncHandlerMsg&gt;,
+}
+
+#[derive(Debug)]
+enum AsyncHandlerMsg {
+    DelayedIncrement,
+    DelayedDecrement,
+}
+</code></pre>
+<p>Then we need to implement the <code>MessageHandler</code> trait for our message handler.</p>
+<pre><code class="language-rust no_run noplayground">impl MessageHandler&lt;AppModel&gt; for AsyncHandler {
+    type Msg = AsyncHandlerMsg;
+    type Sender = TokioSender&lt;AsyncHandlerMsg&gt;;
+
+    fn init(_parent_model: &amp;AppModel, parent_sender: Sender&lt;AppMsg&gt;) -&gt; Self {
+        let (sender, mut rx) = channel::&lt;AsyncHandlerMsg&gt;(10);
+
+        let rt = Builder::new_multi_thread()
+            .worker_threads(8)
+            .enable_time()
+            .build()
+            .unwrap();
+
+        rt.spawn(async move {
+            while let Some(msg) = rx.recv().await {
+                let parent_sender = parent_sender.clone();
+                tokio::spawn(async move {
+                    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+                    match msg {
+                        AsyncHandlerMsg::DelayedIncrement =&gt; {
+                            send!(parent_sender, AppMsg::Increment);
+                        }
+                        AsyncHandlerMsg::DelayedDecrement =&gt; {
+                            send!(parent_sender, AppMsg::Decrement);
+                        }
+                    }
+                });
+            }
+        });
+
+        AsyncHandler { _rt: rt, sender }
+    }
+
+    fn send(&amp;self, msg: Self::Msg) {
+        self.sender.blocking_send(msg).unwrap();
+    }
+
+    fn sender(&amp;self) -&gt; Self::Sender {
+        self.sender.clone()
+    }
+}
+</code></pre>
+<p>First we define the message type. Then we specify the sender type. You could, for example, use <code>std::sync::mpsc::Sender</code>, <code>tokio::sync::mpsc::Sender</code> or any other sender type you want.</p>
+<p>The <code>init</code> function simply initializes the message handler. In the first part, we create a new tokio runtime that will process our messages. Then we check for messages in a loop.</p>
+<pre><code class="language-rust no_run noplayground">            while let Some(msg) = rx.recv().await {
+</code></pre>
+<p>When using components and workers, this loop runs in the background. Here we need to define it ourselves. The important part here is the <code>await</code>. Because we wait for new messages here, the tokio runtime can process our messages in the meantime. Therefore, we can handle a lot of messages at the same time.</p>
+<blockquote>
+<p>If you want to learn more about async in Rust, you can find more information <a href="https://rust-lang.github.io/async-book/">here</a>.</p>
+</blockquote>
+<p>Inside the loop, we process the message by waiting one second and then sending a message back to the parent component.</p>
+<p>The <code>send</code> method defines a convenient interface for sending messages to this message handler and the <code>sender</code> method provides a sender to connect events later.</p>
+<h3 id="the-components-1"><a class="header" href="#the-components-1">The components</a></h3>
+<p>Next, we need to add the message handler to our components. It's very similar to adding workers.</p>
+<pre><code class="language-rust no_run noplayground">struct AppComponents {
+    async_handler: RelmMsgHandler&lt;AsyncHandler, AppModel&gt;,
+}
+
+impl Components&lt;AppModel&gt; for AppComponents {
+    fn init_components(
+        parent_model: &amp;AppModel,
+        _parent_widget: &amp;AppWidgets,
+        parent_sender: Sender&lt;AppMsg&gt;,
+    ) -&gt; Self {
+        AppComponents {
+            async_handler: RelmMsgHandler::new(parent_model, parent_sender),
+        }
+    }
+}
+</code></pre>
+<h3 id="the-widgets-6"><a class="header" href="#the-widgets-6">The widgets</a></h3>
+<p>The last part we need is the widgets type. It should look familiar except for the events.</p>
+<pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        gtk::ApplicationWindow {
+            set_title: Some(&quot;Simple app&quot;),
+            set_default_width: 300,
+            set_default_height: 100,
+            set_child = Some(&amp;gtk::Box) {
+                set_orientation: gtk::Orientation::Vertical,
+                set_margin_all: 5,
+                set_spacing: 5,
+
+                append = &amp;gtk::Button {
+                    set_label: &quot;Increment&quot;,
+                    connect_clicked[sender = components.async_handler.sender()] =&gt; move |_| {
+                        sender.blocking_send(AsyncHandlerMsg::DelayedIncrement)
+                            .expect(&quot;Receiver dropped&quot;);
+                    },
+                },
+                append = &amp;gtk::Button::with_label(&quot;Decrement&quot;) {
+                    connect_clicked[sender = components.async_handler.sender()] =&gt; move |_| {
+                        sender.blocking_send(AsyncHandlerMsg::DelayedDecrement)
+                            .expect(&quot;Receiver dropped&quot;);
+                    },
+                },
+                append = &amp;gtk::Label {
+                    set_margin_all: 5,
+                    set_label: watch! { &amp;format!(&quot;Counter: {}&quot;, model.counter) },
+                }
+            },
+        }
+    }
+}
+</code></pre>
+<p>We're connecting the event directly to the message handler. You could pass the message through the update function of your app and forward it to the message handler, but the macro provides a special syntax to connect events directly.</p>
+<pre><code class="language-rust no_run noplayground">                    connect_clicked[sender = components.async_handler.sender()] =&gt; move |_| {
+                        sender.blocking_send(AsyncHandlerMsg::DelayedIncrement)
+                            .expect(&quot;Receiver dropped&quot;);
+                    },
+</code></pre>
+<p>You'll notice that we use brackets instead of parentheses here. That tells the macro that we want to connect an event with a sender from a component. The syntax looks like this.</p>
+<pre><code class="language-rust no_run noplayground">connect_name[sender_name = components.component_name.sender()] =&gt; move |_| { ... }
+</code></pre>
+<h3 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h3>
+<p>That's it! We've implemented our first message handler.</p>
+<h2 id="the-complete-code-6"><a class="header" href="#the-complete-code-6">The complete code</a></h2>
+<p>Let's review our code in one piece one more time to see how all these parts work together:</p>
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
+use relm4::{
+    send, AppUpdate, Components, MessageHandler, Model, RelmApp, RelmMsgHandler, Sender,
+    WidgetPlus, Widgets,
+};
+
+use tokio::runtime::{Builder, Runtime};
+use tokio::sync::mpsc::{channel, Sender as TokioSender};
+
+struct AppModel {
+    counter: u8,
+}
+
+#[derive(Debug)]
+enum AppMsg {
+    Increment,
+    Decrement,
+}
+
+impl Model for AppModel {
+    type Msg = AppMsg;
+    type Widgets = AppWidgets;
+    type Components = AppComponents;
+}
+
+impl AppUpdate for AppModel {
+    fn update(
+        &amp;mut self,
+        msg: AppMsg,
+        _components: &amp;AppComponents,
+        _sender: Sender&lt;AppMsg&gt;,
+    ) -&gt; bool {
+        match msg {
+            AppMsg::Increment =&gt; {
+                self.counter = self.counter.wrapping_add(1);
+            }
+            AppMsg::Decrement =&gt; {
+                self.counter = self.counter.wrapping_sub(1);
+            }
+        }
+        true
+    }
+}
+
+struct AsyncHandler {
+    _rt: Runtime,
+    sender: TokioSender&lt;AsyncHandlerMsg&gt;,
+}
+
+#[derive(Debug)]
+enum AsyncHandlerMsg {
+    DelayedIncrement,
+    DelayedDecrement,
+}
+
+impl MessageHandler&lt;AppModel&gt; for AsyncHandler {
+    type Msg = AsyncHandlerMsg;
+    type Sender = TokioSender&lt;AsyncHandlerMsg&gt;;
+
+    fn init(_parent_model: &amp;AppModel, parent_sender: Sender&lt;AppMsg&gt;) -&gt; Self {
+        let (sender, mut rx) = channel::&lt;AsyncHandlerMsg&gt;(10);
+
+        let rt = Builder::new_multi_thread()
+            .worker_threads(8)
+            .enable_time()
+            .build()
+            .unwrap();
+
+        rt.spawn(async move {
+            while let Some(msg) = rx.recv().await {
+                let parent_sender = parent_sender.clone();
+                tokio::spawn(async move {
+                    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+                    match msg {
+                        AsyncHandlerMsg::DelayedIncrement =&gt; {
+                            send!(parent_sender, AppMsg::Increment);
+                        }
+                        AsyncHandlerMsg::DelayedDecrement =&gt; {
+                            send!(parent_sender, AppMsg::Decrement);
+                        }
+                    }
+                });
+            }
+        });
+
+        AsyncHandler { _rt: rt, sender }
+    }
+
+    fn send(&amp;self, msg: Self::Msg) {
+        self.sender.blocking_send(msg).unwrap();
+    }
+
+    fn sender(&amp;self) -&gt; Self::Sender {
+        self.sender.clone()
+    }
+}
+
+struct AppComponents {
+    async_handler: RelmMsgHandler&lt;AsyncHandler, AppModel&gt;,
+}
+
+impl Components&lt;AppModel&gt; for AppComponents {
+    fn init_components(
+        parent_model: &amp;AppModel,
+        _parent_widget: &amp;AppWidgets,
+        parent_sender: Sender&lt;AppMsg&gt;,
+    ) -&gt; Self {
+        AppComponents {
+            async_handler: RelmMsgHandler::new(parent_model, parent_sender),
+        }
+    }
+}
+
+#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        gtk::ApplicationWindow {
+            set_title: Some(&quot;Simple app&quot;),
+            set_default_width: 300,
+            set_default_height: 100,
+            set_child = Some(&amp;gtk::Box) {
+                set_orientation: gtk::Orientation::Vertical,
+                set_margin_all: 5,
+                set_spacing: 5,
+
+                append = &amp;gtk::Button {
+                    set_label: &quot;Increment&quot;,
+                    connect_clicked[sender = components.async_handler.sender()] =&gt; move |_| {
+                        sender.blocking_send(AsyncHandlerMsg::DelayedIncrement)
+                            .expect(&quot;Receiver dropped&quot;);
+                    },
+                },
+                append = &amp;gtk::Button::with_label(&quot;Decrement&quot;) {
+                    connect_clicked[sender = components.async_handler.sender()] =&gt; move |_| {
+                        sender.blocking_send(AsyncHandlerMsg::DelayedDecrement)
+                            .expect(&quot;Receiver dropped&quot;);
+                    },
+                },
+                append = &amp;gtk::Label {
+                    set_margin_all: 5,
+                    set_label: watch! { &amp;format!(&quot;Counter: {}&quot;, model.counter) },
+                }
+            },
+        }
+    }
+}
+
+fn main() {
+    let model = AppModel { counter: 0 };
+    let app = RelmApp::new(model);
+    app.run();
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<table><thead><tr><th align="left"><em>Category</em></th><th align="center">Components</th><th align="center">Workers</th><th align="center">Message handlers</th></tr></thead><tbody>
+<tr><td align="left">Run on different thread</td><td align="center">✅</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td align="left">Async</td><td align="center">❌</td><td align="center">✅</td><td align="center">✅</td></tr>
+<tr><td align="left">Non-blocking message handling</td><td align="center">❌</td><td align="center">❌</td><td align="center">✅</td></tr>
+</tbody></table>
+<h2 id="when-to-use-"><a class="header" href="#when-to-use-">When to use ...</a></h2>
+<ul>
+<li>
+<p><strong>components:</strong></p>
+<ul>
+<li>Abstract parts of your UI</li>
+<li>The update function should be run on a different thread</li>
+</ul>
+</li>
+<li>
+<p><strong>workers:</strong></p>
+<ul>
+<li>Handle IO-bound or CPU-intensive tasks <strong>one</strong> at the time on a different thread</li>
+<li>You need a model to store state for processing messages</li>
+</ul>
+</li>
+<li>
+<p><strong>message handlers:</strong></p>
+<ul>
+<li>Handle <strong>multiple</strong> IO-bound or CPU-intensive tasks at the time</li>
+<li>All the information you need is sent inside the message</li>
+</ul>
+</li>
+</ul>
+<h2 id="threads"><a class="header" href="#threads">Threads</a></h2>
+<p>Workers are usually used to run tasks on a different thread to allow the main thread to run the UI. Let's see how this works!</p>
+<h3 id="running-a-component-on-a-different-thread"><a class="header" href="#running-a-component-on-a-different-thread">Running a component on a different thread</a></h3>
 <p>You might remember this section of code from the example application in the components chapter.</p>
 <pre><code class="language-rust no_run noplayground">impl Components&lt;AppModel&gt; for AppComponents {
     fn init_components(
@@ -2254,22 +2633,25 @@ fn main() {
     }
 }
 </code></pre>
-<p>It's hard to spot the difference. Instead of <code>RelmComponent::new</code> we used <code>RelmComponent::with_new_thread</code>. The same is true for workers. <code>RelmWorker::new</code> runs the worker on the same thread and <code>RelmWorker::with_new_thread</code> spawns a new thread for the worker.</p>
-<p>There's one problem for the components, though. Components have widgets that, in the case of GTK4, neither implement <code>Send</code> nor <code>Sync</code>. That means we can't run the view function from a different thread, but only the update function that just operates on the model. But then, how does this work? Well, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker because workers don't have this problem.</p>
+<p>Instead of <code>RelmComponent::new</code> we used <code>RelmComponent::with_new_thread</code>. The same is true for workers. <code>RelmWorker::new</code> runs the worker on the same thread and <code>RelmWorker::with_new_thread</code> spawns a new thread for the worker.</p>
+<blockquote>
+<p>Components have widgets that, in the case of GTK4, neither implement <code>Send</code> nor <code>Sync</code>. That means we can't run the view function from a different thread, but only the update function that just operates on the model. Internally, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker or a message handler because they don't have this problem.</p>
+</blockquote>
 <h2 id="async"><a class="header" href="#async">Async</a></h2>
-<p>Async update functions are exclusive for workers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an <code>AsyncRelmWorker</code> type that uses an async update function from the <code>AsyncComponentUpdate</code> trait. Apart from that, they are just like normal workers that run in a new thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs">&quot;tokio&quot; example</a> shows how this can be used with for async HTTP requests.</p>
+<p>Async update functions are exclusive for workers and message handlers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an <code>AsyncRelmWorker</code> type that uses an async update function from the <code>AsyncComponentUpdate</code> trait. Apart from that, they are just like normal workers that run in a new thread. The <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs">&quot;tokio&quot; example</a> shows how this can be used with for async HTTP requests.</p>
 <h3 id="non-blocking-async"><a class="header" href="#non-blocking-async">Non blocking async</a></h3>
-<p>Technically, async workers will always block between messages. They can run non-blocking code from their update function but they can not handle more than one message at the time. This can be too slow in some cases. </p>
+<p>Technically, even async workers will block the execution between messages. They can run non-blocking code from their update function but they can not handle more than one message at the time. This can be too slow in some cases. </p>
 <p>For example, if you have an app that fetches the avatar images of many users and you send one message to your worker for every avatar image, the worker will fetch the images one after the other. This wouldn't be much better than blocking requests and may take some time.</p>
-<p>There are two ways to improve this: </p>
+<p>There are three ways to improve this: </p>
 <ul>
+<li>Create your own async runtime in message handler. This is shown in the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs">non_blocking_async example</a>.</li>
 <li>Send a vector with all avatar images you need to your worker, so it can send all asynchronous requests at once.</li>
-<li>Create your own async runtime that handles messages truly asynchronous. This is shown in the <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs">non_blocking_async example</a>.</li>
+<li>Spawn a new thread for each message that sends a HTTP request and sends a message back.</li>
 </ul>
-<h2 id="the-message-queue-problem"><a class="header" href="#the-message-queue-problem">The message queue problem</a></h2>
+<h3 id="the-message-queue-problem"><a class="header" href="#the-message-queue-problem">The message queue problem</a></h3>
 <p>Because workers tend to take a lot of time during the update function you should make sure to not bombard them with messages. Imagine you have a button in your application that allows the user to update a web page. If the user presses the button, a new request is sent by a worker that responds with a message once the request is completed. If the button can be clicked and a message is sent for each click while the worker is fetching the web page you could quickly have a lot of unprocessed messages in the queue of your worker. To avoid this, make sure to only send the message once and wait until the worker is finished.</p>
-<h2 id="multiple-threads-and-async-without-workers"><a class="header" href="#multiple-threads-and-async-without-workers">Multiple threads and async without workers</a></h2>
-<p>One reason you always get a new sender passed into your update function is that you can spawn a new thread and move a cloned sender into it. This can sometimes be more flexible than defining a worker. You can simply use <code>std::thread::spawn</code> for this and even spawn any async runtime you want from that thread.</p>
+<h3 id="multiple-threads-and-async-without-workers"><a class="header" href="#multiple-threads-and-async-without-workers">Multiple threads and async without workers</a></h3>
+<p>One reason you always get a new sender passed into your update function is that you can spawn a new thread and move a cloned sender into it. This can sometimes be more flexible than defining a worker or even a message handler. You can simply use <code>std::thread::spawn</code> for this or spawn any async runtime you want.</p>
 <p>For example you could do this in your update function:</p>
 <pre><code class="language-rust no_run noplayground">std::thread::spawn(move || {
     send_request();
@@ -2330,7 +2712,7 @@ pub trait AlertParentWidgets {
     fn parent_window(&amp;self) -&gt; Option&lt;gtk::Window&gt;;
 }
 </code></pre>
-<h2 id="the-model-7"><a class="header" href="#the-model-7">The model</a></h2>
+<h2 id="the-model-8"><a class="header" href="#the-model-8">The model</a></h2>
 <p>Our model stores whether the component is visible and the configuration.</p>
 <pre><code class="language-rust no_run noplayground">pub struct AlertModel {
     settings: AlertSettings,
@@ -2385,7 +2767,7 @@ where
         }
     }
 </code></pre>
-<h2 id="the-widgets-6"><a class="header" href="#the-widgets-6">The widgets</a></h2>
+<h2 id="the-widgets-7"><a class="header" href="#the-widgets-7">The widgets</a></h2>
 <p>The widgets have a generic type for the parent component with the expected trait bounds, too. Because they are part of a public interface, we also add the <code>pub</code> attribute to the widget macro. Apart from that, there is nothing special.</p>
 <pre><code class="language-rust no_run noplayground">#[relm4_macros::widget(pub)]
 impl&lt;ParentModel&gt; relm4::Widgets&lt;AlertModel, ParentModel&gt; for AlertWidgets
@@ -2424,12 +2806,12 @@ where
     }
 }
 </code></pre>
-<h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
+<h2 id="conclusion-3"><a class="header" href="#conclusion-3">Conclusion</a></h2>
 <p>We’re done! That’s your first reusable component.</p>
 <blockquote>
 <p>You can find more examples of reusable components in the relm4-components crate <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-components">here</a>. You can also contribute your own reusable components to relm4-components :)</p>
 </blockquote>
-<h2 id="the-complete-code-6"><a class="header" href="#the-complete-code-6">The complete code</a></h2>
+<h2 id="the-complete-code-7"><a class="header" href="#the-complete-code-7">The complete code</a></h2>
 <p>Let’s review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{DialogExt, GtkWindowExt, WidgetExt};
 use relm4::{send, ComponentUpdate, Model, Sender, WidgetPlus};
@@ -2635,6 +3017,15 @@ where
 <p>For some functions, the macro can't guess the type or might even assume a wrong type. In such a case, add the type your function:</p>
 <pre><code class="language-rust no_run noplayground">property_name = new_box() -&gt; gtk::Box { ... }
 </code></pre>
+<h2 id="connecting-events"><a class="header" href="#connecting-events">Connecting events</a></h2>
+<p>When connecting events you can clone elements you need in the closure by putting it into the parentheses.</p>
+<pre><code class="language-rust no_run noplayground">connect_name(cloned_var1, cloned_var2, ...) =&gt; move |arg1, arg2, ...| { ... }
+</code></pre>
+<h3 id="connecting-to-components"><a class="header" href="#connecting-to-components">Connecting to components</a></h3>
+<p>For connecting events directly to components you need to use brackets. In the brackets you can create new sender variables from the senders of your components.</p>
+<pre><code class="language-rust no_run noplayground">connect_name[sender1 = components.name1.sender(), 
+    sender2 = components.name2.sender(), ...] =&gt; move |arg1, arg2, ...|
+</code></pre>
 <h2 id="factories"><a class="header" href="#factories">Factories</a></h2>
 <pre><code class="language-rust no_run noplayground">property_name = gtk::Box { 
     factory!(model.data)
@@ -2720,7 +3111,7 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 </blockquote>
 <h2 id="the-boilerplate"><a class="header" href="#the-boilerplate">The boilerplate</a></h2>
 <p>First, let's have a look at the parts of the code that are later used by the macro.</p>
-<h3 id="the-model-8"><a class="header" href="#the-model-8">The model</a></h3>
+<h3 id="the-model-9"><a class="header" href="#the-model-9">The model</a></h3>
 <p>The model stores a counter, several class names and a decrement field that will indicate if the counter was last decremented or not. This will be used later in a tracker that only updates when the user decrements the counter.</p>
 <pre><code class="language-rust no_run noplayground">struct AppModel {
     counter: u8,
@@ -3063,7 +3454,7 @@ struct AppWidgets {
 <p>The second update rule sits behind an <code>if</code> statement because it comes from the nested <code>track!</code> macro. In this case, the condition for the tracker is simply the <code>model.decrement</code> field.</p>
 <pre><code class="language-rust no_run noplayground">                    set_label: track!(model.decrement, &amp;format!(&quot;Last decrement at {}&quot;, model.counter)),
 </code></pre>
-<h2 id="conclusion-3"><a class="header" href="#conclusion-3">Conclusion</a></h2>
+<h2 id="conclusion-4"><a class="header" href="#conclusion-4">Conclusion</a></h2>
 <p>Congrats for making it this far 🎉! You're now a real expert of Relm4!</p>
 <p>As you have seen, the macro is nothing magical. It simply works with the information you give to it.</p>
 <h2 id="the-whole-macro-expansion"><a class="header" href="#the-whole-macro-expansion">The whole macro expansion</a></h2>

@@ -1,8 +1,30 @@
-# Threads
+# Overview
 
-In the previous chapter, we've introduced workers. One of the most common use case for workers is to run long computations or IO-bound operations on a different thread. So how do we do this?
+| *Category* | Components | Workers | Message handlers |
+|:---|:---:|:---:|:---:|
+| Run on different thread | ✅ | ✅ | ✅ |
+| Async | ❌ | ✅ | ✅ |
+| Non-blocking message handling | ❌ | ❌ | ✅ |
 
-## Running a component on a different thread
+## When to use ...
+
++ **components:**
+  + Abstract parts of your UI
+  + The update function should be run on a different thread
+
++ **workers:**
+  + Handle IO-bound or CPU-intensive tasks **one** at the time on a different thread
+  + You need a model to store state for processing messages
+
++ **message handlers:**
+  + Handle **multiple** IO-bound or CPU-intensive tasks at the time
+  + All the information you need is sent inside the message
+
+## Threads
+
+Workers are usually used to run tasks on a different thread to allow the main thread to run the UI. Let's see how this works!
+
+### Running a component on a different thread
 
 You might remember this section of code from the example application in the components chapter.
 
@@ -27,32 +49,33 @@ impl Components<AppModel> for AppComponents {
 }
 ```
 
-It's hard to spot the difference. Instead of `RelmComponent::new` we used `RelmComponent::with_new_thread`. The same is true for workers. `RelmWorker::new` runs the worker on the same thread and `RelmWorker::with_new_thread` spawns a new thread for the worker.
+Instead of `RelmComponent::new` we used `RelmComponent::with_new_thread`. The same is true for workers. `RelmWorker::new` runs the worker on the same thread and `RelmWorker::with_new_thread` spawns a new thread for the worker.
 
-There's one problem for the components, though. Components have widgets that, in the case of GTK4, neither implement `Send` nor `Sync`. That means we can't run the view function from a different thread, but only the update function that just operates on the model. But then, how does this work? Well, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker because workers don't have this problem.
+> Components have widgets that, in the case of GTK4, neither implement `Send` nor `Sync`. That means we can't run the view function from a different thread, but only the update function that just operates on the model. Internally, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker or a message handler because they don't have this problem.
 
 ## Async
 
-Async update functions are exclusive for workers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an `AsyncRelmWorker` type that uses an async update function from the `AsyncComponentUpdate` trait. Apart from that, they are just like normal workers that run in a new thread. The ["tokio" example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs) shows how this can be used with for async HTTP requests.
+Async update functions are exclusive for workers and message handlers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an `AsyncRelmWorker` type that uses an async update function from the `AsyncComponentUpdate` trait. Apart from that, they are just like normal workers that run in a new thread. The ["tokio" example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs) shows how this can be used with for async HTTP requests.
 
 ### Non blocking async
 
-Technically, async workers will always block between messages. They can run non-blocking code from their update function but they can not handle more than one message at the time. This can be too slow in some cases. 
+Technically, even async workers will block the execution between messages. They can run non-blocking code from their update function but they can not handle more than one message at the time. This can be too slow in some cases. 
 
 For example, if you have an app that fetches the avatar images of many users and you send one message to your worker for every avatar image, the worker will fetch the images one after the other. This wouldn't be much better than blocking requests and may take some time.
 
-There are two ways to improve this: 
+There are three ways to improve this: 
 
++ Create your own async runtime in message handler. This is shown in the [non_blocking_async example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs).
 + Send a vector with all avatar images you need to your worker, so it can send all asynchronous requests at once.
-+ Create your own async runtime that handles messages truly asynchronous. This is shown in the [non_blocking_async example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs).
++ Spawn a new thread for each message that sends a HTTP request and sends a message back.
 
-## The message queue problem
+### The message queue problem
 
 Because workers tend to take a lot of time during the update function you should make sure to not bombard them with messages. Imagine you have a button in your application that allows the user to update a web page. If the user presses the button, a new request is sent by a worker that responds with a message once the request is completed. If the button can be clicked and a message is sent for each click while the worker is fetching the web page you could quickly have a lot of unprocessed messages in the queue of your worker. To avoid this, make sure to only send the message once and wait until the worker is finished.
 
-## Multiple threads and async without workers
+### Multiple threads and async without workers
 
-One reason you always get a new sender passed into your update function is that you can spawn a new thread and move a cloned sender into it. This can sometimes be more flexible than defining a worker. You can simply use `std::thread::spawn` for this and even spawn any async runtime you want from that thread.
+One reason you always get a new sender passed into your update function is that you can spawn a new thread and move a cloned sender into it. This can sometimes be more flexible than defining a worker or even a message handler. You can simply use `std::thread::spawn` for this or spawn any async runtime you want.
 
 For example you could do this in your update function:
 

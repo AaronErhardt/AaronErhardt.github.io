@@ -129,7 +129,24 @@ For some functions, the macro can't guess the type or might even assume a wrong 
 property_name = new_box() -> gtk::Box { ... }
 ```
 
-## Factories 
+## Connecting events
+
+When connecting events you can clone elements you need in the closure by putting it into the parentheses.
+
+```rust,no_run,noplayground
+connect_name(cloned_var1, cloned_var2, ...) => move |arg1, arg2, ...| { ... }
+```
+
+### Connecting to components
+
+For connecting events directly to components you need to use brackets. In the brackets you can create new sender variables from the senders of your components.
+
+```rust,no_run,noplayground
+connect_name[sender1 = components.name1.sender(), 
+    sender2 = components.name2.sender(), ...] => move |arg1, arg2, ...|
+```
+
+## Factories
 
 ```rust,no_run,noplayground
 property_name = gtk::Box { 

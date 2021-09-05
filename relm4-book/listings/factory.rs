@@ -1,7 +1,7 @@
 // ANCHOR: all
 use gtk::glib::Sender;
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
-use relm4::factory::{Factory, FactoryPrototype, FactoryVec};
+use relm4::factory::{FactoryPrototype, FactoryVec};
 use relm4::{send, AppUpdate, Model, RelmApp, WidgetPlus, Widgets};
 
 // ANCHOR: msg
