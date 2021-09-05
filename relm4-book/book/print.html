@@ -1253,6 +1253,7 @@ fn main() {
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-position-function-1"><a class="header" href="#the-position-function-1">The position function</a></h1>
 <p>Most widgets such as <code>gtk::Box</code> don't use the position function because they are one-dimensional and place widgets relative to each other. However, a few widgets such as <code>gtk::Grid</code> use fixed positions and need the position function to work inside a factory.</p>
+<p>The task of the position function is mainly to map the index to a specific position/area (x, y, width and height) of a factory widget inside the parent widget (view).</p>
 <blockquote>
 <p>The code we will use in this chapter is based on the grid_factory example <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/grid_factory.rs">here</a>. Run <code>cargo run --example grid_factory</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
@@ -3434,7 +3435,7 @@ struct AppWidgets {
         self.test_field += 1;
         println!(&quot;Manual view! test_field: {}&quot;, self.test_field);
 </code></pre>
-<p>Just like with <code>pre_init()</code> and <code>post_init()</code> the code is exectöly the same, too.</p>
+<p>Just like with <code>pre_init()</code> and <code>post_init()</code> the code is exactly the same, too.</p>
 <pre><code class="language-rust no_run noplayground">    fn manual_view() {
         self.test_field += 1;
         println!(&quot;Manual view! test_field: {}&quot;, self.test_field);

@@ -139,6 +139,7 @@
                     <main>
                         <h1 id="the-position-function"><a class="header" href="#the-position-function">The position function</a></h1>
 <p>Most widgets such as <code>gtk::Box</code> don't use the position function because they are one-dimensional and place widgets relative to each other. However, a few widgets such as <code>gtk::Grid</code> use fixed positions and need the position function to work inside a factory.</p>
+<p>The task of the position function is mainly to map the index to a specific position/area (x, y, width and height) of a factory widget inside the parent widget (view).</p>
 <blockquote>
 <p>The code we will use in this chapter is based on the grid_factory example <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/grid_factory.rs">here</a>. Run <code>cargo run --example grid_factory</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
 </blockquote>
