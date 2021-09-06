@@ -184,7 +184,7 @@ This is now packed into the `connect_components` function.
 
 #### Root widget
 
-The macro also implements the `root_widget` function that returns the outermost widget that it also the first we use in the `view!` macro.
+The macro also implements the `root_widget` function that returns the outermost widget that is also the first we use in the `view!` macro.
 
 ```rust,no_run,noplayground
 {{#include ../listings/macro_expansion.rs:root_widget }}
