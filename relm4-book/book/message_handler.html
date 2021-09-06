@@ -167,6 +167,9 @@ use relm4::{
 use tokio::runtime::{Builder, Runtime};
 use tokio::sync::mpsc::{channel, Sender as TokioSender};
 </code></pre>
+<blockquote>
+<p>Different senders are useful for different use-cases. For example, the sender from Relm4 is just an alias for <code>glib::Sender</code> that integrates well with GTK. The sender from tokio is nice for asynchronous code and <code>std::sync::mpsc::Sender</code> could, for example, be used for a thread pool.</p>
+</blockquote>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
 <p>The model and the message type are the same as in our first app.</p>
 <pre><code class="language-rust no_run noplayground">struct AppModel {

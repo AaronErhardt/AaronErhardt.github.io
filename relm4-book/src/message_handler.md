@@ -40,6 +40,8 @@ In this example, the includes are a little special. We have two kinds of senders
 {{#include ../listings/message_handler.rs:include }}
 ```
 
+> Different senders are useful for different use-cases. For example, the sender from Relm4 is just an alias for `glib::Sender` that integrates well with GTK. The sender from tokio is nice for asynchronous code and `std::sync::mpsc::Sender` could, for example, be used for a thread pool.
+
 ### The model
 
 The model and the message type are the same as in our first app.
