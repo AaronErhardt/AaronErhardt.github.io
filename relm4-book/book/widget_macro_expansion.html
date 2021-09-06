@@ -450,7 +450,7 @@ struct AppWidgets {
     }
 </code></pre>
 <h4 id="root-widget"><a class="header" href="#root-widget">Root widget</a></h4>
-<p>The macro also implements the <code>root_widget</code> function that returns the outermost widget that it also the first we use in the <code>view!</code> macro.</p>
+<p>The macro also implements the <code>root_widget</code> function that returns the outermost widget that is also the first we use in the <code>view!</code> macro.</p>
 <pre><code class="language-rust no_run noplayground">    /// Return the root widget.
     fn root_widget(&amp;self) -&gt; Self::Root {
         self.main_window.clone()

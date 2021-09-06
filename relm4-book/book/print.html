@@ -1968,6 +1968,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 }
 </code></pre>
 <p>The <code>component!</code> macro is used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.</p>
+<blockquote>
+<p>Widgets from components are added <strong>after</strong> everything else. Because Relm4 initializes components after their parents we can only add components after the rest is already in place. This means that you sometimes might have to use methods like <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.BoxExt.html#tymethod.prepend"><code>prepend</code></a> to keep the right order because with <code>append</code> the a component will always be added at the end. Yet, everything else is initialized in the right order.</p>
+</blockquote>
 <h2 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h2>
 <p>You now know most of the secrets that Relm4 offers. Components can be powerful and if they are implemented correctly, they are even reusable across different apps. The relm4-components crate offers several reusable components you can use in your applications. In the following chapters, we'll look at an even simpler component type called worker, how to implement reusable components yourself and how to use components with async code and multiple threads.</p>
 <h2 id="the-complete-code-5"><a class="header" href="#the-complete-code-5">The complete code</a></h2>
@@ -3027,6 +3030,14 @@ where
 <pre><code class="language-rust no_run noplayground">connect_name[sender1 = components.name1.sender(), 
     sender2 = components.name2.sender(), ...] =&gt; move |arg1, arg2, ...|
 </code></pre>
+<h3 id="the-send-macro"><a class="header" href="#the-send-macro">The send macro</a></h3>
+<p>The send macro simply provides some syntactical sugar. This code </p>
+<pre><code class="language-rust no_run noplayground">send!(sender, AppMsg::Increment)
+</code></pre>
+<p>expands to this code:</p>
+<pre><code class="language-rust no_run noplayground">sender.send(AppMsg::Increment).expect(&quot;Receiver was dropped!&quot;)
+</code></pre>
+<p>The unwrap is save because send errors should never happen, especially because Relm4 usually keeps the receiver alive.</p>
 <h2 id="factories"><a class="header" href="#factories">Factories</a></h2>
 <pre><code class="language-rust no_run noplayground">property_name = gtk::Box { 
     factory!(model.data)
@@ -3418,7 +3429,7 @@ struct AppWidgets {
     }
 </code></pre>
 <h4 id="root-widget"><a class="header" href="#root-widget">Root widget</a></h4>
-<p>The macro also implements the <code>root_widget</code> function that returns the outermost widget that it also the first we use in the <code>view!</code> macro.</p>
+<p>The macro also implements the <code>root_widget</code> function that returns the outermost widget that is also the first we use in the <code>view!</code> macro.</p>
 <pre><code class="language-rust no_run noplayground">    /// Return the root widget.
     fn root_widget(&amp;self) -&gt; Self::Root {
         self.main_window.clone()

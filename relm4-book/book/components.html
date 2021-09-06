@@ -406,6 +406,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 }
 </code></pre>
 <p>The <code>component!</code> macro is used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.</p>
+<blockquote>
+<p>Widgets from components are added <strong>after</strong> everything else. Because Relm4 initializes components after their parents we can only add components after the rest is already in place. This means that you sometimes might have to use methods like <a href="https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.BoxExt.html#tymethod.prepend"><code>prepend</code></a> to keep the right order because with <code>append</code> the a component will always be added at the end. Yet, everything else is initialized in the right order.</p>
+</blockquote>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>You now know most of the secrets that Relm4 offers. Components can be powerful and if they are implemented correctly, they are even reusable across different apps. The relm4-components crate offers several reusable components you can use in your applications. In the following chapters, we'll look at an even simpler component type called worker, how to implement reusable components yourself and how to use components with async code and multiple threads.</p>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>

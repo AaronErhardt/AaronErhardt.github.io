@@ -146,6 +146,23 @@ connect_name[sender1 = components.name1.sender(),
     sender2 = components.name2.sender(), ...] => move |arg1, arg2, ...|
 ```
 
+### The send macro
+
+The send macro simply provides some syntactical sugar. This code 
+
+```rust,no_run,noplayground
+send!(sender, AppMsg::Increment)
+```
+
+expands to this code:
+
+```rust,no_run,noplayground
+sender.send(AppMsg::Increment).expect("Receiver was dropped!")
+```
+
+The unwrap is save because send errors should never happen, especially because Relm4 usually keeps the receiver alive.
+
+
 ## Factories
 
 ```rust,no_run,noplayground
