@@ -92,6 +92,7 @@
 <span id="92">92</span>
 <span id="93">93</span>
 <span id="94">94</span>
+<span id="95">95</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">proc_macro2::Span</span> <span class="kw">as</span> <span class="ident">Span2</span>;
 <span class="kw">use</span> <span class="ident">proc_macro2::TokenStream</span> <span class="kw">as</span> <span class="ident">TokenStream2</span>;
 <span class="kw">use</span> <span class="ident">syn</span>::{<span class="ident">punctuated::Punctuated</span>, <span class="ident">spanned::Spanned</span>, <span class="ident">token</span>, <span class="ident">Expr</span>, <span class="ident">ExprClosure</span>, <span class="ident">Ident</span>, <span class="ident">Lit</span>, <span class="ident">Path</span>};
@@ -115,6 +116,7 @@
     <span class="ident">Component</span>(<span class="ident">Expr</span>),
     <span class="ident">Args</span>(<span class="ident">Args</span><span class="op">&lt;</span><span class="ident">Expr</span><span class="op">&gt;</span>),
     <span class="ident">Connect</span>(<span class="ident">ExprClosure</span>),
+    <span class="ident">ConnectComponent</span>(<span class="ident">ExprClosure</span>),
     <span class="ident">Watch</span>(<span class="ident">TokenStream2</span>),
     <span class="ident">Factory</span>(<span class="ident">Expr</span>),
     <span class="ident">Widget</span>(<span class="ident">Widget</span>),

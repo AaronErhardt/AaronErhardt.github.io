@@ -270,6 +270,25 @@
 <span id="270">270</span>
 <span id="271">271</span>
 <span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">gtk::glib::Sender</span>;
 
 <span class="kw">mod</span> <span class="ident">impls</span>;
@@ -389,6 +408,25 @@
         <span class="ident">sender</span>: <span class="ident">Sender</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Msg</span><span class="op">&gt;</span>,
         <span class="ident">parent_sender</span>: <span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">ParentModel::Msg</span><span class="op">&gt;</span>,
     );
+}
+
+<span class="doccomment">/// A message handler that can be used in situations where a [`RelmWorker`](crate::RelmWorker)</span>
+<span class="doccomment">/// isn&#39;t flexible enough.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MessageHandler</span><span class="op">&lt;</span><span class="ident">ParentModel</span>: <span class="ident">Model</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// The message type of this message handler.</span>
+    <span class="kw">type</span> <span class="ident">Msg</span>;
+
+    <span class="doccomment">/// The sender type that can be used to send a message to a [`RelmMsgHandler`](crate::RelmMsgHandler).</span>
+    <span class="kw">type</span> <span class="ident">Sender</span>;
+
+    <span class="doccomment">/// Initialize this message handler.</span>
+    <span class="kw">fn</span> <span class="ident">init</span>(<span class="ident">parent_model</span>: <span class="kw-2">&amp;</span><span class="ident">ParentModel</span>, <span class="ident">parent_sender</span>: <span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">ParentModel::Msg</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
+
+    <span class="doccomment">/// Sends a message to the message handler.</span>
+    <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">msg</span>: <span class="ident"><span class="self">Self</span>::Msg</span>);
+
+    <span class="doccomment">/// Get a sender for sending messages to this [`RelmMsgHandler`](crate::RelmMsgHandler).</span>
+    <span class="kw">fn</span> <span class="ident">sender</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Sender</span>;
 }
 
 <span class="doccomment">/// Define behavior to turn the data of you model into widgets.</span>

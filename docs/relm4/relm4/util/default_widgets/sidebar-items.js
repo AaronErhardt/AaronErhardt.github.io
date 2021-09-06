@@ -1,1 +1,1 @@
-initSidebarItems({"macro":[["impl_default_widget",""],["impl_default_widgets",""]],"trait":[["DefaultWidget","This is mainly useful for macros that generate widgets in order to avoid passing arguments to `new(...)` functions of GTK widgets."]]});
+initSidebarItems({"trait":[["DefaultWidget","This is mainly useful for macros that generate widgets in order to avoid passing arguments to `new(...)` functions of GTK widgets."]]});

@@ -165,9 +165,9 @@
 <span class="doccomment">/// Configuration for the save dialog component</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SaveDialogSettings</span> {
     <span class="doccomment">/// Label for cancel button</span>
-    <span class="kw">pub</span> <span class="ident">cancel_label</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">cancel_label</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
     <span class="doccomment">/// Label for accept button</span>
-    <span class="kw">pub</span> <span class="ident">accept_label</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">accept_label</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
     <span class="doccomment">/// Allow or disallow creating folders</span>
     <span class="kw">pub</span> <span class="ident">create_folders</span>: <span class="ident">bool</span>,
     <span class="doccomment">/// Modal dialogs freeze other windows as long they are visible</span>
@@ -278,8 +278,8 @@
             <span class="ident">set_current_name</span>: <span class="macro">track!</span>(<span class="ident">model</span>.<span class="ident">changed</span>(<span class="ident">SaveDialogModel::name</span>()), <span class="kw-2">&amp;</span><span class="ident">model</span>.<span class="ident">name</span>),
             <span class="ident">add_filter</span>: <span class="macro">iterate!</span>(<span class="kw-2">&amp;</span><span class="ident">model</span>.<span class="ident">settings</span>.<span class="ident">filters</span>),
             <span class="ident">set_create_folders</span>: <span class="ident">model</span>.<span class="ident">settings</span>.<span class="ident">create_folders</span>,
-            <span class="ident">set_cancel_label</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">model</span>.<span class="ident">settings</span>.<span class="ident">cancel_label</span>),
-            <span class="ident">set_accept_label</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">model</span>.<span class="ident">settings</span>.<span class="ident">accept_label</span>),
+            <span class="ident">set_cancel_label</span>: <span class="prelude-val">Some</span>(<span class="ident">model</span>.<span class="ident">settings</span>.<span class="ident">cancel_label</span>),
+            <span class="ident">set_accept_label</span>: <span class="prelude-val">Some</span>(<span class="ident">model</span>.<span class="ident">settings</span>.<span class="ident">accept_label</span>),
             <span class="ident">set_modal</span>: <span class="ident">model</span>.<span class="ident">settings</span>.<span class="ident">is_modal</span>,
             <span class="ident">set_transient_for</span>: <span class="ident">parent_widgets</span>.<span class="ident">parent_window</span>().<span class="ident">as_ref</span>(),
             <span class="ident">connect_response</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">move</span> <span class="op">|</span><span class="ident">dialog</span>, <span class="ident">res_ty</span><span class="op">|</span> {

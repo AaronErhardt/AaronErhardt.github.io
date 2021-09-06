@@ -246,6 +246,11 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">feature</span>(<span class="ident">doc_cfg</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(
     <span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://raw.githubusercontent.com/AaronErhardt/relm4/main/assets/Relm_logo.svg&quot;</span>
@@ -412,6 +417,7 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">connect_stream</span> <span class="op">=</span> <span class="ident">TokenStream2::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">track_stream</span> <span class="op">=</span> <span class="ident">TokenStream2::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">component_stream</span> <span class="op">=</span> <span class="ident">TokenStream2::new</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">connect_component_stream</span> <span class="op">=</span> <span class="ident">TokenStream2::new</span>();
 
     <span class="kw">for</span> <span class="ident">widget</span> <span class="kw">in</span> <span class="ident">widget_list</span> {
         <span class="kw">let</span> <span class="ident">w_name</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">widget</span>.<span class="ident">name</span>;
@@ -420,7 +426,9 @@
         <span class="kw">let</span> <span class="ident">w_func</span> <span class="op">=</span> <span class="ident">widget</span>.<span class="ident">func</span>.<span class="ident">func_token_stream</span>();
 
         <span class="ident">struct_stream</span>.<span class="ident">extend</span>(<span class="macro">quote_spanned!</span> {
-            <span class="ident">w_span</span> <span class="op">=</span><span class="op">&gt;</span> #<span class="ident">w_name</span>: #<span class="ident">w_ty</span>,
+            <span class="ident">w_span</span> <span class="op">=</span><span class="op">&gt;</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_docs</span>)]</span>
+            #<span class="ident">attrs</span> #<span class="ident">w_name</span>: #<span class="ident">w_ty</span>,
         });
 
         <span class="ident">init_stream</span>.<span class="ident">extend</span>(<span class="macro">quote_spanned!</span> {
@@ -433,6 +441,7 @@
         <span class="ident">connect_stream</span>.<span class="ident">extend</span>(<span class="ident">widget</span>.<span class="ident">connect_stream</span>());
         <span class="ident">track_stream</span>.<span class="ident">extend</span>(<span class="ident">widget</span>.<span class="ident">track_stream</span>());
         <span class="ident">component_stream</span>.<span class="ident">extend</span>(<span class="ident">widget</span>.<span class="ident">component_stream</span>());
+        <span class="ident">connect_component_stream</span>.<span class="ident">extend</span>(<span class="ident">widget</span>.<span class="ident">connect_component_stream</span>());
     }
 
     <span class="kw">let</span> <span class="ident">impl_generics</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">impl_generics</span>;
@@ -476,6 +485,7 @@
 
             <span class="kw">fn</span> <span class="ident">connect_components</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">components</span>: <span class="kw-2">&amp;</span><span class="op">&lt;</span>#<span class="ident">model</span> <span class="kw">as</span> <span class="ident">::relm4::Model</span><span class="op">&gt;</span><span class="ident">::Components</span>) {
                 #<span class="ident">component_stream</span>
+                #<span class="ident">connect_component_stream</span>
             }
 
             <span class="doccomment">/// Return the root widget.</span>

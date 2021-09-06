@@ -255,8 +255,25 @@
 <span id="255">255</span>
 <span id="256">256</span>
 <span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">syn</span>::{
-    <span class="ident">braced</span>, <span class="ident">parenthesized</span>,
+    <span class="ident">braced</span>, <span class="ident">bracketed</span>, <span class="ident">parenthesized</span>,
     <span class="ident">parse</span>::{<span class="ident">Parse</span>, <span class="ident">ParseBuffer</span>, <span class="ident">ParseStream</span>},
     <span class="ident">parse_macro_input</span>,
     <span class="ident">punctuated::Punctuated</span>,
@@ -303,6 +320,7 @@
         <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">optional_assign</span> <span class="op">=</span> <span class="bool-val">false</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iterative</span> <span class="op">=</span> <span class="bool-val">false</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">braced_args</span> <span class="op">=</span> <span class="bool-val">false</span>;
 
         <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span>[<span class="op">!</span>]) {
             <span class="kw">if</span> <span class="kw">let</span> <span class="ident">PropertyName::Ident</span>(<span class="kw-2">ref</span> <span class="ident">ident_name</span>) <span class="op">=</span> <span class="ident">name</span> {
@@ -327,21 +345,37 @@
             <span class="kw">let</span> <span class="ident">paren_input</span>;
             <span class="macro">parenthesized!</span>(<span class="ident">paren_input</span> <span class="kw">in</span> <span class="ident">input</span>);
             <span class="prelude-val">Some</span>(<span class="ident">paren_input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
+        }
+        <span class="comment">// check for property[a, b, c]: ...</span>
+        <span class="kw">else</span> <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="ident">token::Bracket</span>) {
+            <span class="kw">let</span> <span class="ident">paren_input</span>;
+            <span class="macro">bracketed!</span>(<span class="ident">paren_input</span> <span class="kw">in</span> <span class="ident">input</span>);
+            <span class="ident">braced_args</span> <span class="op">=</span> <span class="bool-val">true</span>;
+            <span class="prelude-val">Some</span>(<span class="ident">paren_input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>)
         } <span class="kw">else</span> {
             <span class="prelude-val">None</span>
         };
 
+        <span class="comment">// look for event handlers: property(a, ...) =&gt; move |a, ...| { ... }</span>
         <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span> [<span class="op">=</span><span class="op">&gt;</span>]) {
             <span class="kw">let</span> <span class="ident">_arrow</span>: <span class="macro">Token!</span>[<span class="op">=</span><span class="op">&gt;</span>] <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
-            <span class="ident">input</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">PropertyType::Connect</span>)<span class="question-mark">?</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span>[<span class="op">=</span>]) <span class="op">|</span><span class="op">|</span> <span class="ident">input</span>.<span class="ident">peek3</span>(<span class="macro">Token!</span>[<span class="op">=</span>]) {
+            <span class="kw">if</span> <span class="ident">braced_args</span> {
+                <span class="ident">input</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">PropertyType::ConnectComponent</span>)<span class="question-mark">?</span>
+            } <span class="kw">else</span> {
+                <span class="ident">input</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">PropertyType::Connect</span>)<span class="question-mark">?</span>
+            }
+        }
+        <span class="comment">// look for widgets</span>
+        <span class="kw">else</span> <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span>[<span class="op">=</span>]) <span class="op">|</span><span class="op">|</span> <span class="ident">input</span>.<span class="ident">peek3</span>(<span class="macro">Token!</span>[<span class="op">=</span>]) {
             <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span>[<span class="op">=</span>]) {
                 <span class="kw">let</span> <span class="ident">_token</span>: <span class="macro">Token!</span>[<span class="op">=</span>] <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
             } <span class="kw">else</span> {
                 <span class="kw">let</span> <span class="ident">_colon</span>: <span class="macro">Token!</span> [:] <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
             }
             <span class="ident">input</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">PropertyType::Widget</span>)<span class="question-mark">?</span>
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span> [:]) <span class="op">|</span><span class="op">|</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span> [<span class="question-mark">?</span>]) {
+        }
+        <span class="comment">// look for properties or optional properties (?)</span>
+        <span class="kw">else</span> <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span> [:]) <span class="op">|</span><span class="op">|</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span> [<span class="question-mark">?</span>]) {
             <span class="comment">// look for ? at beginning for optional assign</span>
             <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">peek</span>(<span class="macro">Token!</span> [<span class="question-mark">?</span>]) {
                 <span class="kw">let</span> <span class="ident">_question_mark</span>: <span class="macro">Token!</span>[<span class="question-mark">?</span>] <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
@@ -389,7 +423,7 @@
                 <span class="ident">input</span>.<span class="ident">parse</span>().<span class="ident">map</span>(<span class="ident">PropertyType::Expr</span>)<span class="question-mark">?</span>
             }
         } <span class="kw">else</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">input</span>.<span class="ident">error</span>(<span class="string">&quot;TODO&quot;</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">input</span>.<span class="ident">error</span>(<span class="string">&quot;Unexpected token. Expected =&gt;, =, : or ?:&quot;</span>));
         };
 
         <span class="prelude-val">Ok</span>(<span class="ident">Property</span> {

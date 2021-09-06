@@ -6,7 +6,18 @@
     <description>Recent content on Eberhardt blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Aug 2021 15:00:00 +3000</lastBuildDate><atom:link href="https://aaronerhardt.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Sep 2021 15:00:00 +3000</lastBuildDate><atom:link href="https://aaronerhardt.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Announcing Relm4 0.1</title>
+      <link>https://aaronerhardt.github.io/blog/posts/announcing_relm4/</link>
+      <pubDate>Mon, 06 Sep 2021 15:00:00 +3000</pubDate>
+      
+      <guid>https://aaronerhardt.github.io/blog/posts/announcing_relm4/</guid>
+      <description>Roughly one month after the first beta release and countless hours of work I&amp;rsquo;m happy to announce the first stable release of Relm4! 🎉🎉🎉
+About Relm4 Relm4 is an idiomatic GUI library inspired by Elm and based on gtk4-rs. It is a new version of relm that&amp;rsquo;s built from scratch and is compatible with GTK4 and libadwaita. The main goals are productivity, flexibility, simplicity and maintainability.
+Over the last beta releases, the development slowly calmed down up to a point where I&amp;rsquo;m comfortable releasing the first stable version.</description>
+    </item>
+    
     <item>
       <title>Relm4 beta released 🎉</title>
       <link>https://aaronerhardt.github.io/blog/posts/relm_beta/</link>
