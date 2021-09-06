@@ -1,5 +1,5 @@
 ---
-title: "Announcing Relm4 0.1"
+title: "Announcing Relm4 v0.1"
 date: 2021-09-06T15:00:00+30:00
 # weight: 1
 # aliases: ["/relm4_release"]
