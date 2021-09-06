@@ -34,7 +34,7 @@ Alright, let's implement it!
 
 ### The includes
 
-In this example, the includes are a little special. We have two kinds of senders: one sender that's used by Relm4 (`relm4::Sender`) and the sender we use for the message handler (`tokio::sync::mpsc::Sender`). Because both are called `Sender` by default we rename the latter to `TokioSender` in the last line of the includes.
+In this example, the includes are a little special. We have two kind of senders: one sender that's used by Relm4 (`relm4::Sender`) and the sender we use for the message handler (`tokio::sync::mpsc::Sender`). Because both are called `Sender` by default we rename the latter to `TokioSender` in the last line of the includes.
 
 ```rust,no_run,noplayground
 {{#include ../listings/message_handler.rs:include }}
