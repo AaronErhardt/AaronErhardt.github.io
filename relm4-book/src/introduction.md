@@ -34,9 +34,9 @@ Add the packages you need to your Cargo.toml:
 
 ```toml
 gtk = { version = "0.2", package = "gtk4" }
-relm4 = "0.1.0-beta.9"
-relm4-macros = "0.1.0-beta.9"
-relm4-components = "0.1.0-beta.9"
+relm4 = "0.1"
+relm4-macros = "0.1"
+relm4-components = "0.1"
 ```
 
 # Examples
