@@ -74,6 +74,14 @@ We’re done! That’s your first reusable component.
 
 > You can find more examples of reusable components in the relm4-components crate [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-components). You can also contribute your own reusable components to relm4-components :)
 
+#### Screenshots
+
+![App screenshot light](img/screenshots/reusable-alert-light-1.png)
+![App screenshot light](img/screenshots/reusable-alert-light-2.png)
+
+![App screenshot dark](img/screenshots/reusable-alert-dark-1.png)
+![App screenshot dark](img/screenshots/reusable-alert-dark-2.png)
+
 ## The complete code
 
 Let’s review our code in one piece one more time to see how all these parts work together:

@@ -316,6 +316,9 @@
 <blockquote>
 <p>As you might have noticed, storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore, we can remove them from <code>AppWidgets</code> to avoid compiler warnings.</p>
 </blockquote>
+<h4 id="screenshots"><a class="header" href="#screenshots">Screenshots</a></h4>
+<p><img src="img/screenshots/simple-light.png" alt="App screenshot light" />
+<img src="img/screenshots/simple-dark.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};

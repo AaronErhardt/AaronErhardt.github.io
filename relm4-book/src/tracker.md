@@ -162,6 +162,14 @@ There's one last thing to point out. When initializing our model, we need to ini
 {{#include ../listings/tracker.rs:main }}
 ```
 
+#### Screenshots
+
+![App screenshot light](img/screenshots/tracker-light-1.png)
+![App screenshot light](img/screenshots/tracker-light-2.png)
+
+![App screenshot dark](img/screenshots/tracker-dark-1.png)
+![App screenshot dark](img/screenshots/tracker-dark-2.png)
+
 ## The complete code
 
 Let's review our code in one piece one more time to see how all these parts work together:

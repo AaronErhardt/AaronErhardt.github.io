@@ -157,7 +157,8 @@
 <p>In the second diagram, there's no blocking. The second and the third message are handled instantly, so they can increment the counter exactly one second after the user clicked the button for the second and third time.</p>
 <p>Alright, let's implement it!</p>
 <h3 id="the-includes"><a class="header" href="#the-includes">The includes</a></h3>
-<p>In this example, the includes are a little special. We have two kinds of senders: one sender that's used by Relm4 (<code>relm4::Sender</code>) and the sender we use for the message handler (<code>tokio::sync::mpsc::Sender</code>). Because both are called <code>Sender</code> by default we rename the latter to <code>TokioSender</code> in the last line of the includes.</p>
+<p>In this example, the includes are a little special because we have two kinds of senders. We've already seen <code>relm4::Sender</code> (aka <code>glib::Sender</code>) several times as it's used by Relm4 to send messages to components and workers. The other one is <code>tokio::sync::mpsc::Sender</code>, the sender we use for the message handler. We could use any sender type we want for the message handler because we're implementing all of the message handling ourselves. Yet, because we want a sender that supports async Rust, the sender from <a href="https://docs.rs/tokio/1.11.0/tokio/sync/mpsc/struct.Sender.html">tokio</a> is a reasonable choice.</p>
+<p>Since both senders are called <code>Sender</code> by default we rename the latter to <code>TokioSender</code> in the last line of the includes.</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
 use relm4::{
     send, AppUpdate, Components, MessageHandler, Model, RelmApp, RelmMsgHandler, Sender,
@@ -167,9 +168,6 @@ use relm4::{
 use tokio::runtime::{Builder, Runtime};
 use tokio::sync::mpsc::{channel, Sender as TokioSender};
 </code></pre>
-<blockquote>
-<p>Different senders are useful for different use-cases. For example, the sender from Relm4 is just an alias for <code>glib::Sender</code> that integrates well with GTK. The sender from tokio is nice for asynchronous code and <code>std::sync::mpsc::Sender</code> could, for example, be used for a thread pool.</p>
-</blockquote>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
 <p>The model and the message type are the same as in our first app.</p>
 <pre><code class="language-rust no_run noplayground">struct AppModel {
@@ -334,6 +332,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 </code></pre>
 <h3 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h3>
 <p>That's it! We've implemented our first message handler.</p>
+<h4 id="screenshots"><a class="header" href="#screenshots">Screenshots</a></h4>
+<p><img src="img/screenshots/simple-light.png" alt="App screenshot light" />
+<img src="img/screenshots/simple-dark.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};

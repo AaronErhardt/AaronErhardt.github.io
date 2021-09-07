@@ -364,6 +364,9 @@ cd relm4-examples
 <blockquote>
 <p>As you might have noticed, storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore, we can remove them from <code>AppWidgets</code> to avoid compiler warnings.</p>
 </blockquote>
+<h4 id="screenshots"><a class="header" href="#screenshots">Screenshots</a></h4>
+<p><img src="img/screenshots/simple-light.png" alt="App screenshot light" />
+<img src="img/screenshots/simple-dark.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
@@ -546,6 +549,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <blockquote>
 <p>The full reference for the syntax of the widget macro can be found <a href="https://aaronerhardt.github.io/relm4-book/book/widget_macro_reference.html">here</a>.</p>
 </blockquote>
+<h4 id="screenshots-1"><a class="header" href="#screenshots-1">Screenshots</a></h4>
+<p><img src="img/screenshots/simple-light.png" alt="App screenshot light" />
+<img src="img/screenshots/simple-dark.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code-1"><a class="header" href="#the-complete-code-1">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
@@ -842,6 +848,11 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
     relm.run();
 }
 </code></pre>
+<h4 id="screenshots-2"><a class="header" href="#screenshots-2">Screenshots</a></h4>
+<p><img src="img/screenshots/tracker-light-1.png" alt="App screenshot light" />
+<img src="img/screenshots/tracker-light-2.png" alt="App screenshot light" /></p>
+<p><img src="img/screenshots/tracker-dark-1.png" alt="App screenshot dark" />
+<img src="img/screenshots/tracker-dark-2.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code-2"><a class="header" href="#the-complete-code-2">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
@@ -1125,6 +1136,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 <p>The <code>factory!</code> macro simply expands to <code>model.data.generate(&amp;self.gen_box, sender)</code> where <code>gen_box</code> is the <code>gtk::Box</code> we used as a container. The <code>generate</code> function is provided by the <code>Factory</code> trait that's implemented for <code>FactoryVec</code> and similar data structures.</p>
 </blockquote>
 <p>Now to test this, we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!</p>
+<h4 id="screenshots-3"><a class="header" href="#screenshots-3">Screenshots</a></h4>
+<p><img src="img/screenshots/factory-light.png" alt="App screenshot light" />
+<img src="img/screenshots/factory-dark.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code-3"><a class="header" href="#the-complete-code-3">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::glib::Sender;
@@ -1465,6 +1479,9 @@ To be able to provide the root widget via the <code>get_root</code> function we 
         }
 </code></pre>
 <p>And that's it! All the other complex operations that keep track of changes are implemented in Relm4 already, we just need to use dynamic indices to make out program work :)</p>
+<h4 id="screenshots-4"><a class="header" href="#screenshots-4">Screenshots</a></h4>
+<p><img src="img/screenshots/factory-advanced-light.png" alt="App screenshot light" />
+<img src="img/screenshots/factory-advanced-dark.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code-4"><a class="header" href="#the-complete-code-4">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <blockquote>
@@ -1973,6 +1990,11 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 </blockquote>
 <h2 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h2>
 <p>You now know most of the secrets that Relm4 offers. Components can be powerful and if they are implemented correctly, they are even reusable across different apps. The relm4-components crate offers several reusable components you can use in your applications. In the following chapters, we'll look at an even simpler component type called worker, how to implement reusable components yourself and how to use components with async code and multiple threads.</p>
+<h4 id="screenshots-5"><a class="header" href="#screenshots-5">Screenshots</a></h4>
+<p><img src="img/screenshots/components-light-1.png" alt="App screenshot light" />
+<img src="img/screenshots/components-light-2.png" alt="App screenshot light" /></p>
+<p><img src="img/screenshots/components-dark-1.png" alt="App screenshot dark" />
+<img src="img/screenshots/components-dark-2.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code-5"><a class="header" href="#the-complete-code-5">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, DialogExt, GtkWindowExt, ToggleButtonExt, WidgetExt};
@@ -2247,7 +2269,8 @@ fn main() {
 <p>In the second diagram, there's no blocking. The second and the third message are handled instantly, so they can increment the counter exactly one second after the user clicked the button for the second and third time.</p>
 <p>Alright, let's implement it!</p>
 <h3 id="the-includes"><a class="header" href="#the-includes">The includes</a></h3>
-<p>In this example, the includes are a little special. We have two kinds of senders: one sender that's used by Relm4 (<code>relm4::Sender</code>) and the sender we use for the message handler (<code>tokio::sync::mpsc::Sender</code>). Because both are called <code>Sender</code> by default we rename the latter to <code>TokioSender</code> in the last line of the includes.</p>
+<p>In this example, the includes are a little special because we have two kinds of senders. We've already seen <code>relm4::Sender</code> (aka <code>glib::Sender</code>) several times as it's used by Relm4 to send messages to components and workers. The other one is <code>tokio::sync::mpsc::Sender</code>, the sender we use for the message handler. We could use any sender type we want for the message handler because we're implementing all of the message handling ourselves. Yet, because we want a sender that supports async Rust, the sender from <a href="https://docs.rs/tokio/1.11.0/tokio/sync/mpsc/struct.Sender.html">tokio</a> is a reasonable choice.</p>
+<p>Since both senders are called <code>Sender</code> by default we rename the latter to <code>TokioSender</code> in the last line of the includes.</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
 use relm4::{
     send, AppUpdate, Components, MessageHandler, Model, RelmApp, RelmMsgHandler, Sender,
@@ -2257,9 +2280,6 @@ use relm4::{
 use tokio::runtime::{Builder, Runtime};
 use tokio::sync::mpsc::{channel, Sender as TokioSender};
 </code></pre>
-<blockquote>
-<p>Different senders are useful for different use-cases. For example, the sender from Relm4 is just an alias for <code>glib::Sender</code> that integrates well with GTK. The sender from tokio is nice for asynchronous code and <code>std::sync::mpsc::Sender</code> could, for example, be used for a thread pool.</p>
-</blockquote>
 <h3 id="the-model-7"><a class="header" href="#the-model-7">The model</a></h3>
 <p>The model and the message type are the same as in our first app.</p>
 <pre><code class="language-rust no_run noplayground">struct AppModel {
@@ -2424,6 +2444,9 @@ impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
 </code></pre>
 <h3 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h3>
 <p>That's it! We've implemented our first message handler.</p>
+<h4 id="screenshots-6"><a class="header" href="#screenshots-6">Screenshots</a></h4>
+<p><img src="img/screenshots/simple-light.png" alt="App screenshot light" />
+<img src="img/screenshots/simple-dark.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code-6"><a class="header" href="#the-complete-code-6">The complete code</a></h2>
 <p>Let's review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
@@ -2818,6 +2841,11 @@ where
 <blockquote>
 <p>You can find more examples of reusable components in the relm4-components crate <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-components">here</a>. You can also contribute your own reusable components to relm4-components :)</p>
 </blockquote>
+<h4 id="screenshots-7"><a class="header" href="#screenshots-7">Screenshots</a></h4>
+<p><img src="img/screenshots/reusable-alert-light-1.png" alt="App screenshot light" />
+<img src="img/screenshots/reusable-alert-light-2.png" alt="App screenshot light" /></p>
+<p><img src="img/screenshots/reusable-alert-dark-1.png" alt="App screenshot dark" />
+<img src="img/screenshots/reusable-alert-dark-2.png" alt="App screenshot dark" /></p>
 <h2 id="the-complete-code-7"><a class="header" href="#the-complete-code-7">The complete code</a></h2>
 <p>Let’s review our code in one piece one more time to see how all these parts work together:</p>
 <pre><code class="language-rust no_run noplayground">use gtk::prelude::{DialogExt, GtkWindowExt, WidgetExt};

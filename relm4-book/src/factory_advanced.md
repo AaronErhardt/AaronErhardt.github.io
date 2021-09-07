@@ -87,6 +87,11 @@ Now we can connect the messages. We always send a weak pointer of our dynamic in
 
 And that's it! All the other complex operations that keep track of changes are implemented in Relm4 already, we just need to use dynamic indices to make out program work :)
 
+#### Screenshots
+
+![App screenshot light](img/screenshots/factory-advanced-light.png)
+![App screenshot dark](img/screenshots/factory-advanced-dark.png)
+
 ## The complete code
 
 Let's review our code in one piece one more time to see how all these parts work together:

@@ -152,6 +152,11 @@ As you have seen, initializing the UI was by far the largest part of our app, wi
 
 > As you might have noticed, storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore, we can remove them from `AppWidgets` to avoid compiler warnings.
 
+#### Screenshots
+
+![App screenshot light](img/screenshots/simple-light.png)
+![App screenshot dark](img/screenshots/simple-dark.png)
+
 ## The complete code
 
 Let's review our code in one piece one more time to see how all these parts work together:

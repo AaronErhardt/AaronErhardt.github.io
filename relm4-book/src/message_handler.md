@@ -34,13 +34,13 @@ Alright, let's implement it!
 
 ### The includes
 
-In this example, the includes are a little special. We have two kinds of senders: one sender that's used by Relm4 (`relm4::Sender`) and the sender we use for the message handler (`tokio::sync::mpsc::Sender`). Because both are called `Sender` by default we rename the latter to `TokioSender` in the last line of the includes.
+In this example, the includes are a little special because we have two kinds of senders. We've already seen `relm4::Sender` (aka `glib::Sender`) several times as it's used by Relm4 to send messages to components and workers. The other one is `tokio::sync::mpsc::Sender`, the sender we use for the message handler. We could use any sender type we want for the message handler because we're implementing all of the message handling ourselves. Yet, because we want a sender that supports async Rust, the sender from [tokio](https://docs.rs/tokio/1.11.0/tokio/sync/mpsc/struct.Sender.html) is a reasonable choice.
+
+Since both senders are called `Sender` by default we rename the latter to `TokioSender` in the last line of the includes.
 
 ```rust,no_run,noplayground
 {{#include ../listings/message_handler.rs:include }}
 ```
-
-> Different senders are useful for different use-cases. For example, the sender from Relm4 is just an alias for `glib::Sender` that integrates well with GTK. The sender from tokio is nice for asynchronous code and `std::sync::mpsc::Sender` could, for example, be used for a thread pool.
 
 ### The model
 
@@ -119,6 +119,11 @@ connect_name[sender_name = components.component_name.sender()] => move |_| { ...
 ### Conclusion
 
 That's it! We've implemented our first message handler.
+
+#### Screenshots
+
+![App screenshot light](img/screenshots/simple-light.png)
+![App screenshot dark](img/screenshots/simple-dark.png)
 
 ## The complete code
 

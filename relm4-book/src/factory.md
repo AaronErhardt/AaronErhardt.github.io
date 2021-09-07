@@ -128,6 +128,11 @@ The `factory!` macro that's almost at the end of the widgets definition now upda
 
 Now to test this, we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!
 
+#### Screenshots
+
+![App screenshot light](img/screenshots/factory-light.png)
+![App screenshot dark](img/screenshots/factory-dark.png)
+
 ## The complete code
 
 Let's review our code in one piece one more time to see how all these parts work together:
