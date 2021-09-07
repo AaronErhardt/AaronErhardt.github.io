@@ -42,6 +42,8 @@ Since both senders are called `Sender` by default we rename the latter to `Tokio
 {{#include ../listings/message_handler.rs:include }}
 ```
 
+> Relm4 runs updates for workers and components on the [glib main event loop](https://gtk-rs.org/gtk4-rs/git/book/main_event_loop.html) that's provided by GTK. Therefore, Relm4 uses `relm4::Sender` aka [`glib::Sender`](https://gtk-rs.org/gtk-rs-core/stable/latest/docs/glib/struct.Sender.html) to send messages to workers and components.
+
 ### The model
 
 The model and the message type are the same as in our first app.

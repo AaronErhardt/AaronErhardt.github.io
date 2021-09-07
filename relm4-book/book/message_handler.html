@@ -168,6 +168,9 @@ use relm4::{
 use tokio::runtime::{Builder, Runtime};
 use tokio::sync::mpsc::{channel, Sender as TokioSender};
 </code></pre>
+<blockquote>
+<p>Relm4 runs updates for workers and components on the <a href="https://gtk-rs.org/gtk4-rs/git/book/main_event_loop.html">glib main event loop</a> that's provided by GTK. Therefore, Relm4 uses <code>relm4::Sender</code> aka <a href="https://gtk-rs.org/gtk-rs-core/stable/latest/docs/glib/struct.Sender.html"><code>glib::Sender</code></a> to send messages to workers and components.</p>
+</blockquote>
 <h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
 <p>The model and the message type are the same as in our first app.</p>
 <pre><code class="language-rust no_run noplayground">struct AppModel {
