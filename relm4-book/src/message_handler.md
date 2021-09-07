@@ -34,13 +34,14 @@ Alright, let's implement it!
 
 ### The includes
 
-In this example, the includes are a little special. We have two kinds of senders: one sender that's used by Relm4 (`relm4::Sender`) and the sender we use for the message handler (`tokio::sync::mpsc::Sender`). Because both are called `Sender` by default we rename the latter to `TokioSender` in the last line of the includes.
+In this example, the includes are a little special. We have two kinds of senders: one sender that's used by Relm4 (`relm4::Sender`) and the the other sender we use for the message handler (`tokio::sync::mpsc::Sender`). Because both are called `Sender` by default we rename the latter to `TokioSender` in the last line of the includes.
 
 ```rust,no_run,noplayground
 {{#include ../listings/message_handler.rs:include }}
 ```
 
-> Different senders are useful for different use-cases. For example, the sender from Relm4 is just an alias for `glib::Sender` that integrates well with GTK. The sender from tokio is nice for asynchronous code and `std::sync::mpsc::Sender` could, for example, be used for a thread pool.
+> Different senders are useful for different use-cases. In this case we use the first sender from Relm4, which is just an alias for `glib::Sender`, for communicating with the GTK widgets. 
+> And the second sender from tokio, which is implemented for being used in asynchronous code. From that we'll use `std::sync::mpsc::Sender` in this example to communicate with a thread pool which handles later the message queue.
 
 ### The model
 
