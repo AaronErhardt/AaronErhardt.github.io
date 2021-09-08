@@ -53,7 +53,7 @@ struct AppWidgets {
 // ANCHOR: widgets_trait_start
 impl Widgets<AppModel, ()> for AppWidgets {
     type Root = gtk::ApplicationWindow;
-// ANCHOR_END: widgets_trait_start    
+// ANCHOR_END: widgets_trait_start
 
 // ANCHOR: init_view
     /// Initialize the UI.
@@ -87,9 +87,8 @@ impl Widgets<AppModel, ()> for AppWidgets {
             send!(btn_sender, AppMsg::Increment);
         });
 
-        let btn_sender = sender.clone();
         dec_button.connect_clicked(move |_| {
-            send!(btn_sender, AppMsg::Decrement);
+            send!(sender, AppMsg::Decrement);
         });
 
         Self {
@@ -101,14 +100,14 @@ impl Widgets<AppModel, ()> for AppWidgets {
         }
     }
 // ANCHOR_END: init_view
-    
+
     // ANCHOR: root_widget
     /// Return the root widget.
     fn root_widget(&self) -> Self::Root {
         self.window.clone()
     }
     // ANCHOR_END: root_widget
-    
+
     // ANCHOR: view
     /// Update the view to represent the updated model.
     fn view(&mut self, model: &AppModel, _sender: Sender<AppMsg>) {

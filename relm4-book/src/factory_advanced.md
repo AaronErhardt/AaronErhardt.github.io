@@ -21,7 +21,7 @@ The solution Relm4 chose was dynamic indices. These indices are updated automati
 ### The message type
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:msg }}
+{{#include ../examples/factory_advanced.rs:msg }}
 ```
 
 As you can see, we use a lot of `MsgIndex` aka `Weak<DynamicIndex>`. This allows us to always hold a reference to the dynamic index value.
@@ -33,7 +33,7 @@ The reason we use weak pointers here is that we don’t want to hold references 
 The model is very similar to the previous chapter. The only difference is that we use `FactoryVecDeque` as a data structure now.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:model }}
+{{#include ../examples/factory_advanced.rs:model }}
 ```
 
 ### The update function
@@ -47,7 +47,7 @@ The update function now handles quite a lot of events. We want to
 + Insert a new counter after another counter
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:app_update }}
+{{#include ../examples/factory_advanced.rs:app_update }}
 ```
 
 To get the current index value from the dynamic index, we simply call `index.current_index()`.
@@ -62,7 +62,7 @@ Because we have four actions per counter now, we also need an additional box to 
 To be able to provide the root widget via the `get_root` function we need to store the box in the widgets type.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:factory_widgets }}
+{{#include ../examples/factory_advanced.rs:factory_widgets }}
 ```
 
 ### The generate function
@@ -70,19 +70,19 @@ To be able to provide the root widget via the `get_root` function we need to sto
 For the generate function, we need to first generate the new buttons and the box.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:generate_start }}
+{{#include ../examples/factory_advanced.rs:generate_start }}
 ```
 
 Then we need to place the buttons inside of the box.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:append }}
+{{#include ../examples/factory_advanced.rs:append }}
 ```
 
 Now we can connect the messages. We always send a weak pointer of our dynamic index.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:connect }}
+{{#include ../examples/factory_advanced.rs:connect }}
 ```
 
 And that's it! All the other complex operations that keep track of changes are implemented in Relm4 already, we just need to use dynamic indices to make out program work :)
@@ -99,5 +99,5 @@ Let's review our code in one piece one more time to see how all these parts work
 > Unlike the example in the previous chapter, the following code does not use the widget macro from relm4-macros but implements the `Widgets` trait manually. Yet, the generated code from the macro and the manual code should be almost identical.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory_advanced.rs:all }}
+{{#include ../examples/factory_advanced.rs:all }}
 ```

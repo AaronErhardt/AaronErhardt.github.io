@@ -19,7 +19,7 @@ Let's see how we can implement those types for our counter app.
 Our app only needs to store the state of a counter, so a simple `u8` is enough.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:model }}
+{{#include ../examples/simple_manual.rs:model }}
 ```
 
 ### The message
@@ -27,7 +27,7 @@ Our app only needs to store the state of a counter, so a simple `u8` is enough.
 Now we need to define what messages can be used to modify the model. The message can be represented by any data type, but most often, an `enum` is used. In our case, we just want to increment and decrement the counter.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:msg }}
+{{#include ../examples/simple_manual.rs:msg }}
 ```
 
 ### The widgets
@@ -35,7 +35,7 @@ Now we need to define what messages can be used to modify the model. The message
 The widgets struct stores the widgets we need to build our user interface. For our app, we can use a window with an increment button, a decrement button and a label to display the counter value. Besides that, we need a box as a container to place our buttons and the label inside because a window can only have one child.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:widgets }}
+{{#include ../examples/simple_manual.rs:widgets }}
 ```
 
 ## The Model trait
@@ -51,7 +51,7 @@ There are three types we need to include:
 We don't care about components for now because we are just writing a simple app. Therefore, we can use `()` as placeholder.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:model_trait }}
+{{#include ../examples/simple_manual.rs:model_trait }}
 ```
 
 ## The update loop
@@ -74,7 +74,7 @@ Theory is nice, but let's see it in action.
 Our update function is implemented with the `AppUpdate` trait.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:app_update }}
+{{#include ../examples/simple_manual.rs:app_update }}
 ```
 
 > `wrapping_add(1)` and `wrapping_sub(1)` are like `+1`  and `-1` , but don't panic on overflows.
@@ -90,7 +90,7 @@ Our last step is implementing the widgets trait. It provides methods to initiali
 Let's do this step by step. First, we'll have a look at beginning of the trait `impl`.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:widgets_trait_start }}
+{{#include ../examples/simple_manual.rs:widgets_trait_start }}
 ```
 
 You'll notice that
@@ -105,7 +105,7 @@ The `Root` type is the root widget of the app. Components can choose this type f
 Next up, we want to initialize our UI.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:init_view }}
+{{#include ../examples/simple_manual.rs:init_view }}
 ```
 
 But what exactly happens here?
@@ -121,7 +121,7 @@ Alright, now every time we click our buttons a message will be sent to update ou
 Yet our UI will not updated when the counter is changed. To do this, we need to implement the view function:
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:view }}
+{{#include ../examples/simple_manual.rs:view }}
 ```
 
 We just need to update the label to represent the new counter value.
@@ -129,7 +129,7 @@ We just need to update the label to represent the new counter value.
 We're almost done. To complete the `Widgets` trait we just need to implement the `root_widget` method.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:root_widget }}
+{{#include ../examples/simple_manual.rs:root_widget }}
 ```
 
 ## Running the App
@@ -137,7 +137,7 @@ We're almost done. To complete the `Widgets` trait we just need to implement the
 The last step is to run the app we just wrote. To do so, we just need to initialize our model and pass it into `RelmApp::new()`.
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:main }}
+{{#include ../examples/simple_manual.rs:main }}
 ```
 
 🎉 Congratulations! You just wrote your first app with Relm4! 🎉
@@ -162,5 +162,5 @@ As you have seen, initializing the UI was by far the largest part of our app, wi
 Let's review our code in one piece one more time to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../listings/simple_manual.rs:all }}
+{{#include ../examples/simple_manual.rs:all }}
 ```

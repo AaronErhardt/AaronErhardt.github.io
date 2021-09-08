@@ -77,7 +77,7 @@ Let's build a simple app that shows two random icons and allows the user to set 
 Before we can select random icons, we need to quickly implement a function that will return us random image names that are available in the default GTK icon theme.
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:icons }}
+{{#include ../examples/tracker.rs:icons }}
 ```
 
 ## The model
@@ -85,13 +85,13 @@ Before we can select random icons, we need to quickly implement a function that 
 For our model we only need to store the two icon names and whether both of them are identical.
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:model }}
+{{#include ../examples/tracker.rs:model }}
 ```
 
 The message type is also pretty simple: we just want to update one of the icons.
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:msg }}
+{{#include ../examples/tracker.rs:msg }}
 ```
 
 There are a few notable things for the `AppUpdate` implementation.
@@ -100,7 +100,7 @@ First, we call `self.reset()` at the top of the update function body. This ensur
 Also, we use setters instead of assignments because we want to track these changes. Yet, you could still use the assignment operator if you want to apply changes without notifying the tracker.
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:app_update }}
+{{#include ../examples/tracker.rs:app_update }}
 ```
 
 ## The widgets
@@ -108,7 +108,7 @@ Also, we use setters instead of assignments because we want to track these chang
 Now we reached the interesting part of the code where we can actually make use of the tracker. Let's have a look at the complete widget macro:
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:widgets }}
+{{#include ../examples/tracker.rs:widgets }}
 ```
 
 The overall UI is pretty simple: A window that contains a box. This box has two boxes itself for showing the two icons and the two buttons to update those icons.
@@ -116,7 +116,7 @@ The overall UI is pretty simple: A window that contains a box. This box has two 
 There's also something new. With the `pre_init()` and `post_init()` functions you can add custom code that will be run either before or after the code the widget macro generates for initialization. In our case, we want to add custom CSS that sets the background color for elements with class name "identical".
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:post_init }}
+{{#include ../examples/tracker.rs:post_init }}
 ```
 
 
@@ -131,7 +131,7 @@ track!(bool_expression, argument, [further arguments])
 Let's have a look at its first appearance:
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:track1 }}
+{{#include ../examples/tracker.rs:track1 }}
 ```
 
 The macro expansion for the `track!` macro in the generated view function looks roughly like this:
@@ -147,7 +147,7 @@ That's all. It's pretty simple, actually. We just use a condition that allows us
 The second `track!` macro looks very similar but only passes one argument:
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:track2 }}
+{{#include ../examples/tracker.rs:track2 }}
 ```
 
 > Since the `track!` macro parses expressions, you can use the following syntax to debug your trackers:
@@ -159,7 +159,7 @@ The second `track!` macro looks very similar but only passes one argument:
 There's one last thing to point out. When initializing our model, we need to initialize the `tracker` field as well. The initial value doesn't really matter because we call `reset()` in the udpate function anyway, but usually `0` is used.
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:main }}
+{{#include ../examples/tracker.rs:main }}
 ```
 
 #### Screenshots
@@ -175,5 +175,5 @@ There's one last thing to point out. When initializing our model, we need to ini
 Let's review our code in one piece one more time to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../listings/tracker.rs:all }}
+{{#include ../examples/tracker.rs:all }}
 ```

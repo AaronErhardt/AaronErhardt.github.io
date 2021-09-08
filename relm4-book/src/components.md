@@ -31,25 +31,25 @@ We will not implement the actual functionality, but use placeholders instead to 
 Usually you want to store everything that only affects your component in the state of the component. In this case however, there is no state that can be stored in the component, but only state that affects the root component (app). Therefore, we leave the model empty and only send messages to the root component.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:header_model }}
+{{#include ../examples/components.rs:header_model }}
 ```
 
 The message type allows us to switch between the modes.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:header_msg }}
+{{#include ../examples/components.rs:header_msg }}
 ```
 
 For components we also need to implement the `Model` trait. The `Components` type is empty here because it refers to child components. We don't have any child components for our header bar so we use a `()`.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:header_model_impl }}
+{{#include ../examples/components.rs:header_model_impl }}
 ```
 
 The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:header_update }}
+{{#include ../examples/components.rs:header_update }}
 ```
 
 > We don't use the `_parent_model` argument of the `init_model` in this example. Yet you can use it if you need to access information from the parent model during initialization, for example for passing a resource shared with the component.
@@ -59,7 +59,7 @@ The update function is rather minimal. If our header bar was more complex, stori
 There's nothing special about widgets of a component. The only difference to the main app is that the root widget doesn't need to be a `gtk::ApplicationWindow`. Instead, we use a `gtk::HeaderBar` here, but theoretically the root widget doesn't even need to be a widget at all (which can be useful in special cases).
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:header_widgets }}
+{{#include ../examples/components.rs:header_widgets }}
 ```
 
 ## The close alert
@@ -71,7 +71,7 @@ Like a normal application that's used to edit files, we want to notify the user 
 The state of the dialog only needs to store whether or not it's hidden.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:dialog_model }}
+{{#include ../examples/components.rs:dialog_model }}
 ```
 
 The message contains three options:
@@ -81,13 +81,13 @@ The message contains three options:
 + Cancel is used internally to indicate that the user changes his mind and doesn't want to close the application.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:dialog_msg }}
+{{#include ../examples/components.rs:dialog_msg }}
 ```
 
 The update function updates the state of the dialog and sends a close message if the user accepted.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:dialog_update }}
+{{#include ../examples/components.rs:dialog_update }}
 ```
 
 ### The widgets
@@ -95,7 +95,7 @@ The update function updates the state of the dialog and sends a close message if
 You've probably seen enough widget implementations by now to know roughly how this should look like, but because we haven't had window components let's have a look at it either way.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:dialog_widgets }}
+{{#include ../examples/components.rs:dialog_widgets }}
 ```
 
 Most notably there is the `args!` macro. It allows us to pass values to functions that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use `args!` here.
@@ -111,7 +111,7 @@ Now all parts come together to form a single app. You might remember that there 
 Because each app and each component can have any amount of child components we need to define a struct that stores all of our components.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:components }}
+{{#include ../examples/components.rs:components }}
 ```
 
 To do this, just implement a struct with the components wrapped into a `RelmComponent` (which is similar to `RelmApp`). The first generic type of `RelmComponent` is the model of the component and the second one the parent model.
@@ -119,7 +119,7 @@ To do this, just implement a struct with the components wrapped into a `RelmComp
 To make this work and to initialize our components, we need to implement the `Components` trait for our struct.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:components_impl }}
+{{#include ../examples/components.rs:components_impl }}
 ```
 
 We just need to pass the arguments of the `init_components` function over to the `RelmComponent::new` function and the rest will be handled by Relm4.
@@ -129,7 +129,7 @@ We just need to pass the arguments of the `init_components` function over to the
 Now we're looking at something familiar again, the model of the main app.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:app_model }}
+{{#include ../examples/components.rs:app_model }}
 ```
 
 The `AppMode` struct stores the modes the application can be in. The `SetMode` message is used by our header bar component to update the state of the main application when someone presses a button in the header bar. The `Close` message is used by the dialog component to indicate that the window should be closed.
@@ -137,13 +137,13 @@ The `AppMode` struct stores the modes the application can be in. The `SetMode` m
 And now we finally use the `Components` type of the `Model` trait.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:app_model_impl }}
+{{#include ../examples/components.rs:app_model_impl }}
 ```
 
 The update function of the model is pretty straight forward.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:app_update }}
+{{#include ../examples/components.rs:app_update }}
 ```
 
 You see we can use `components.NAME.send()` to send messages to a child component, similar to the parent_sender we used to send messages in the other direction. Also we return `false` if our dialog component sends the `Close` message to tell Relm4 to close the application.
@@ -153,7 +153,7 @@ You see we can use `components.NAME.send()` to send messages to a child componen
 We're almost done! We only need to define the widgets of the main app.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:app_widgets }}
+{{#include ../examples/components.rs:app_widgets }}
 ```
 
 The `component!` macro is used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.
@@ -177,5 +177,5 @@ You now know most of the secrets that Relm4 offers. Components can be powerful a
 Let's review our code in one piece one more time to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:all }}
+{{#include ../examples/components.rs:all }}
 ```

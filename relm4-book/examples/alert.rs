@@ -1,6 +1,6 @@
 /// ANCHOR: all
 use gtk::prelude::{DialogExt, GtkWindowExt, WidgetExt};
-use relm4::{send, ComponentUpdate, Model, Sender, WidgetPlus};
+use relm4::{send, ComponentUpdate, Model, Sender};
 
 // ANCHOR: settings
 pub struct AlertSettings {
@@ -148,9 +148,11 @@ where
             let accept_widget = dialog
                 .widget_for_response(gtk::ResponseType::Accept)
                 .expect("No button for accept response set");
-            accept_widget.add_class_name("destructive-action");
+            accept_widget.add_css_class("destructive-action");
         }
     }
 }
+
+fn main() {}
 // ANCHOR_END: widgets
 // ANCHOR_END: all

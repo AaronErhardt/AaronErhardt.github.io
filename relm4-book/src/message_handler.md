@@ -39,7 +39,7 @@ In this example, the includes are a little special because we have two kinds of 
 Since both senders are called `Sender` by default we rename the latter to `TokioSender` in the last line of the includes.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:include }}
+{{#include ../examples/message_handler.rs:include }}
 ```
 
 > Relm4 runs updates for workers and components on the [glib main event loop](https://gtk-rs.org/gtk4-rs/git/book/main_event_loop.html) that's provided by GTK. Therefore, Relm4 uses `relm4::Sender` aka [`glib::Sender`](https://gtk-rs.org/gtk-rs-core/stable/latest/docs/glib/struct.Sender.html) to send messages to workers and components.
@@ -49,13 +49,13 @@ Since both senders are called `Sender` by default we rename the latter to `Tokio
 The model and the message type are the same as in our first app.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:model }}
+{{#include ../examples/message_handler.rs:model }}
 ```
 
 The update function is identical, too.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:app_update }}
+{{#include ../examples/message_handler.rs:app_update }}
 ```
 
 ### The message handler
@@ -65,13 +65,13 @@ Our message handler needs to store our sender and also the tokio runtime we use 
 And of course, we need a message type as well.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:handler }}
+{{#include ../examples/message_handler.rs:handler }}
 ```
 
 Then we need to implement the `MessageHandler` trait for our message handler.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:handler_impl }}
+{{#include ../examples/message_handler.rs:handler_impl }}
 ```
 
 First we define the message type. Then we specify the sender type. You could, for example, use `std::sync::mpsc::Sender`, `tokio::sync::mpsc::Sender` or any other sender type you want.
@@ -79,7 +79,7 @@ First we define the message type. Then we specify the sender type. You could, fo
 The `init` function simply initializes the message handler. In the first part, we create a new tokio runtime that will process our messages. Then we check for messages in a loop.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:async_loop }}
+{{#include ../examples/message_handler.rs:async_loop }}
 ```
 
 When using components and workers, this loop runs in the background. Here we need to define it ourselves. The important part here is the `await`. Because we wait for new messages here, the tokio runtime can process our messages in the meantime. Therefore, we can handle a lot of messages at the same time.
@@ -95,7 +95,7 @@ The `send` method defines a convenient interface for sending messages to this me
 Next, we need to add the message handler to our components. It's very similar to adding workers.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:components }}
+{{#include ../examples/message_handler.rs:components }}
 ```
 
 ### The widgets
@@ -103,13 +103,13 @@ Next, we need to add the message handler to our components. It's very similar to
 The last part we need is the widgets type. It should look familiar except for the events.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:widgets }}
+{{#include ../examples/message_handler.rs:widgets }}
 ```
 
 We're connecting the event directly to the message handler. You could pass the message through the update function of your app and forward it to the message handler, but the macro provides a special syntax to connect events directly.
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:connect }}
+{{#include ../examples/message_handler.rs:connect }}
 ```
 
 You'll notice that we use brackets instead of parentheses here. That tells the macro that we want to connect an event with a sender from a component. The syntax looks like this.
@@ -132,5 +132,5 @@ That's it! We've implemented our first message handler.
 Let's review our code in one piece one more time to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../listings/message_handler.rs:all }}
+{{#include ../examples/message_handler.rs:all }}
 ```

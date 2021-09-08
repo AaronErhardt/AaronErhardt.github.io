@@ -29,7 +29,7 @@ Workers are usually used to run tasks on a different thread to allow the main th
 You might remember this section of code from the example application in the components chapter.
 
 ```rust,no_run,noplayground
-{{#include ../listings/components.rs:components_impl }}
+{{#include ../examples/components.rs:components_impl }}
 ```
 
 In order to run the dialog component on a new thread, we just need to change one line:

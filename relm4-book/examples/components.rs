@@ -57,7 +57,7 @@ impl Widgets<HeaderModel, AppModel> for HeaderWidgets {
     view! {
         gtk::HeaderBar {
             set_title_widget = Some(&gtk::Box) {
-                add_class_name: "linked",
+                add_css_class: "linked",
                 append: group = &gtk::ToggleButton {
                     set_label: "View",
                     set_active: true,

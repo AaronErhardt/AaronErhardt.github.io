@@ -15,7 +15,7 @@ The most common solution for storing collections of data is a `Vec`. Yet a `Vec`
 > An overview over all available factory data structures can be found in the documentation [here](https://aaronerhardt.github.io/docs/relm4/relm4/factory/collections/index.html).
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:model }}
+{{#include ../examples/factory.rs:model }}
 ```
 
 As you can see, we first define the struct `Counter` that just stores the value of a single counter. Then we use a `FactoryVec` to store our counters in the model. For now, all of this is just data. Similar to the model type, we need to define the data structures we need for our UI first. Then we will define how to create widgets from this data. Yet unlike the model type, we can have many counters in a `FactoryVec` and each of them will be represented by its own widgets.
@@ -33,7 +33,7 @@ The actions we want to perform are
 Accordingly, our message type looks like this:
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:msg }}
+{{#include ../examples/factory.rs:msg }}
 ```
 
 You'll notice that an index is passed with `AppMsg::Clicked`. This allows us to select the counter that emitted the clicked signal.
@@ -43,7 +43,7 @@ You'll notice that an index is passed with `AppMsg::Clicked`. This allows us to 
 The update function takes care of adding, removing and decrementing counters. Each new counter will be initialized with the amount of counters created before it.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:app_update }}
+{{#include ../examples/factory.rs:app_update }}
 ```
 
 > The `get` and `get_mut` methods inside `FactoryVec` return `Some` if the element exists and `None` if the index is invalid. It's recommended to not unwrap this `Option` because messages (and also the indices sent with them) are queued up if your update and view functions are slow and can be stale by the time they are handled.
@@ -57,13 +57,13 @@ The first thing we need to implement for a factory is a widgets type. That sound
 In our case, we just need a simple button that will decrement the counter when clicked and will also display the counter value.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:factory_widgets }}
+{{#include ../examples/factory.rs:factory_widgets }}
 ```
 
 The `FactoryPrototype` trait we need next is very similar to the `Widgets` trait, too: it defines how widgets are created and updated. Let's have a look at the implementation:
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:factory_prototype_start }}
+{{#include ../examples/factory.rs:factory_prototype_start }}
 ```
 
 Alright, there are quite a few types! Let's look at them one by one:
@@ -79,7 +79,7 @@ Alright, there are quite a few types! Let's look at them one by one:
 The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. For the factory type `FactoryVec` an index of the type `usize` is being used.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:generate }}
+{{#include ../examples/factory.rs:generate }}
 ```
 
 As you can see, we send a message with the index back to the update function to decrement this specific counter when the button is pressed.
@@ -89,7 +89,7 @@ As you can see, we send a message with the index back to the update function to 
 In our case, the function is pretty short:
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:position }}
+{{#include ../examples/factory.rs:position }}
 ```
 
 The `gtk::Box` we use here is one-dimensional. This means that a `FactoryVec` can perfectly resemble the layout with its own internal structure because it's one-dimenational as well. In other words, the first element of the `FactoryVec` is also the first in the `gtk::Box`. Yet, some container widgets such as `gtk::Grid` place widgets at fixed two-dimensional positions and rely in the position function to know where a new widget should be added.
@@ -101,7 +101,7 @@ Because we don't use it here, the position function is explained in the next cha
 The update function is similar to `view` in the `Widgets` trait: it updates the widgets according to the updated data.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:update }}
+{{#include ../examples/factory.rs:update }}
 ```
 
 We just update the label of the button to represent the updated counter value.
@@ -111,7 +111,7 @@ We just update the label of the button to represent the updated counter value.
 The last function we need is the `get_root` function. It's similar to the `root_widget` in the `Widgets` trait: it returns the root widget, the outermost of our widgets.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:get_root }}
+{{#include ../examples/factory.rs:get_root }}
 ```
 
 ## The widgets
@@ -119,7 +119,7 @@ The last function we need is the `get_root` function. It's similar to the `root_
 The last piece to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the `factory!` macro.
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:widgets }}
+{{#include ../examples/factory.rs:widgets }}
 ```
 
 The `factory!` macro that's almost at the end of the widgets definition now updates our widgets according to the changes we make to the data in our model. It sits inside of the `gtk::Box` we want to use as a container for our counter.
@@ -138,5 +138,5 @@ Now to test this, we could add a print statement to the update function. It will
 Let's review our code in one piece one more time to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../listings/factory.rs:all }}
+{{#include ../examples/factory.rs:all }}
 ```

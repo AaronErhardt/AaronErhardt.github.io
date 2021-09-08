@@ -1,9 +1,4 @@
 // ANCHOR: all
-#![feature(prelude_import)]
-#[prelude_import]
-use std::prelude::rust_2018::*;
-#[macro_use]
-extern crate std;
 use gtk::prelude::{BoxExt, ButtonExt, GridExt, GtkWindowExt, OrientableExt, WidgetExt};
 use relm4::{
     send, AppUpdate, ComponentUpdate, Components, Model, RelmApp, RelmComponent, Sender,
@@ -242,7 +237,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
         }
     }
 // ANCHOR_END: return
-    
+
 // ANCHOR: connect_components
     fn connect_components(&self, components: &<AppModel as ::relm4::Model>::Components) {
         self._gtk_grid_6
@@ -256,7 +251,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
         self.main_window.clone()
     }
 // ANCHOR_END: root_widget
-    
+
 // ANCHOR: manual_view
     /// Update the view to represent the updated model.
     fn view(
@@ -270,7 +265,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
 
 // ANCHOR: macro_view
         self._new_label_2.set_label(&format!("Counter: {}", model.counter));
-        
+
         if model.decrement {
             self._gtk_button_new_1.set_label(&format!("Last decrement at {}", model.counter));
         }
@@ -281,7 +276,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
 fn main() {
     let model = AppModel {
         counter: 0,
-        classes: <[_]>::into_vec(box ["first", "second"]),
+        classes: vec!["first", "second"],
         decrement: false,
     };
     let app = RelmApp::new(model);
