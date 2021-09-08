@@ -41,7 +41,7 @@ relm4-components = "0.1"
 
 # Examples
 
-Many code examples in this book can also be found in the [relm4-examples crate](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples). Whenever an example is discussed in the book, the introdutction will mention the name of the example and provide a link to it.
+Many code examples in this book can also be found in the [relm4-examples crate](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
 
 To setup the examples run
 
