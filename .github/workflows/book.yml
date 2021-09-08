@@ -53,7 +53,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./relm4-book/book
           keep_files: false
-          destination_dir: /relm4/book
+          destination_dir: ./relm4/book
 
   codespell:
     runs-on: ubuntu-20.04
