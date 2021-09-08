@@ -10,24 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-20.04
-    name: listings build
-    container:
-      image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: clippy
-
-      - run: cargo clippy --examples -- -D warnings -A dead_code -A unused_variables
-        name: "Clippy"
-        working-directory: relm4-book
-
   build-deploy:
     runs-on: ubuntu-20.04
     name: build
@@ -36,7 +18,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly
           override: true
 
       - run: ./build_relm_docs.sh
