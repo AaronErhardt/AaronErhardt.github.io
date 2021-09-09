@@ -23,6 +23,9 @@ jobs:
           toolchain: nightly
           override: true
 
+      - run: ./install_libadwaita.sh
+        working-directory: docs
+
       - run: ./build_relm_docs.sh
         working-directory: docs
       # - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ] || [ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]; then echo 'stable/latest'; else echo 'git'; fi)" >> ${GITHUB_ENV}
