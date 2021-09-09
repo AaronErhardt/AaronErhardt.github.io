@@ -35,6 +35,6 @@ jobs:
         #if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./relm4
+          publish_dir: ./docs/relm4
           keep_files: false
           destination_dir: ./relm4/docs
