@@ -113,7 +113,7 @@ Now we reached the interesting part of the code where we can actually make use o
 
 The overall UI is pretty simple: A window that contains a box. This box has two boxes itself for showing the two icons and the two buttons to update those icons.
 
-There's also something new. With the `pre_init()` and `post_init()` functions you can add custom code that will be run either before or after the code the widget macro generates for initialization. In our case, we want to add custom CSS that sets the background color for elements with class name "identical".
+There's also something new. With the `pre_init()` and `post_init()` functions you can add custom code that will be run either before or after the code the widget macro generates for initialization. In our case, we want to add [custom CSS](https://docs.gtk.org/gtk4/css-properties.html) that sets the background color for elements with class name "identical".
 
 ```rust,no_run,noplayground
 {{#include ../examples/tracker.rs:post_init }}
