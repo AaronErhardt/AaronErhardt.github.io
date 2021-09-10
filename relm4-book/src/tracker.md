@@ -133,6 +133,9 @@ Let's have a look at its first appearance:
 ```rust,no_run,noplayground
 {{#include ../examples/tracker.rs:track1 }}
 ```
+[`set_class_active`](https://aaronerhardt.github.io/docs/relm4/relm4/util/widget_plus/trait.WidgetPlus.html#tymethod.set_class_active) provides an easy way to activate or deactive a CSS class. It takes two parameters, the first is the class itself and the second is a boolean which controles if it shall be added (`true`) or removed (`false`).
+
+So `track!` will check with its first parameter whether something has changed and if yes, call `set_class_active` with the following paramter.
 
 The macro expansion for the `track!` macro in the generated view function looks roughly like this:
 
