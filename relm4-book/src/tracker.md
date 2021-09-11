@@ -4,6 +4,15 @@ A tracker in this context just means a data type that's able to track changes to
 
 Relm4 does not promote any implementation of a tracker. You're free to use any implementation you like, you can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for us automatically.
 
+In this chapter we are going to implement a small program using this technique which displays two randomly picked icons on two buttons:
+
+![App screenshot](img/screenshots/tracker-dark-1.png)
+
+When pressng a button, its icon will change. The background of the application will become green when the two icons are identical:
+
+![App screenshot with quith equal icons](img/screenshots/tracker-dark-2.png)
+
+
 ## The tracker crate
 
 The `tracker::track` macro implements the following methods for your struct fields:
@@ -165,14 +174,6 @@ There's one last thing to point out. When initializing our model, we need to ini
 ```rust,no_run,noplayground
 {{#include ../examples/tracker.rs:main }}
 ```
-
-#### Screenshots
-
-![App screenshot light](img/screenshots/tracker-light-1.png)
-![App screenshot light](img/screenshots/tracker-light-2.png)
-
-![App screenshot dark](img/screenshots/tracker-dark-1.png)
-![App screenshot dark](img/screenshots/tracker-dark-2.png)
 
 ## The complete code
 
