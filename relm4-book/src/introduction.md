@@ -40,8 +40,9 @@ relm4-components = "0.1"
 ```
 
 # Examples
+To get you quickly started, we have prepped some examples to explain the features.
 ## Screenshots
-To wet your appetite, here are some screenshots of of applications you will learn to implement your self:
+To wet your appetite, here are some screenshots of of applications you will learn to implement yourself:
 
 |Light Theme | Dark Theme |
 |:----:|:----:|
