@@ -1,0 +1,67 @@
+name: book
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "book"
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    name: listings build
+    container:
+      image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: clippy
+
+      - run: cargo clippy --examples -- -D warnings -A dead_code -A unused_variables
+        name: "Clippy"
+        working-directory: ./
+
+  build-deploy:
+    runs-on: ubuntu-20.04
+    name: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
+
+      - run: mdbook build -d book
+        working-directory: ./
+      # - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ] || [ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]; then echo 'stable/latest'; else echo 'git'; fi)" >> ${GITHUB_ENV}
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/book') || github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./book
+          keep_files: false
+          destination_dir: ./relm4/book
+
+  codespell:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: codespell-project/actions-codespell@master
+        with:
+          check_filenames: true
+          path: src
+          ignore_words_list: "crate"
+

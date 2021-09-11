@@ -1,0 +1,23 @@
+[package]
+name = "relm4-examples"
+authors = ["Aaron Erhardt <aaron.erhardt@t-online.de>"]
+edition = "2018"
+version = "0.1.0"
+resolver = "2"
+description = "An idiomatic GUI library inspired by Elm and based on gtk4-rs"
+repository = "https://github.com/AaronErhardt/relm4"
+readme = "README.md"
+license = "MIT"
+
+keywords = ["gui", "gtk", "gtk4"]
+categories = ["gui"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dev-dependencies]
+gtk = { version = "0.2", package = "gtk4" }
+rand = "0.8"
+relm4 = { version = "0.1", features = ["tokio-rt"] }
+relm4-components = "0.1"
+relm4-macros = "0.1"
+tokio = { version = "1.9", features = ["rt", "macros", "time", "rt-multi-thread", "sync"] }
+tracker = "0.1"

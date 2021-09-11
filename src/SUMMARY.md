@@ -1,0 +1,22 @@
+# Summary
+
+[Introduction](./introduction.md)
+
+- [Your first app](./first_app.md)
+- [The widget macro](./widget_macro.md)
+- [Efficient UI updates](./efficient_ui.md)
+  - [Tracker](./tracker.md)
+  - [Factories](./factory.md)
+    - [The position function](./factory_position.md)
+  - [Advanced factories](./factory_advanced.md)
+- [Components](./components.md)
+- [Workers](./worker.md)
+- [Message handlers](./message_handler.md)
+- [Threads and async](./threads_and_async.md)
+- [Reusable components](./reusable_components.md)
+- [Widget macro reference](./widget_macro_reference.md)
+  - [Macro expansion](./widget_macro_expansion.md)
+- [Templates](./templates.md)
+  - [App template](./app_template.md)
+  - [Component template](./component_template.md)
+  - [Worker template](./worker_template.md)
