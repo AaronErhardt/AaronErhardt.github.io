@@ -4,7 +4,7 @@ To simplify the implementation of the `Widgets` trait, let's use the relm4-macro
 
 ![App screenshot dark](img/screenshots/simple-dark.png)
 
-The app will look and behave identical. Only the way it is implemented will differ.
+The app will look and behave identical to one implemented in the previous chapter. Only the way it is implemented will differ.
 
 > The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple.rs). Run `cargo run --example simple` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
