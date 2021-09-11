@@ -1,5 +1,11 @@
 # Advanced factories
 
+In this chapter we will build an even more advanced UI for modifying the visible counters:
+
+![App screenshot dark](img/screenshots/factory-advanced-dark.png)
+
+Additionally one can now remove a certain counter or insert a counter between two existing ones.
+
 > If you're not familiar with the `Rc` type of the standard library, have a look at [this](https://doc.rust-lang.org/std/rc/index.html).
 
 The `FactoryVec` we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces additional complexity that needs to be taken care of but fortunately this is mostly handled by Relm4.
@@ -86,11 +92,6 @@ Now we can connect the messages. We always send a weak pointer of our dynamic in
 ```
 
 And that's it! All the other complex operations that keep track of changes are implemented in Relm4 already, we just need to use dynamic indices to make out program work :)
-
-#### Screenshots
-
-![App screenshot light](img/screenshots/factory-advanced-light.png)
-![App screenshot dark](img/screenshots/factory-advanced-dark.png)
 
 ## The complete code
 

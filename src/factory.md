@@ -2,6 +2,11 @@
 
 Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.
 
+![App screenshot dark](img/screenshots/factory-dark.png)
+
+This app will have a dynamic number of counters, which can be changed by pressing the add and remove buttons.
+Each counter can be decreased by pressing on it.
+
 ## Factories in Relm4
 
 Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
@@ -127,11 +132,6 @@ The `factory!` macro that's almost at the end of the widgets definition now upda
 > The `factory!` macro simply expands to `model.data.generate(&self.gen_box, sender)` where `gen_box` is the `gtk::Box` we used as a container. The `generate` function is provided by the `Factory` trait that's implemented for `FactoryVec` and similar data structures.
 
 Now to test this, we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!
-
-#### Screenshots
-
-![App screenshot light](img/screenshots/factory-light.png)
-![App screenshot dark](img/screenshots/factory-dark.png)
 
 ## The complete code
 
