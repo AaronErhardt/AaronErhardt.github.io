@@ -6,5 +6,5 @@ src = "src"
 title = "GUI development with Relm4"
 
 [output.html]
-git-repository-url = "https://github.com/AaronErhardt/AaronErhardt.github.io/tree/master/relm4-book"
+git-repository-url = "https://github.com/AaronErhardt/AaronErhardt.github.io/tree/book"
 git-repository-icon = "fa-github"
