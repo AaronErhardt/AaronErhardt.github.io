@@ -1,6 +1,6 @@
 # Advanced factories
 
-In this chapter we will build an even more advanced UI for modifying the visible counters:
+In this chapter we will build an even more advanced UI for modifying the available counters:
 
 ![App screenshot dark](img/screenshots/factory-advanced-dark.png)
 
