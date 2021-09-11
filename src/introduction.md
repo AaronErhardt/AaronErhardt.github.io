@@ -40,7 +40,8 @@ relm4-components = "0.1"
 ```
 
 # Examples
-In order to get you quickly started, we have prepped some examples to explain the features.
+In order to get you quickly started, we have prepped some better examples to explain the Rem4 features.
+
 ## Screenshots
 As a sneak peak here are some screenshots of applications you will learn to implement yourself:
 
