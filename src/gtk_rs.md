@@ -14,7 +14,7 @@ Like many other OOP frameworks or languages, GObjects can inherit from other GOb
 
 For example, you could use subclassing to create your own button widget that acts as a counter. Or you can create a custom application window that better suits your application.
 
-**Read more about sublcassing in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/gobject_subclassing.html)**.
+**Read more about subclassing in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/gobject_subclassing.html)**.
 
 ### Properties
 
