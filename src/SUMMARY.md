@@ -14,6 +14,7 @@
 - [Message handlers](./message_handler.md)
 - [Threads and async](./threads_and_async.md)
 - [Reusable components](./reusable_components.md)
+- [gtk-rs overview](./gtk_rs.md)
 - [Widget macro reference](./widget_macro_reference.md)
   - [Macro expansion](./widget_macro_expansion.md)
 - [Templates](./templates.md)
