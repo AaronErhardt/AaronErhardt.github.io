@@ -4,6 +4,12 @@ I've already mentioned components several times in the previous chapters. Now we
 
 In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parent and children.
 
+To showcase this, we will create a small application which opens a dialog when it gets closed. The dialog will be implemented as a standalone component. The communication between to the main application will be done via messages.
+
+![App screenshot dark](img/screenshots/components-dark-1.png)
+
+![App screenshot dark](img/screenshots/components-dark-2.png)
+
 ## When to use components
 
 Components are mainly useful for separating parts of the UI into smaller, more manageable parts. They are not necessary but for larger applications, they can be very helpful.
@@ -163,14 +169,6 @@ The `component!` macro is used to interact with components. We just need to get 
 ## Conclusion
 
 You now know most of the secrets that Relm4 offers. Components can be powerful and if they are implemented correctly, they are even reusable across different apps. The relm4-components crate offers several reusable components you can use in your applications. In the following chapters, we'll look at an even simpler component type called worker, how to implement reusable components yourself and how to use components with async code and multiple threads.
-
-#### Screenshots
-
-![App screenshot light](img/screenshots/components-light-1.png)
-![App screenshot light](img/screenshots/components-light-2.png)
-
-![App screenshot dark](img/screenshots/components-dark-1.png)
-![App screenshot dark](img/screenshots/components-dark-2.png)
 
 ## The complete code
 

@@ -2,6 +2,10 @@
 
 For our first app, let's create something original: A simple counter app.
 
+![App screenshot dark](img/screenshots/simple-dark.png)
+
+In this app we will have a counter which can be incremented and decremented by pressing the corresponding buttons.
+
 > The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple_manual.rs). Run `cargo run --example simple_manual` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## The basic structure
@@ -151,11 +155,6 @@ If you found a mistake or there was something unclear, please open an issue [her
 As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the relm4-macros crate that offers a macro that helps us to reduce the amount of code we need to implement the Widgets trait.
 
 > As you might have noticed, storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore, we can remove them from `AppWidgets` to avoid compiler warnings.
-
-#### Screenshots
-
-![App screenshot light](img/screenshots/simple-light.png)
-![App screenshot dark](img/screenshots/simple-dark.png)
 
 ## The complete code
 
