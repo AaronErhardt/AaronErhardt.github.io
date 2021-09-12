@@ -1,11 +1,6 @@
 # Message handlers
 
-Till now we have looked only on synchronously behaving applications. But in the real world this is not always the case. Often there is heavier calculation or REST API calls involved and we don't want our application to freeze. To solve this we will introduce a new type of component: a message handler, which is a basically a worker but without a model.
-
-To show case this, we are implement the already wellknown counter application, this time with a slightly different behavior: The counter will not immediately change after a button has pressed, but one second later. When one presses the buttons a couple of times immediately in a row, it will recognize this and queue those evens.
-
-![App screenshot dark](img/screenshots/simple-dark.png)
-
+We've already seen that workers are basically components without widgets. In this chapter, we will talk about message handlers that are even simpler: like workers but without a model.
 ## The motivation
 
 You might wonder why we even need message handlers. Components and workers are already some kind of message handlers, right? That's true, but components and workers do more than just handling messages: they also have a model that represents their state.
@@ -17,6 +12,8 @@ Handling one message at the time is perfectly fine in most cases. However, if yo
 ## Implementing a message handler
 
 To keep it simple, we will create another counter app. Yet this time, every click will be delayed by one second. If a user clicks the increment button, the counter will be incremented exactly one second later.
+
+![App screenshot dark](img/screenshots/simple-dark.png)
 
 > The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs). Run `cargo run --example non_blocking_async` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
