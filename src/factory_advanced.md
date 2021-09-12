@@ -4,7 +4,7 @@ In this chapter we will build an even more advanced UI for modifying the availab
 
 ![App screenshot dark](img/screenshots/factory-advanced-dark.png)
 
-Additionally one can now remove a certain counter or insert a counter between two existing ones.
+Additionally one can now remove a certain counter or insert a counter above or below an existing counter.
 
 > If you're not familiar with the `Rc` type of the standard library, have a look at [this](https://doc.rust-lang.org/std/rc/index.html).
 
