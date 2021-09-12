@@ -145,8 +145,8 @@ impl Widgets<AppModel, ()> for AppWidgets {
     /// Initialize the UI.
     fn init_view(
         model: &AppModel,
-        parent_widgets: &<() as ::relm4::Model>::Widgets,
-        sender: ::gtk::glib::Sender<<AppModel as ::relm4::Model>::Msg>,
+        parent_widgets: &(),
+        sender: ::gtk::glib::Sender<AppMsg>,
     ) -> Self {
         let mut test_field = 0;
         println!("Pre init! test_field: {}", test_field);

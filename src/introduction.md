@@ -40,15 +40,18 @@ relm4-components = "0.1"
 ```
 
 # Examples
+
 In order to get you quickly started, we have prepped some better examples to explain the Rem4 features.
 
 ## Screenshots
+
 As a sneak peak here are some screenshots of applications you will learn to implement yourself:
 
 |Light Theme | Dark Theme |
 |:----:|:----:|
 |![Pop Over light](img/screenshots/popover-light.png) | ![Pop Over dark](img/screenshots/popover-dark.png) |
 |![Factory-Advanced light](img/screenshots/factory-advanced-light.png) | ![Factory-Advanced dark](img/screenshots/factory-advanced-dark.png)|
+
 ## How to get them
 
 Many code examples in this book can also be found in the [relm4-examples crate](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.

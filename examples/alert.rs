@@ -152,7 +152,6 @@ where
         }
     }
 }
-
-fn main() {}
 // ANCHOR_END: widgets
 // ANCHOR_END: all
+fn main() {}
