@@ -168,18 +168,24 @@ At the end, we return the widgets struct with all initialized widgets.
 {{#include ../examples/macro_expansion.rs:return }}
 ```
 
-#### Components
+#### Assigning widgets and components
 
-In the macro we used the nested `component!` macro to add a component to our UI.
-
-```rust,no_run,noplayground
-{{#include ../examples/macro_test.rs:component }}
-```
-
-This is now packed into the `connect_components` function.
+To keep every widget in order, all widgets are assigned in `connect_components` function. In the first stable version of Relm4 (0.1.0), regular widgets were already assigned in the `init_view` function. This caused problems with the ordering of elements because components were added after all other widgets were already in place. For Relm4 0.2 this behavior was changed so that all widgets are now added at the same place so that components keep their correct order.
 
 ```rust,no_run,noplayground
 {{#include ../examples/macro_expansion.rs:connect_components }}
+```
+
+At the beginning, we find the code for the `set_child` property we used in the macro.
+
+```rust,no_run,noplayground
+{{#include ../examples/macro_test.rs:set_child_widget }}
+```
+
+In the macro we used the nested `component!` macro to add a component to our UI. This component can now be found in the last line of the `connect_components` function.
+
+```rust,no_run,noplayground
+{{#include ../examples/macro_test.rs:component }}
 ```
 
 #### Root widget

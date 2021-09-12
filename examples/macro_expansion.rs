@@ -172,16 +172,11 @@ impl Widgets<AppModel, ()> for AppWidgets {
         gtk::prelude::GtkWindowExt::set_title(&main_window, Some("Simple app"));
         main_window.set_default_width(300);
         main_window.set_default_height(100);
-        main_window.set_child(Some(&_gtk_box_7));
         _gtk_box_7.set_orientation(gtk::Orientation::Vertical);
         if let Some(__p_assign) = Some(5) {
             _gtk_box_7.set_margin_all(__p_assign);
         }
         _gtk_box_7.set_spacing(5);
-        _gtk_box_7.append(&inc_button);
-        _gtk_box_7.append(&_gtk_button_new_1);
-        _gtk_box_7.append(&_new_label_2);
-        _gtk_box_7.append(&_gtk_grid_6);
         inc_button.set_label("Increment");
         for __elem in &model.classes {
             inc_button.add_css_class(__elem);
@@ -195,9 +190,6 @@ impl Widgets<AppModel, ()> for AppWidgets {
         _gtk_grid_6.set_row_spacing(10);
         _gtk_grid_6.set_column_spacing(10);
         _gtk_grid_6.set_column_homogeneous(true);
-        _gtk_grid_6.attach(&_gtk_label_3, 1, 1, 1, 1);
-        _gtk_grid_6.attach(&_gtk_label_4, 1, 2, 1, 1);
-        _gtk_grid_6.attach(&_gtk_label_5, 2, 1, 1, 1);
         _gtk_label_3.set_label("grid test 1");
         _gtk_label_4.set_label("grid test 2");
         _gtk_label_5.set_label("grid test 3");
@@ -240,8 +232,17 @@ impl Widgets<AppModel, ()> for AppWidgets {
 
 // ANCHOR: connect_components
     fn connect_components(&self, components: &<AppModel as ::relm4::Model>::Components) {
+        self.main_window.set_child(Some(&self._gtk_box_7));
+        self._gtk_box_7.append(components.button1.root_widget());
+        self._gtk_box_7.append(&self.inc_button);
+        self._gtk_box_7.append(&self._gtk_button_new_1);
+        self._gtk_box_7.append(&self._new_label_2);
+        self._gtk_box_7.append(&self._gtk_grid_6);
+        self._gtk_grid_6.attach(&self._gtk_label_3, 1, 1, 1, 1);
+        self._gtk_grid_6.attach(&self._gtk_label_4, 1, 2, 1, 1);
+        self._gtk_grid_6.attach(&self._gtk_label_5, 2, 1, 1, 1);
         self._gtk_grid_6
-            .attach(components.button.root_widget(), 2, 2, 1, 1);
+            .attach(components.button2.root_widget(), 2, 2, 1, 1);
     }
 // ANCHOR_END: connect_components
 

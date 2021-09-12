@@ -85,7 +85,8 @@ impl Widgets<ButtonModel, AppModel> for ButtonWidgets {
 }
 
 pub struct AppComponents {
-    button: RelmComponent<ButtonModel, AppModel>,
+    button1: RelmComponent<ButtonModel, AppModel>,
+    button2: RelmComponent<ButtonModel, AppModel>,
 }
 // ANCHOR_END: button_comp
 
@@ -96,7 +97,8 @@ impl Components<AppModel> for AppComponents {
         sender: Sender<AppMsg>,
     ) -> Self {
         AppComponents {
-            button: RelmComponent::new(model, parent_widgets, sender),
+            button1: RelmComponent::new(model, parent_widgets, sender.clone()),
+            button2: RelmComponent::new(model, parent_widgets, sender),
         }
     }
 }
@@ -117,13 +119,16 @@ impl Widgets<AppModel, ()> for AppWidgets {
 // ANCHOR_END: trait_fn_assign
             set_default_width: 300,
             set_default_height: 100,
+// ANCHOR: set_child_widget
             set_child = Some(&gtk::Box) {
+// ANCHOR_END: set_child_widget
                 set_orientation: gtk::Orientation::Vertical,
 // ANCHOR: optional_assign
                 set_margin_all?: Some(5),
 // ANCHOR_END: optional_assign
                 set_spacing: 5,
-
+                
+                append: component!(components.button1.root_widget()),
                 append: inc_button = &gtk::Button {
                     set_label: "Increment",
                     connect_clicked(sender) => move |_| {
@@ -165,7 +170,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
                         set_label: "grid test 3",
                     },
 // ANCHOR: component 
-                    attach(2, 2, 1, 1): component!(components.button.root_widget())
+                    attach(2, 2, 1, 1): component!(components.button2.root_widget())
 // ANCHOR_END: component 
                 }
             },

@@ -5,7 +5,7 @@ Factories define how to generate widgets from collections of data. They are used
 ![App screenshot dark](img/screenshots/factory-dark.png)
 
 This app will have a dynamic number of counters which can be changed by pressing the add or remove buttons.
-Clicking of the counter will decreased it.
+Clicking of the counter will decrement it.
 
 ## Factories in Relm4
 
