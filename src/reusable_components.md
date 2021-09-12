@@ -1,6 +1,9 @@
 # Reusable components
 
-In this chapter, we will implement a simple alert dialog as a reusable component.
+In this chapter, we will implement an other variant of a counter app. This time a dialog will be displayed if the counter does not match 42 when being closed. The main difference in the implementation is now, that the dialog is implemented as component that can be reused in other applications.
+
+![App screenshot dark](img/screenshots/reusable-alert-dark-1.png)
+![App screenshot dark](img/screenshots/reusable-alert-dark-2.png)
 
 > If you want to see an alert component, very similar to the one we will write in this chapter, used inside a Relm4 application have a look at the [“alert” example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs). Run `cargo run --example alert` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
@@ -73,14 +76,6 @@ The widgets have a generic type for the parent component with the expected trait
 We’re done! That’s your first reusable component.
 
 > You can find more examples of reusable components in the relm4-components crate [here](https://github.com/AaronErhardt/relm4/tree/main/relm4-components). You can also contribute your own reusable components to relm4-components :)
-
-#### Screenshots
-
-![App screenshot light](img/screenshots/reusable-alert-light-1.png)
-![App screenshot light](img/screenshots/reusable-alert-light-2.png)
-
-![App screenshot dark](img/screenshots/reusable-alert-dark-1.png)
-![App screenshot dark](img/screenshots/reusable-alert-dark-2.png)
 
 ## The complete code
 
