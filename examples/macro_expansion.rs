@@ -100,7 +100,8 @@ impl Widgets<ButtonModel, AppModel> for ButtonWidgets {
 }
 
 pub struct AppComponents {
-    button: RelmComponent<ButtonModel, AppModel>,
+    button1: RelmComponent<ButtonModel, AppModel>,
+    button2: RelmComponent<ButtonModel, AppModel>,
 }
 
 impl Components<AppModel> for AppComponents {
@@ -110,7 +111,8 @@ impl Components<AppModel> for AppComponents {
         sender: Sender<AppMsg>,
     ) -> Self {
         AppComponents {
-            button: RelmComponent::new(model, parent_widgets, sender),
+            button1: RelmComponent::new(model, parent_widgets, sender.clone()),
+            button2: RelmComponent::new(model, parent_widgets, sender),
         }
     }
 }
