@@ -1,6 +1,10 @@
 # Message handlers
 
-We've already seen that workers are basically components without widgets. In this chapter, we will talk about message handlers that are even simpler: like workers but without a model.
+Till now we have looked only on synchronously behaving applications. But in the real world this is not always the case. Often there is heavier calculation or REST API calls involved and we don't want our application to freeze. To solve this we will introduce a new type of component: a message handler, which is a basically a worker but without a model.
+
+To show case this, we are implement the already wellknown counter application, this time with a slightly different behavior: The counter will not immediately change after a button has pressed, but one second later. When one presses the buttons a couple of times immediately in a row, it will recognize this and queue those evens.
+
+![App screenshot dark](img/screenshots/simple-dark.png)
 
 ## The motivation
 
@@ -121,11 +125,6 @@ connect_name[sender_name = components.component_name.sender()] => move |_| { ...
 ### Conclusion
 
 That's it! We've implemented our first message handler.
-
-#### Screenshots
-
-![App screenshot light](img/screenshots/simple-light.png)
-![App screenshot dark](img/screenshots/simple-dark.png)
 
 ## The complete code
 
