@@ -1,5 +1,6 @@
 // ANCHOR: all
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
+use rand::prelude::IteratorRandom;
 use relm4::{send, AppUpdate, Model, RelmApp, Sender, WidgetPlus, Widgets};
 
 // ANCHOR: icons
@@ -16,8 +17,10 @@ const ICON_LIST: &[&str] = &[
 ];
 
 fn random_icon_name() -> &'static str {
-    let index: usize = rand::random::<usize>() % ICON_LIST.len();
-    ICON_LIST[index]
+    ICON_LIST
+        .iter()
+        .choose(&mut rand::thread_rng())
+        .expect("Could not choose a random icon")
 }
 // ANCHOR_END: icons
 
