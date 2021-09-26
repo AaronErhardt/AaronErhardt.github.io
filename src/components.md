@@ -4,7 +4,7 @@ I've already mentioned components several times in the previous chapters. Now we
 
 In short, components are independent parts of your application that can communicate with each other through messages. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent. Also, each component can send and receive messages from both parent and children.
 
-To showcase this, we will create a small application which opens a dialog when it gets closed. The dialog will be implemented as a standalone component. The communication between to the main application will be done via messages.
+To showcase this, we will create a small application which opens a dialog when it gets closed. The headerbar and the dialog will be implemented as standalone components. The communication to the main application will be done via messages.
 
 ![App screenshot dark](img/screenshots/components-dark-1.png)
 
