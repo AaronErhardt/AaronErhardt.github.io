@@ -53,9 +53,9 @@ struct AppWidgets {
 // ANCHOR: widgets_trait_start
 impl Widgets<AppModel, ()> for AppWidgets {
     type Root = gtk::ApplicationWindow;
-// ANCHOR_END: widgets_trait_start
+    // ANCHOR_END: widgets_trait_start
 
-// ANCHOR: init_view
+    // ANCHOR: init_view
     /// Initialize the UI.
     fn init_view(model: &AppModel, _parent_widgets: &(), sender: Sender<AppMsg>) -> Self {
         let window = gtk::ApplicationWindow::builder()
@@ -99,7 +99,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
             label,
         }
     }
-// ANCHOR_END: init_view
+    // ANCHOR_END: init_view
 
     // ANCHOR: root_widget
     /// Return the root widget.
@@ -119,9 +119,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
 
 // ANCHOR: main
 fn main() {
-    let model = AppModel {
-        counter: 0,
-    };
+    let model = AppModel { counter: 0 };
     let app = RelmApp::new(model);
     app.run();
 }

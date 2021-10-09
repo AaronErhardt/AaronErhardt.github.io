@@ -55,6 +55,7 @@ impl AppUpdate for AppModel {
 // ANCHOR_END: app_update
 
 // ANCHOR: factory_widgets
+#[derive(Debug)]
 struct FactoryWidgets {
     button: gtk::Button,
 }

@@ -113,95 +113,95 @@ fn new_label() -> gtk::Label {
 #[relm4_macros::widget]
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
-        main_window = gtk::ApplicationWindow {
-// ANCHOR: trait_fn_assign
-            gtk::prelude::GtkWindowExt::set_title: Some("Simple app"),
-// ANCHOR_END: trait_fn_assign
-            set_default_width: 300,
-            set_default_height: 100,
-// ANCHOR: set_child_widget
-            set_child = Some(&gtk::Box) {
-// ANCHOR_END: set_child_widget
-                set_orientation: gtk::Orientation::Vertical,
-// ANCHOR: optional_assign
-                set_margin_all?: Some(5),
-// ANCHOR_END: optional_assign
-                set_spacing: 5,
-                
-                append: component!(components.button1.root_widget()),
-                append: inc_button = &gtk::Button {
-                    set_label: "Increment",
-                    connect_clicked(sender) => move |_| {
-                        send!(sender, AppMsg::Increment);
+            main_window = gtk::ApplicationWindow {
+    // ANCHOR: trait_fn_assign
+                gtk::prelude::GtkWindowExt::set_title: Some("Simple app"),
+    // ANCHOR_END: trait_fn_assign
+                set_default_width: 300,
+                set_default_height: 100,
+    // ANCHOR: set_child_widget
+                set_child = Some(&gtk::Box) {
+    // ANCHOR_END: set_child_widget
+                    set_orientation: gtk::Orientation::Vertical,
+    // ANCHOR: optional_assign
+                    set_margin_all?: Some(5),
+    // ANCHOR_END: optional_assign
+                    set_spacing: 5,
+
+                    append: component!(components.button1.root_widget()),
+                    append: inc_button = &gtk::Button {
+                        set_label: "Increment",
+                        connect_clicked(sender) => move |_| {
+                            send!(sender, AppMsg::Increment);
+                        },
+    // ANCHOR: iterative_assign
+                        add_css_class: iterate!(&model.classes),
+    // ANCHOR_END: iterative_assign
                     },
-// ANCHOR: iterative_assign
-                    add_css_class: iterate!(&model.classes),
-// ANCHOR_END: iterative_assign
+                    append = &gtk::Button::new() {
+    // ANCHOR: track
+                        set_label: track!(model.decrement, &format!("Last decrement at {}", model.counter)),
+    // ANCHOR_END: track
+    // ANCHOR: connect
+                        connect_clicked(sender) => move |_| {
+                            send!(sender, AppMsg::Decrement);
+                        },
+    // ANCHOR_END: connect
+                    },
+                    append = &new_label() -> gtk::Label {
+                        set_margin_all: 5,
+    // ANCHOR: watch
+                        set_label: watch! { &format!("Counter: {}", model.counter) },
+    // ANCHOR_END: watch
+                    },
+                    append = &gtk::Grid {
+                        set_vexpand: true,
+                        set_hexpand: true,
+                        set_row_spacing: 10,
+                        set_column_spacing: 10,
+                        set_column_homogeneous: true,
+                        attach(1, 1, 1, 1) = &gtk::Label {
+                            set_label: "grid test 1",
+                        },
+                        attach(1, 2, 1, 1) = &gtk::Label {
+                            set_label: "grid test 2",
+                        },
+                        attach(2, 1, 1, 1) = &gtk::Label {
+                            set_label: "grid test 3",
+                        },
+    // ANCHOR: component
+                        attach(2, 2, 1, 1): component!(components.button2.root_widget())
+    // ANCHOR_END: component
+                    }
                 },
-                append = &gtk::Button::new() {
-// ANCHOR: track
-                    set_label: track!(model.decrement, &format!("Last decrement at {}", model.counter)),
-// ANCHOR_END: track
-// ANCHOR: connect
-                    connect_clicked(sender) => move |_| {
-                        send!(sender, AppMsg::Decrement);
-                    },
-// ANCHOR_END: connect
-                },
-                append = &new_label() -> gtk::Label {
-                    set_margin_all: 5,
-// ANCHOR: watch
-                    set_label: watch! { &format!("Counter: {}", model.counter) },
-// ANCHOR_END: watch
-                },
-                append = &gtk::Grid {
-                    set_vexpand: true,
-                    set_hexpand: true,
-                    set_row_spacing: 10,
-                    set_column_spacing: 10,
-                    set_column_homogeneous: true,
-                    attach(1, 1, 1, 1) = &gtk::Label {
-                        set_label: "grid test 1",
-                    },
-                    attach(1, 2, 1, 1) = &gtk::Label {
-                        set_label: "grid test 2",
-                    },
-                    attach(2, 1, 1, 1) = &gtk::Label {
-                        set_label: "grid test 3",
-                    },
-// ANCHOR: component 
-                    attach(2, 2, 1, 1): component!(components.button2.root_widget())
-// ANCHOR_END: component 
-                }
-            },
+            }
         }
-    }
 
     additional_fields! {
         test_field: u8,
     }
 
-// ANCHOR: pre_init 
+    // ANCHOR: pre_init
     fn pre_init() {
         let mut test_field = 0;
         println!("Pre init! test_field: {}", test_field);
     }
-// ANCHOR_END: pre_init
+    // ANCHOR_END: pre_init
 
-// ANCHOR: post_init 
+    // ANCHOR: post_init
     fn post_init() {
         relm4::set_global_css(b".first { color: green; } .second { border: 1px solid orange; }");
         test_field = 42;
         println!("Post init! test_field: {}", test_field);
     }
-// ANCHOR_END: post_init 
+    // ANCHOR_END: post_init
 
-// ANCHOR: manual_view 
+    // ANCHOR: manual_view
     fn manual_view() {
         self.test_field += 1;
         println!("Manual view! test_field: {}", self.test_field);
     }
-// ANCHOR_END: manual_view 
+    // ANCHOR_END: manual_view
 }
 // ANCHOR_END: widgets
 

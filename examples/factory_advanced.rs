@@ -89,6 +89,7 @@ impl AppUpdate for AppModel {
 // ANCHOR_END: app_update
 
 // ANCHOR: factory_widgets
+#[derive(Debug)]
 struct FactoryWidgets {
     hbox: gtk::Box,
     counter_button: gtk::Button,

@@ -74,7 +74,7 @@ impl AppUpdate for AppModel {
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
         main_window = gtk::ApplicationWindow {
-        		// ANCHOR: track1
+                // ANCHOR: track1
             set_class_active: track!(model.changed(AppModel::identical()),
                 "identical", model.identical),
             // ANCHOR_END: track1
@@ -118,11 +118,11 @@ impl Widgets<AppModel, ()> for AppWidgets {
         }
     }
 
-		// ANCHOR: post_init
+    // ANCHOR: post_init
     fn post_init() {
         relm4::set_global_css(b".identical { background: #00ad5c; }");
     }
-		// ANCHOR_END: post_init
+    // ANCHOR_END: post_init
 }
 // ANCHOR_END: widgets
 

@@ -77,9 +77,9 @@ impl MessageHandler<AppModel> for AsyncHandler {
             .unwrap();
 
         rt.spawn(async move {
-// ANCHOR: async_loop
+            // ANCHOR: async_loop
             while let Some(msg) = rx.recv().await {
-// ANCHOR_END: async_loop
+                // ANCHOR_END: async_loop
                 let parent_sender = parent_sender.clone();
                 tokio::spawn(async move {
                     tokio::time::sleep(std::time::Duration::from_secs(1)).await;
@@ -130,37 +130,37 @@ impl Components<AppModel> for AppComponents {
 #[relm4_macros::widget]
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
-        gtk::ApplicationWindow {
-            set_title: Some("Simple app"),
-            set_default_width: 300,
-            set_default_height: 100,
-            set_child = Some(&gtk::Box) {
-                set_orientation: gtk::Orientation::Vertical,
-                set_margin_all: 5,
-                set_spacing: 5,
-
-                append = &gtk::Button {
-                    set_label: "Increment",
-// ANCHOR: connect
-                    connect_clicked[sender = components.async_handler.sender()] => move |_| {
-                        sender.blocking_send(AsyncHandlerMsg::DelayedIncrement)
-                            .expect("Receiver dropped");
-                    },
-// ANCHOR_END: connect
-                },
-                append = &gtk::Button::with_label("Decrement") {
-                    connect_clicked[sender = components.async_handler.sender()] => move |_| {
-                        sender.blocking_send(AsyncHandlerMsg::DelayedDecrement)
-                            .expect("Receiver dropped");
-                    },
-                },
-                append = &gtk::Label {
+            gtk::ApplicationWindow {
+                set_title: Some("Simple app"),
+                set_default_width: 300,
+                set_default_height: 100,
+                set_child = Some(&gtk::Box) {
+                    set_orientation: gtk::Orientation::Vertical,
                     set_margin_all: 5,
-                    set_label: watch! { &format!("Counter: {}", model.counter) },
-                }
-            },
+                    set_spacing: 5,
+
+                    append = &gtk::Button {
+                        set_label: "Increment",
+    // ANCHOR: connect
+                        connect_clicked[sender = components.async_handler.sender()] => move |_| {
+                            sender.blocking_send(AsyncHandlerMsg::DelayedIncrement)
+                                .expect("Receiver dropped");
+                        },
+    // ANCHOR_END: connect
+                    },
+                    append = &gtk::Button::with_label("Decrement") {
+                        connect_clicked[sender = components.async_handler.sender()] => move |_| {
+                            sender.blocking_send(AsyncHandlerMsg::DelayedDecrement)
+                                .expect("Receiver dropped");
+                        },
+                    },
+                    append = &gtk::Label {
+                        set_margin_all: 5,
+                        set_label: watch! { &format!("Counter: {}", model.counter) },
+                    }
+                },
+            }
         }
-    }
 }
 // ANCHOR_END: widgets
 

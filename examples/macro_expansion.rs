@@ -80,12 +80,11 @@ impl Widgets<ButtonModel, AppModel> for ButtonWidgets {
         parent_widgets: &<AppModel as ::relm4::Model>::Widgets,
         sender: ::gtk::glib::Sender<<ButtonModel as ::relm4::Model>::Msg>,
     ) -> Self {
-        let _gtk_button_0 =
-            <gtk::Button as relm4::util::default_widgets::DefaultWidget>::default_widget();
+        let _gtk_button_0 = gtk::Button::default();
         _gtk_button_0.set_label("ButtonComponent!");
         Self { _gtk_button_0 }
     }
-    fn connect_components(&self, components: &<ButtonModel as ::relm4::Model>::Components) {}
+    fn connect_components(&self, model: &ButtonModel, components: &<ButtonModel as ::relm4::Model>::Components) {}
     /// Return the root widget.
     fn root_widget(&self) -> Self::Root {
         self._gtk_button_0.clone()
@@ -140,8 +139,8 @@ struct AppWidgets {
 // ANCHOR: widgets_impl
 impl Widgets<AppModel, ()> for AppWidgets {
     type Root = gtk::ApplicationWindow;
-// ANCHOR_END: widgets_impl
-// ANCHOR: pre_init
+    // ANCHOR_END: widgets_impl
+    // ANCHOR: pre_init
     /// Initialize the UI.
     fn init_view(
         model: &AppModel,
@@ -150,27 +149,19 @@ impl Widgets<AppModel, ()> for AppWidgets {
     ) -> Self {
         let mut test_field = 0;
         println!("Pre init! test_field: {}", test_field);
-// ANCHOR_END: pre_init
-// ANCHOR: widget_init
-        let main_window =
-            <gtk::ApplicationWindow as relm4::util::default_widgets::DefaultWidget>::default_widget(
-            );
-        let _gtk_box_7 =
-            <gtk::Box as relm4::util::default_widgets::DefaultWidget>::default_widget();
-        let inc_button =
-            <gtk::Button as relm4::util::default_widgets::DefaultWidget>::default_widget();
+        // ANCHOR_END: pre_init
+        // ANCHOR: widget_init
+        let main_window = gtk::ApplicationWindow::default();
+        let _gtk_box_7 = gtk::Box::default();
+        let inc_button = gtk::Button::default();
         let _gtk_button_new_1 = gtk::Button::new();
         let _new_label_2 = new_label();
-// ANCHOR_END: widget_init
-        let _gtk_grid_6 =
-            <gtk::Grid as relm4::util::default_widgets::DefaultWidget>::default_widget();
-        let _gtk_label_3 =
-            <gtk::Label as relm4::util::default_widgets::DefaultWidget>::default_widget();
-        let _gtk_label_4 =
-            <gtk::Label as relm4::util::default_widgets::DefaultWidget>::default_widget();
-        let _gtk_label_5 =
-            <gtk::Label as relm4::util::default_widgets::DefaultWidget>::default_widget();
-// ANCHOR: property_assign
+        // ANCHOR_END: widget_init
+        let _gtk_grid_6 = gtk::Grid::default();
+        let _gtk_label_3 = gtk::Label::default();
+        let _gtk_label_4 = gtk::Label::default();
+        let _gtk_label_5 = gtk::Label::default();
+        // ANCHOR: property_assign
         gtk::prelude::GtkWindowExt::set_title(&main_window, Some("Simple app"));
         main_window.set_default_width(300);
         main_window.set_default_height(100);
@@ -183,7 +174,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
         for __elem in &model.classes {
             inc_button.add_css_class(__elem);
         }
-// ANCHOR_END: property_assign
+        // ANCHOR_END: property_assign
         _gtk_button_new_1.set_label(&format!("Last decrement at {}", model.counter));
         _new_label_2.set_margin_all(5);
         _new_label_2.set_label(&format!("Counter: {}", model.counter));
@@ -195,7 +186,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
         _gtk_label_3.set_label("grid test 1");
         _gtk_label_4.set_label("grid test 2");
         _gtk_label_5.set_label("grid test 3");
-// ANCHOR: connect
+        // ANCHOR: connect
         {
             #[allow(clippy::redundant_clone)]
             let sender = sender.clone();
@@ -210,13 +201,13 @@ impl Widgets<AppModel, ()> for AppWidgets {
                 send!(sender, AppMsg::Decrement);
             });
         }
-// ANCHOR_END: connect
-// ANCHOR: post_init
+        // ANCHOR_END: connect
+        // ANCHOR: post_init
         relm4::set_global_css(b".first { color: green; } .second { border: 1px solid orange; }");
         test_field = 42;
         println!("Post init! test_field: {}", test_field);
-// ANCHOR_END: post_init
-// ANCHOR: return
+        // ANCHOR_END: post_init
+        // ANCHOR: return
         Self {
             main_window,
             _gtk_box_7,
@@ -230,10 +221,10 @@ impl Widgets<AppModel, ()> for AppWidgets {
             test_field,
         }
     }
-// ANCHOR_END: return
+    // ANCHOR_END: return
 
-// ANCHOR: connect_components
-    fn connect_components(&self, components: &<AppModel as ::relm4::Model>::Components) {
+    // ANCHOR: connect_components
+    fn connect_components(&self, model: &AppModel, components: &<AppModel as ::relm4::Model>::Components) {
         self.main_window.set_child(Some(&self._gtk_box_7));
         self._gtk_box_7.append(components.button1.root_widget());
         self._gtk_box_7.append(&self.inc_button);
@@ -246,16 +237,16 @@ impl Widgets<AppModel, ()> for AppWidgets {
         self._gtk_grid_6
             .attach(components.button2.root_widget(), 2, 2, 1, 1);
     }
-// ANCHOR_END: connect_components
+    // ANCHOR_END: connect_components
 
-// ANCHOR: root_widget
+    // ANCHOR: root_widget
     /// Return the root widget.
     fn root_widget(&self) -> Self::Root {
         self.main_window.clone()
     }
-// ANCHOR_END: root_widget
+    // ANCHOR_END: root_widget
 
-// ANCHOR: manual_view
+    // ANCHOR: manual_view
     /// Update the view to represent the updated model.
     fn view(
         &mut self,
@@ -264,15 +255,17 @@ impl Widgets<AppModel, ()> for AppWidgets {
     ) {
         self.test_field += 1;
         println!("Manual view! test_field: {}", self.test_field);
-// ANCHOR_END: manual_view
+        // ANCHOR_END: manual_view
 
-// ANCHOR: macro_view
-        self._new_label_2.set_label(&format!("Counter: {}", model.counter));
+        // ANCHOR: macro_view
+        self._new_label_2
+            .set_label(&format!("Counter: {}", model.counter));
 
         if model.decrement {
-            self._gtk_button_new_1.set_label(&format!("Last decrement at {}", model.counter));
+            self._gtk_button_new_1
+                .set_label(&format!("Last decrement at {}", model.counter));
         }
-// ANCHOR_END: macro_view
+        // ANCHOR_END: macro_view
     }
 }
 

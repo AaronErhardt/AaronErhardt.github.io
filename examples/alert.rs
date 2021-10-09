@@ -77,17 +77,17 @@ where
     ParentModel: AlertParent,
     ParentModel::Widgets: AlertParentWidgets,
 {
-// ANCHOR_END: component_update_start
-// ANCHOR: init_model
+    // ANCHOR_END: component_update_start
+    // ANCHOR: init_model
     fn init_model(parent_model: &ParentModel) -> Self {
         AlertModel {
             settings: parent_model.alert_config(),
             is_active: false,
         }
     }
-// ANCHOR_END: init_model
+    // ANCHOR_END: init_model
 
-// ANCHOR: component_update
+    // ANCHOR: component_update
     fn update(
         &mut self,
         msg: AlertMsg,
@@ -111,7 +111,7 @@ where
             }
         }
     }
-// ANCHOR_END: component_update
+    // ANCHOR_END: component_update
 }
 // ANCHOR_END: component_update
 
