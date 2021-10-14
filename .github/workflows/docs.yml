@@ -9,7 +9,7 @@ on:
     types: [published]
   workflow_dispatch:
   schedule:
-  	- cron: "42 */12 * * *"
+  - cron: "42 */12 * * *"
 
 jobs:
   build-deploy:
