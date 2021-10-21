@@ -1,13 +1,6 @@
 name: docs
 
 on:
-  pull_request:
-  push:
-    branches:
-      - "docs"
-  release:
-    types: [published]
-  workflow_dispatch:
   schedule:
   - cron: "42 */12 * * *"
 
