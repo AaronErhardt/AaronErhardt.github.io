@@ -15,10 +15,10 @@ enum WorkerMsg {
 impl Model for WorkerModel {
     type Msg = WorkerMsg;
     type Widgets = ();
-    type Workers = ();
+    type Components = ();
 }
 
-impl WorkerUpdate<AppModel> for WorkerModel {
+impl ComponentUpdate<AppModel> for WorkerModel {
     fn init_model(_parent_model: &AppModel) -> Self {
         WorkerModel {
 
@@ -28,7 +28,7 @@ impl WorkerUpdate<AppModel> for WorkerModel {
     fn update(
         &mut self,
         msg: WorkerMsg,
-        _Workers: &(),
+        _components: &(),
         sender: Sender<WorkerMsg>,
         parent_sender: Sender<AppMsg>,
     ) {
