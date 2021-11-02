@@ -109,6 +109,7 @@ Pass additional arguments with the widget. This will call `widget.property_name(
 
 ```rust,no_run,noplayground
 property_name(value1, value2, ...) = gtk::Box { ... }
+property_name(value1, value2, ...): name = gtk::Box { ... }
 ```
 
 The type of the widget created in all the examples above will always be `gtk::Box`. However, some properties are set with references or references in `Options` where this syntax becomes handy.
