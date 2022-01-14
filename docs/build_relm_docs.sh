@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Return on error
+set -e
+
+
 rm -rf relm4
 mkdir relm4
 
