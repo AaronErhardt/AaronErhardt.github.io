@@ -29,6 +29,4 @@ cd ..
 
 mv tmp/target/doc/* relm4
 
-git add relm4/*
-
 rm -rf tmp
