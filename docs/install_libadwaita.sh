@@ -3,7 +3,7 @@
 # Return on error
 set -e
 
-git clone https://gitlab.gnome.org/GNOME/libadwaita
+git clone --depth 1  https://gitlab.gnome.org/GNOME/libadwaita
 
 cd libadwaita
 
