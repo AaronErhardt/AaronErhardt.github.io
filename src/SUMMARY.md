@@ -21,3 +21,5 @@
   - [App template](./app_template.md)
   - [Component template](./component_template.md)
   - [Worker template](./worker_template.md)
+- [Migration guides](migration.md)
+  - [0.2 to 0.4](./0_2_to_0_4.md)
