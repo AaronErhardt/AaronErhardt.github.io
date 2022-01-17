@@ -22,7 +22,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-A new relm is here for you to explore! I'm happy to announce Relm4 v0.4, our biggest release so far!
+A new realm is here for you to explore! I'm happy to announce Relm4 v0.4, our biggest release so far!
 
 > ## About Relm4
 > 
@@ -34,11 +34,11 @@ A new relm is here for you to explore! I'm happy to announce Relm4 v0.4, our big
 
 # What's new?
 
-Relm4 v0.4 brings a lot of new features and improvements. I'm excited to present you the highlights of this release!
+Relm4 v0.4 brings a lot of new features and improvements. I'm excited to present to you the highlights of this release!
 
 ## Macros for everyone!
 
-In recent Relm4 releases, the macros were tightly integrated into the library itself. This limitation is now removed! Most importantly, users of gtk4-rs will be able to use the `view!` macro by only pulling in `relm4-macros` as dependency without the rest of Relm4. This gives you even more freedom to choose how much of Relm4's features you prefer to use.
+In recent Relm4 releases, the macros were tightly integrated into the library itself. This limitation is now removed! Most importantly, users of gtk4-rs will be able to use the `view!` macro by only pulling in `relm4-macros` as dependency without the rest of Relm4. This gives you even more freedom to choose how much of Relm4's features you want to use.
 
 ```rust
 // Creating a box with a button inside.
@@ -81,17 +81,17 @@ dbg!(process.output());
 
 ## Micro components for flexibility at runtime
 
-Regular components are relatively static, which gives you strong compile time guarantees among many other benefits. They cover most use cases, but they cannot be initialized of destructed manually at runtime.
+Regular components are relatively static, which gives you strong compile time guarantees, among other benefits. They cover most use cases, but they cannot be initialized or destructed manually at runtime.
 
-This is where micro components have their strength. They are simpler variants of components, that require a bit more manual work with the advantage of being fully dynamic at runtime.
+This is where micro components have their strength. They are simpler variants of components that require a bit more manual work, with the advantage of being fully dynamic at runtime.
 
 A code example can be found [here](https://github.com/AaronErhardt/Relm4/blob/main/relm4-examples/examples/micro_components.rs#L7).
 
 ## Type-save actions
 
-[Actions](https://gtk-rs.org/gtk4-rs/git/book/actions.html) are a concept of GTK4 (or more precisely GObject) to simplify the handling of user interactions. Since you can always mix in as much pure gtk4-rs code into Relm4 applications as you want, actions were never a real problem for Relm4. Yet, they lived outside of Rust's type checking as action types are usually determined at runtime.
+[Actions](https://gtk-rs.org/gtk4-rs/git/book/actions.html) are used in GTK4 to simplify the handling of user interactions. Since you can always mix in as much pure gtk4-rs code into Relm4 applications as you want, actions were never a real problem. Yet, they lived outside of Rust's type checking.
 
-With the help of some traits and macros, it's now quite convenient to define wrapper types for actions that enable a lot of compile time guarantees for actions. Even typos for action names are eliminates as source of errors.
+With the help of some traits and macros, it's now quite convenient to define wrapper types for actions that enable a lot of compile time guarantees for actions. Even typos for action names are eliminated as a source of errors.
 
 ```rust
 // Defines a new action group
@@ -114,7 +114,7 @@ let action: RelmAction<Action> = RelmAction::new_stateless(move |_| {
 
 ## Menu macro
 
-A typical use case for actions are menus, where each entry is connected to an action. Yet, creating menus manually is rather tedious and .ui files can't be type checked. Therefore, the `menu!` macro allows you to conveniently create menus with all the benefits of type-safe actions.
+Often, actions are used for menus, where each entry is connected to an action. The new `menu!` macro allows you to create menus conveniently with all the benefits of type-safe actions.
 
 ```rust
 // Create a `MenuModel` called `menu_model`
@@ -132,7 +132,8 @@ menu! {
 
 ## More macro magic
 
-For quite some time, there was only a macro to simplify UI definitions in regular components. Now, factories and micro components have received their own `widget` macro variants.
+The `widget` macro has been very helpful in creating readable and elegant UI definitions for regular components since the first release of Relm4.
+Now, factories and micro components have received their own variants of the `widget` macro!
 
 ```rust
 // A simple `FactoryPrototype` implementation
@@ -158,11 +159,11 @@ impl FactoryPrototype for Counter {
 
 ## Better support for Stack and TabView
 
-Widgets such as `Stack` or `TabView` have methods that return a new widget such as a `StackPage`. The returned widget was previously inaccessibly in the `widget` macro and required manual code. This was addressed with a new syntax that only required a rework of some traits and the whole initialization process.
+Widgets such as `Stack` or `TabView` have methods that return a new widget, such as `StackPage`. The returned widget was previously inaccessibly in the `widget` macro and required manual code. This was addressed with [a new syntax](https://github.com/AaronErhardt/Relm4/blob/main/relm4-examples/libadwaita/examples/view-switcher.rs#L93).
 
 ## Cleaner dependencies
 
-Relm4 now re-exports more crates and has more feature flags. This means, you don't have to include `gtk4`, `libadwaita` or `relm4-macros` anymore, if you have the correct feature flags set.
+Relm4 now re-exports more crates and has more feature flags. This means you don't have to include `gtk4`, `libadwaita` or `relm4-macros` anymore, if you have the correct feature flags set.
 
 ```toml
 relm4 = { version = "0.4", features = ["tokio-rt", "macros"] }
@@ -175,9 +176,11 @@ relm4 = { version = "0.4", features = ["tokio-rt", "macros"] }
 + Some trait adjustments
 + Many bug fixes, better error messages and other improvements
 
-The full change log can be found [here](https://github.com/AaronErhardt/Relm4/blob/main/CHANGES.md).
+The full change log can be found [here](https://github.com/AaronErhardt/Relm4/blob/main/CHANGES.md#040---2022-1-16).
 
 ## Where to get started
+
++ ⬆️ **[Migration guide](https://aaronerhardt.github.io/relm4-book/book/0_2_to_0_4.html)**
 
 + ⭐ **[Repository](https://github.com/AaronErhardt/relm4)**
 + 📖 **[Book](https://aaronerhardt.github.io/relm4-book/book/)**
@@ -191,6 +194,6 @@ I highly appreciate feedback and contributions to Relm4 and thank those who help
 
 + [@euclio](https://github.com/euclio) who contributed many fixes and features
 + [@mskorkowski](https://github.com/mskorkowski) for his contributions and work on [relm4-store](https://github.com/mskorkowski/relm4-store)
-+ [@tronta](https://github.com/tronta) who contributed a lot to the examples and to the book
-+ Everyone else who gave feedback in the Matrix room or on GitHub
++ [@tronta](https://github.com/tronta) who contributed a lot to the examples and book improvements
++ everyone else who gave feedback in the Matrix room or on GitHub
 + the whole gtk-rs team for providing awesome Rust bindings for GTK and always being helpful
