@@ -178,7 +178,7 @@ relm4 = { version = "0.4", features = ["tokio-rt", "macros"] }
 
 The full change log can be found [here](https://github.com/AaronErhardt/Relm4/blob/main/CHANGES.md#040---2022-1-16).
 
-## Where to get started
+# Where to get started
 
 + ⬆️ **[Migration guide](https://aaronerhardt.github.io/relm4-book/book/0_2_to_0_4.html)**
 
@@ -188,7 +188,7 @@ The full change log can be found [here](https://github.com/AaronErhardt/Relm4/bl
 
 > Note: As of writing this, the book isn't fully ported to v0.4, but the examples in the repository are always up to date.
 
-## Special thanks
+# Special thanks
 
 I highly appreciate feedback and contributions to Relm4 and thank those who helped me with this release:
 
