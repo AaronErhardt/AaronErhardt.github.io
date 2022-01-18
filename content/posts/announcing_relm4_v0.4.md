@@ -87,7 +87,7 @@ This is where micro components have their strength. They are simpler variants of
 
 A code example can be found [here](https://github.com/AaronErhardt/Relm4/blob/main/relm4-examples/examples/micro_components.rs#L7).
 
-## Type-save actions
+## Type-safe actions
 
 [Actions](https://gtk-rs.org/gtk4-rs/git/book/actions.html) are used in GTK4 to simplify the handling of user interactions. Since you can always mix in as much pure gtk4-rs code into Relm4 applications as you want, actions were never a real problem. Yet, they lived outside of Rust's type checking.
 
