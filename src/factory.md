@@ -1,7 +1,8 @@
 # Factory
 
-Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.
+Factories are a methodology to easily create an UI which gets automatically generated and updated based on a dynamic data collection.
 
+A factory defines how the widgets are being constructed for the data collection. They are used inside GTK as well, but Relm4 uses them a bit differently.
 ![App screenshot dark](img/screenshots/factory-dark.png)
 
 This app will have a dynamic number of counters which can be changed by pressing the add or remove buttons.
