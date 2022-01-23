@@ -1,15 +1,22 @@
 # Factory
 
-Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.
+Factories are used to generate widgets from collections of data. 
+If you modify the collection of data, the widgets are generated and updated automatically.
+Also, they make it simple to modify the data from the UI.
+
+> GTK has factories, too, yet under the hood they are quite different from Relm4's factories. 
+> In most cases, Relm4's factories will be the easier solution but if you need more control, you can always use [GTK's factories with gtk4-rs](https://gtk-rs.org/gtk4-rs/git/book/todo_app_1.html).
+
+The app we will build now will look like this:
 
 ![App screenshot dark](img/screenshots/factory-dark.png)
 
-This app will have a dynamic number of counters which can be changed by pressing the add or remove buttons.
+It will have a dynamic number of counters which can be changed by pressing the add or remove buttons.
 Clicking on a counter will decrement it.
 
 ## Factories in Relm4
 
-Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
+Let's have a look at factories in Relm4. We want to write this simple application where one can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
 
 > The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs). Run `cargo run --example factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
