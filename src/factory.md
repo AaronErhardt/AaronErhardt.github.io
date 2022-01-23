@@ -7,7 +7,7 @@ Also, they make it simple to modify the data from the UI.
 > GTK has factories, too, yet under the hood they are quite different from Relm4's factories. 
 > In most cases, Relm4's factories will be the easier solution but if you need more control, you can always use [GTK's factories with gtk4-rs](https://gtk-rs.org/gtk4-rs/git/book/todo_app_1.html).
 
-The app we will buid now will look like this:
+The app we will build now will look like this:
 
 ![App screenshot dark](img/screenshots/factory-dark.png)
 
