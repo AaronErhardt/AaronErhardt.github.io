@@ -34,7 +34,7 @@ We will not implement the actual functionality, but use placeholders instead to 
 
 ### The model
 
-Usually you want to store everything that only affects your component in the state of the component. In this case however, there is no state that can be stored in the component, but only state that affects the root component (app). Therefore, we leave the model empty and only send messages to the root component.
+Usually you want to store everything that only affects your component in the state of the component. In this case however, there is no state that can be stored in the component, but only a state that affects the root component (app). Therefore, we leave the model empty and only send messages to the root component.
 
 ```rust,no_run,noplayground
 {{#include ../examples/components.rs:header_model }}
@@ -52,7 +52,7 @@ For components we also need to implement the `Model` trait. The `Components` typ
 {{#include ../examples/components.rs:header_model_impl }}
 ```
 
-The update function is rather minimal. If our header bar was more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
+The update function is rather minimal. If our header bar were more complex, storing state in this component would make sense, but because we just handle a few buttons, we can simply forward messages. For that we can use the `parent_sender`. You can see that the message type of the main application is `AppMsg` and that there's an enum `AppMode`. Both were not introduced yet, but will be explained later. For now, we just need to know that this component will send `SetMode` messages to the app.
 
 ```rust,no_run,noplayground
 {{#include ../examples/components.rs:header_update }}
@@ -104,7 +104,7 @@ You've probably seen enough widget implementations by now to know roughly how th
 {{#include ../examples/components.rs:dialog_widgets }}
 ```
 
-Most notably there is the `args!` macro. It allows us to pass values to functions that take more than one argument. The macro would otherwise interpret the comma for a second argument as new property, so we need to use `args!` here.
+Most notably there is the `args!` macro. It allows us to pass values to functions that take more than one argument. The macro would otherwise interpret the comma for a second argument as a new property, so we need to use `args!` here.
 
 Also, we set the `set_transient_for` property, which actually uses the main window from the parent widgets. So far `parent_widgets` was an unused argument in our implementations. However in this case, it's neat to have access to the parent widgets. The dialog should set his parent window so that GTK can handle the dialog better. The GTK docs state: "[set_transient_for] allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window". So we definitely want that and conveniently Relm4 gives us the widgets we need from the parents.
 
@@ -138,7 +138,7 @@ Now we're looking at something familiar again, the model of the main app.
 {{#include ../examples/components.rs:app_model }}
 ```
 
-The `AppMode` struct stores the modes the application can be in. The `SetMode` message is used by our header bar component to update the state of the main application when someone presses a button in the header bar. The `Close` message is used by the dialog component to indicate that the window should be closed.
+The `AppModel` struct stores the modes the application can be in. The `SetMode` message is used by our header bar component to update the state of the main application when someone presses a button in the header bar. The `Close` message is used by the dialog component to indicate that the window should be closed.
 
 And now we finally use the `Components` type of the `Model` trait.
 
@@ -164,7 +164,7 @@ We're almost done! We only need to define the widgets of the main app.
 
 The `component!` macro is used to interact with components. We just need to get our header bar component in place. Our dialog component does not need to be attached anywhere because the dialog lives in a separate window.
 
-> Widgets from components are added **after** everything else. Because Relm4 initializes components after their parents we can only add components after the rest is already in place. This means that you sometimes might have to use methods like [`prepend`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.BoxExt.html#tymethod.prepend) to keep the right order because with `append` the a component will always be added at the end. Yet, everything else is initialized in the right order.
+> Widgets from components are added **after** everything else. Because Relm4 initializes components after their parents we can only add components after the rest is already in place. This means that you sometimes might have to use methods like [`prepend`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.BoxExt.html#tymethod.prepend) to keep the right order because with `append` the component will always be added at the end. Yet, everything else is initialized in the right order.
 
 ## Conclusion
 
