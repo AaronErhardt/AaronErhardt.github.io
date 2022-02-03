@@ -124,7 +124,7 @@ If the function is associated with a type, you can simply use this syntax. The m
 property_name = gtk::Box::new() { ... }
 ```
 
-For some functions, the macro can't guess the type or might even assume a wrong type. In such a case, add the type your function:
+For some functions, the macro can't guess the type or might even assume a wrong type. In such a case, add the type to your function:
 
 ```rust,no_run,noplayground
 property_name = new_box() -> gtk::Box { ... }

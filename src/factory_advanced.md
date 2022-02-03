@@ -91,7 +91,7 @@ Now we can connect the messages. We always send a weak pointer of our dynamic in
 {{#include ../examples/factory_advanced.rs:connect }}
 ```
 
-And that's it! All the other complex operations that keep track of changes are implemented in Relm4 already, we just need to use dynamic indices to make out program work :)
+And that's it! All the other complex operations that keep track of changes are implemented in Relm4 already, we just need to use dynamic indices to make our program work :)
 
 ## The complete code
 

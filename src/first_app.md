@@ -65,7 +65,7 @@ For our app, we use a window with two buttons to increment and decrement the cou
 
 ### The `Widgets` trait
 
-The last step we need it to tell the computer how to initialize widgets and how to update them.
+The last step is to tell the computer how to initialize widgets and how to update them.
 
 In Relm4, the UI represents the memory of the application. All that's left to do is to implement the `Widgets` trait that tells the computer exactly how its memory should be visualized.
 
@@ -75,7 +75,7 @@ Let's do this step by step. First, we'll have a look at the beginning of the tra
 {{#include ../examples/simple_manual.rs:widgets_trait_start }}
 ```
 
-The two generic parameters are our model and the parent model. We're at the root of our app so don't have parent model and can use `()` as placeholder.
+The two generic parameters are our model and the parent model. We're at the root of our app so we don't have a parent model and can use `()` as placeholder.
 
 The `Root` type is the outermost widget of the app. Components can choose this type freely, but the main application must use an `ApplicationWindow`.
 
