@@ -55,7 +55,7 @@ Sometimes we want to use a constructor function to initialize our widgets. For t
 ### Returned Widget Syntax
 
 Some methods also return a newly created widget which we want to adjust to our needs.
-E.g. `Stack`'s [`add_child`](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.Stack.html#method.add_child) method returns a `StackPage` where we can set if the page needs [special user attention](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.StackPage.html#method.needs_attention):
+E.g. `Stack`'s [`add_child`](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.Stack.html#method.add_child) method returns a `StackPage` where we can set if the page needs [special user attention](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.StackPage.html#method.set_needs_attention):
 
 ![App screenshot dark](img/stack_switcher.png)
 
