@@ -55,11 +55,11 @@ Sometimes we want to use a constructor function to initialize our widgets. For t
 ### Returned Widget Syntax
 
 Some methods also return a newly created widget which we want to adjust to our needs.
-E.g. the method [`add_child`](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.Stack.html#method.add_child) of `Stack` returns a `StackPage` where we can set if it needs [special user attention](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.StackPage.html#method.needs_attention):
+E.g. `Stack`'s [`add_child`](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.Stack.html#method.add_child) method returns a `StackPage` where we can set if the page needs [special user attention](https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.StackPage.html#method.needs_attention):
 
 ![App screenshot dark](img/stack_switcher.png)
 
-To enable this, there is an extension of the described syntax, where we can apply additional changes to the return widget:
+To enable this, there is an extension of the described syntax, where we can apply additional changes to the returned widget:
 
 ```rust,no_run,noplayground
 add_child = &gtk::Label {
@@ -70,19 +70,11 @@ add_child = &gtk::Label {
     set_batch_number: 3,
 },
 ```
-There is also the possibility that the method returns an optional widget. E.g.: ???
 
-Those cases can easily handled with
+Cases when an `Option<_>` is returned can be handled by the following:
 ```rust,no_run,noplayground
-add_child = &gtk::Label {
-    set_label: "Stopwatch",
-} ?-> {
-    set_title: "Stopwatch",
-    set_needs_attention: true,
-    set_batch_number: 3,
-},
+{ ... } -> ? { ... },
 ```
-
 ### Events
 
 To connect events, we use this syntax.
