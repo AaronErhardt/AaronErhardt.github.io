@@ -63,7 +63,7 @@ To enable this, there is an extension of the described syntax, where we can appl
 
 ```rust,no_run,noplayground
 add_child = &gtk::Label {
-    set_label: "Stopwatch",
+    set_label: "00:00:00",
 } -> {
     set_title: "Stopwatch",
     set_needs_attention: true,
@@ -71,7 +71,7 @@ add_child = &gtk::Label {
 },
 ```
 
-Cases when an `Option<_>` is returned can be handled by the following:
+Cases when an `Option<Widget>` is returned can be handled by the following:
 ```rust,no_run,noplayground
 { ... } -> ? { ... },
 ```
