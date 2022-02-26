@@ -7,7 +7,7 @@ git clone --depth 1 https://gitlab.gnome.org/chergert/libpanel
 
 cd libpanel
 
-meson _build --prefix=/usr -Dvapi=false
+meson _build --prefix=/usr -Dvapi=false -Dintrospection=disabled
 ninja -C _build install
 
 cd ..
