@@ -261,12 +261,28 @@ impl Widgets<AppModel, ()> for AppWidgets {
 }
 ```
 
-### Manual view
+### Add manual logic
 
-You can also implement your own view logic that's added to the view code the view macro generates. To refer to the widgets, use `self` and `model` for the model.
+You can also implement your own view logic that's added to the view code the view macro generates. It is split in two parts one which is executed before the widget is created (`pre_view`) and the other which is executed afterwards (`post_view`).
+
+#### Pre view
+
+In order to refer to the widgets, you can use `self` and `model` to access them.
 
 ```rust,no_run,noplayground
-fn manual_view() {
+fn pre_view() {
     // ...
+    model.button.hide();
+}
+```
+
+#### Post view
+
+Here the widgets can directly accessed via their names.
+
+```rust,no_run,noplayground
+fn post_view() {
+    // ...
+    stack.set_visible_chile(&start_page);
 }
 ```

@@ -32,13 +32,10 @@ The update function is very simple, too. The only difference is that we set the 
 {{#include ../examples/macro_test.rs:app_update }}
 ```
 
-### The component
+### The parent macro
 
-We will use a minimal button component that just has a button as widget to showcase the `component!` macro later.
+We will use … the `parent!` macro later.
 
-```rust,no_run,noplayground
-{{#include ../examples/macro_test.rs:button_comp }}
-```
 
 ### A custom widget function
 
@@ -188,6 +185,9 @@ In the macro we used the nested `component!` macro to add a component to our UI.
 {{#include ../examples/macro_test.rs:component }}
 ```
 
+#### Manual Pre Processing
+
+Before the actual root widget will be created, the code in the `pre_view()` function will be executed.
 #### Root widget
 
 The macro also implements the `root_widget` function that returns the outermost widget that is also the first we use in the `view!` macro.
@@ -196,9 +196,9 @@ The macro also implements the `root_widget` function that returns the outermost 
 {{#include ../examples/macro_expansion.rs:root_widget }}
 ```
 
-#### Manual UI updates
+#### Manual Post Processing
 
-The last step of the macro is to generate the update logic with the `view` function. At the start of this function, we can find the code from the `manual_view()` function of the macro.
+The last step of the macro is to generate the update logic with the `view` function. At the start of this function, we can find the code from the `post_view()` function of the macro.
 
 ```rust,no_run,noplayground
 {{#include ../examples/macro_expansion.rs:manual_view }}
