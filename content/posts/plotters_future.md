@@ -16,7 +16,7 @@ ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true
 editPost:
-    URL: "https://github.com/AaronErhardt/AaronErhardt.github.io/tree/blog/content/posts"
+    URL: "https://github.com/AaronErhardt/AaronErhardt.github.io/tree/blog/content"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
