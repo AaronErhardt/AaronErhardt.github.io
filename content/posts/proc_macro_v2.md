@@ -42,7 +42,7 @@ This makes proc-macros incredibly powerful and useful in situations declarative 
 ## The problems
 
 Proc-macros are powerful, but they are also very difficult to implement correctly.
-It's up to the individual programmer to parse the macro syntax and to handle every edge-case.
+It's up to the individual developer to parse the macro syntax and to handle every edge-case.
 At the same time, language servers struggle a lot to provide decent IDE integration for proc-macros because they have no idea how the macro works internally.
 
 Let's have a closer look at some of those problems.
@@ -184,11 +184,13 @@ Rust's third pillar - productivity - will surely profit from easier proc-macros 
 I hope this article brings up more ideas and discussions to improve the status quo of proc-macros.
 Regardless of which solution will be chosen in the end, I believe that proc-macros deserve an upgrade.
 
+**Feel free to [join the discussion](https://github.com/AaronErhardt/AaronErhardt.github.io/discussions/63) on GitHub!**
+
 # Appendix: A larger code example
 
 Format description
 
-```python
+```noh
 CustomStructStruct :
    struct IDENTIFIER  GenericParams? WhereClause? ( { StructFields? } | ; )
 
