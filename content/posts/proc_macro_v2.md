@@ -225,7 +225,7 @@ struct CustomStruct {
 #[subset_of(StructFields)]
 struct CustomStructFields {
     // We don't want to touch the struct field
-    // so we wrap it into `Opque<T>`.
+    // so we wrap it into `Opaque<T>`.
     fields: Punctuated<Opaque<CustomStructField>>,
 }
 
