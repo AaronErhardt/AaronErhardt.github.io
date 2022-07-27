@@ -184,8 +184,6 @@ Rust's third pillar - productivity - will surely profit from easier proc-macros 
 I hope this article brings up more ideas and discussions to improve the status quo of proc-macros.
 Regardless of which solution will be chosen in the end, I believe that proc-macros deserve an upgrade.
 
-**Feel free to [join the discussion](https://github.com/AaronErhardt/AaronErhardt.github.io/discussions/63) on GitHub!**
-
 # Appendix: A larger code example
 
 Format description
