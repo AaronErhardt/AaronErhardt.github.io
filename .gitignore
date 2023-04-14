@@ -2,3 +2,4 @@ public/
 book/
 target/
 Cargo.lock
+.hugo_build.lock
