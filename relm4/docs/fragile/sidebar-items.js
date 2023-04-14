@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Fragile","A `Fragile<T>` wraps a non sendable `T` to be safely send to other threads."],["InvalidThreadAccess","Returned when borrowing fails."],["SemiSticky","A `SemiSticky<T>` keeps a value T stored in a thread if it has a drop."],["Sticky","A `Sticky<T>` keeps a value T stored in a thread."]]});

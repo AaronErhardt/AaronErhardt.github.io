@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["libadwaita"] = [{"text":"impl&lt;T:&nbsp;<a class=\"trait\" href=\"libadwaita/subclass/swipeable/trait.SwipeableImpl.html\" title=\"trait libadwaita::subclass::swipeable::SwipeableImpl\">SwipeableImpl</a>&gt; <a class=\"trait\" href=\"libadwaita/subclass/prelude/trait.IsImplementable.html\" title=\"trait libadwaita::subclass::prelude::IsImplementable\">IsImplementable</a>&lt;T&gt; for <a class=\"struct\" href=\"libadwaita/struct.Swipeable.html\" title=\"struct libadwaita::Swipeable\">Swipeable</a>","synthetic":false,"types":["libadwaita::auto::swipeable::Swipeable"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

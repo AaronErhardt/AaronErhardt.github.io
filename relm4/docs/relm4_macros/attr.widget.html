@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Macro that implements `relm4::Widgets` and generates the corresponding struct."><meta name="keywords" content="rust, rustlang, rust-lang, widget"><title>widget in relm4_macros - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script><script defer src="../scrape-examples.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" href="https://relm4.org/icons/relm4_org.svg"></head><body class="rustdoc attr"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../relm4_macros/index.html"><div class="logo-container"><img src="https://relm4.org/icons/relm4_logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../relm4_macros/index.html"><div class="logo-container">
+                    <img src="https://relm4.org/icons/relm4_logo.svg" alt="logo"></div>
+        </a><div class="sidebar-elems"><h2 class="location"><a href="index.html">In relm4_macros</a></h2><div id="sidebar-vars" data-name="widget" data-ty="attr" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../relm4_macros/index.html">
+                        <img src="https://relm4.org/icons/relm4_logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Attribute Macro <a href="index.html">relm4_macros</a>::<wbr><a class="attr" href="#">widget</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/relm4_macros/lib.rs.html#112-120">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="docblock item-decl"><pre class="rust attr"><code>#[widget]</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Macro that implements <a href="https://relm4.org/docs/stable/relm4/trait.Widgets.html"><code>relm4::Widgets</code></a> and generates the corresponding struct.</p>
+<h2 id="attributes"><a href="#attributes">Attributes</a></h2>
+<p>To create public struct use <code>#[widget(pub)]</code> or <code>#[widget(visibility = pub)]</code>.</p>
+<p>If you use reexports to provide relm4, then you can use <code>#[widget(relm4= ::myreexports::my_relm)]</code> to override relm4 used during generating struct.</p>
+<h2 id="example"><a href="#example">Example</a></h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">gtk::prelude</span>::{<span class="ident">BoxExt</span>, <span class="ident">ButtonExt</span>, <span class="ident">GtkWindowExt</span>, <span class="ident">OrientableExt</span>};
+<span class="kw">use</span> <span class="ident">relm4</span>::{<span class="ident">gtk</span>, <span class="ident">send</span>, <span class="ident">AppUpdate</span>, <span class="ident">Model</span>, <span class="ident">RelmApp</span>, <span class="ident">Sender</span>, <span class="ident">WidgetPlus</span>, <span class="ident">Widgets</span>};
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
+<span class="kw">struct</span> <span class="ident">AppModel</span> {
+    <span class="ident">counter</span>: <span class="ident">u8</span>,
+}
+
+<span class="kw">enum</span> <span class="ident">AppMsg</span> {
+    <span class="ident">Increment</span>,
+    <span class="ident">Decrement</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Model</span> <span class="kw">for</span> <span class="ident">AppModel</span> {
+    <span class="kw">type</span> <span class="ident">Msg</span> <span class="op">=</span> <span class="ident">AppMsg</span>;
+    <span class="kw">type</span> <span class="ident">Widgets</span> <span class="op">=</span> <span class="ident">AppWidgets</span>;
+    <span class="kw">type</span> <span class="ident">Components</span> <span class="op">=</span> ();
+}
+
+<span class="kw">impl</span> <span class="ident">AppUpdate</span> <span class="kw">for</span> <span class="ident">AppModel</span> {
+    <span class="kw">fn</span> <span class="ident">update</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">msg</span>: <span class="ident">AppMsg</span>, <span class="ident">_components</span>: <span class="kw-2">&amp;</span>(), <span class="ident">_sender</span>: <span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">AppMsg</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
+        <span class="kw">match</span> <span class="ident">msg</span> {
+            <span class="ident">AppMsg::Increment</span> =&gt; {
+                <span class="self">self</span>.<span class="ident">counter</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">counter</span>.<span class="ident">wrapping_add</span>(<span class="number">1</span>);
+            }
+            <span class="ident">AppMsg::Decrement</span> =&gt; {
+                <span class="self">self</span>.<span class="ident">counter</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">counter</span>.<span class="ident">wrapping_sub</span>(<span class="number">1</span>);
+            }
+        }
+        <span class="bool-val">true</span>
+    }
+}
+
+<span class="attribute">#[<span class="ident">relm4_macros::widget</span>]</span>
+<span class="kw">impl</span> <span class="ident">Widgets</span><span class="op">&lt;</span><span class="ident">AppModel</span>, ()<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AppWidgets</span> {
+    <span class="macro">view!</span> {
+        <span class="ident">gtk::ApplicationWindow</span> {
+            <span class="ident">set_title</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;Simple app&quot;</span>),
+            <span class="ident">set_default_width</span>: <span class="number">300</span>,
+            <span class="ident">set_default_height</span>: <span class="number">100</span>,
+            <span class="ident">set_child</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">gtk::Box</span>) {
+                <span class="ident">set_orientation</span>: <span class="ident">gtk::Orientation::Vertical</span>,
+                <span class="ident">set_margin_all</span>: <span class="number">5</span>,
+                <span class="ident">set_spacing</span>: <span class="number">5</span>,
+
+                <span class="ident">append</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">gtk::Button</span> {
+                    <span class="ident">set_label</span>: <span class="string">&quot;Increment&quot;</span>,
+                    <span class="ident">connect_clicked</span>(<span class="ident">sender</span>) =&gt; <span class="kw">move</span> <span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
+                        <span class="macro">send!</span>(<span class="ident">sender</span>, <span class="ident">AppMsg::Increment</span>);
+                    },
+                },
+                <span class="ident">append</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">gtk::Button</span> {
+                    <span class="ident">set_label</span>: <span class="string">&quot;Decrement&quot;</span>,
+                    <span class="ident">connect_clicked</span>(<span class="ident">sender</span>) =&gt; <span class="kw">move</span> <span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
+                        <span class="macro">send!</span>(<span class="ident">sender</span>, <span class="ident">AppMsg::Decrement</span>);
+                    },
+                },
+                <span class="ident">append</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">gtk::Label</span> {
+                    <span class="ident">set_margin_all</span>: <span class="number">5</span>,
+                    <span class="ident">set_label</span>: <span class="macro">watch!</span> { <span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;Counter: {}&quot;</span>, <span class="ident">model</span>.<span class="ident">counter</span>) },
+                }
+            },
+        }
+    }
+}</code></pre></div>
+</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="relm4_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (306ba8357 2022-04-05)" ></div>
+</body></html>

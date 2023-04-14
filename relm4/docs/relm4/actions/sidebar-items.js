@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["traits","Type safe traits for interacting with actions."]],"struct":[["RelmAction","A type safe action that wraps around [`gio::SimpleAction`]."],["RelmActionGroup","A type save action group that wraps around [`gio::SimpleActionGroup`]."]]});

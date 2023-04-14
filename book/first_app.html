@@ -1,0 +1,488 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Your first app - GUI development with Relm4</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html" class="active"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="factory_position.html"><strong aria-hidden="true">3.2.1.</strong> The position function</a></li></ol></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="message_handler.html"><strong aria-hidden="true">6.</strong> Message handlers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">7.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">8.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">9.</strong> Widget macro reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="widget_macro_expansion.html"><strong aria-hidden="true">9.1.</strong> Macro expansion</a></li></ol></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">10.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">10.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">10.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">10.3.</strong> Worker template</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">GUI development with Relm4</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        <a href="https://github.com/AaronErhardt/AaronErhardt.github.io/tree/master/relm4-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                                                
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="your-first-app"><a class="header" href="#your-first-app">Your first app</a></h1>
+<p>For our first app, let's create something original: A simple counter app.</p>
+<blockquote>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple_manual.rs">here</a>. Run <code>cargo run --example simple_manual</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
+</blockquote>
+<h2 id="the-basic-structure"><a class="header" href="#the-basic-structure">The basic structure</a></h2>
+<p>Relm4 builds on the Elm programming model. This means there are three important data types you need to define:</p>
+<ul>
+<li>The model type that stores your application state.</li>
+<li>The message type that defines which messages can be sent to modify the model.</li>
+<li>The widgets type that stores the GTK widgets (UI elements).</li>
+</ul>
+<p>Let's see how we can implement those types for our counter app.</p>
+<h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
+<p>Our app only needs to store the state of a counter, so a simple <code>u8</code> is enough.</p>
+<pre><code class="language-rust no_run noplayground">struct AppModel {
+    counter: u8,
+}
+</code></pre>
+<h3 id="the-message"><a class="header" href="#the-message">The message</a></h3>
+<p>Now we need to define what messages can be used to modify the model. The message can be represented by any data type, but most often, an <code>enum</code> is used. In our case, we just want to increment and decrement the counter.</p>
+<pre><code class="language-rust no_run noplayground">enum AppMsg {
+    Increment,
+    Decrement,
+}
+</code></pre>
+<h3 id="the-widgets"><a class="header" href="#the-widgets">The widgets</a></h3>
+<p>The widgets struct stores the widgets we need to build our user interface. For our app, we can use a window with an increment button, a decrement button and a label to display the counter value. Besides that, we need a box as a container to place our buttons and the label inside because a window can only have one child.</p>
+<pre><code class="language-rust no_run noplayground">struct AppWidgets {
+    window: gtk::ApplicationWindow,
+    vbox: gtk::Box,
+    inc_button: gtk::Button,
+    dec_button: gtk::Button,
+    label: gtk::Label,
+}
+</code></pre>
+<h2 id="the-model-trait"><a class="header" href="#the-model-trait">The Model trait</a></h2>
+<p>With our data types in place, we can now implement the model trait. This trait associates a model with other types to reduce the amount of generic parameters in other trait implementations.</p>
+<p>There are three types we need to include:</p>
+<ul>
+<li>Msg: what message type do we use to update the model?</li>
+<li>Widgets: which struct stores the widgets of our UI?</li>
+<li>Components: which child components does our model use?</li>
+</ul>
+<p>We don't care about components for now because we are just writing a simple app. Therefore, we can use <code>()</code> as placeholder.</p>
+<pre><code class="language-rust no_run noplayground">impl Model for AppModel {
+    type Msg = AppMsg;
+    type Widgets = AppWidgets;
+    type Components = ();
+}
+</code></pre>
+<h2 id="the-update-loop"><a class="header" href="#the-update-loop">The update loop</a></h2>
+<p>As a next step, we want to make our app interactive. Relm4 has two important functions that update state and UI:</p>
+<ul>
+<li>update: receives a message and modifies the model</li>
+<li>view: receives the modified model and updates the UI accordingly</li>
+</ul>
+<p>Before anything happens, a message must be sent through a channel. Theoretically, anything can send messages, but usually you send messages when a button is clicked or similar events occur. We will have a look at this later.</p>
+<p><img src="img/update_loop.svg" alt="relm update loop" /></p>
+<blockquote>
+<p>Data and widgets are separated from each other: the update function doesn't interact with the widgets and the view function doesn't modify the model.</p>
+</blockquote>
+<h3 id="the-appupdate-trait"><a class="header" href="#the-appupdate-trait">The AppUpdate trait</a></h3>
+<p>Theory is nice, but let's see it in action.</p>
+<p>Our update function is implemented with the <code>AppUpdate</code> trait.</p>
+<pre><code class="language-rust no_run noplayground">impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::Increment =&gt; {
+                self.counter = self.counter.wrapping_add(1);
+            }
+            AppMsg::Decrement =&gt; {
+                self.counter = self.counter.wrapping_sub(1);
+            }
+        }
+        true
+    }
+}
+</code></pre>
+<blockquote>
+<p><code>wrapping_add(1)</code> and <code>wrapping_sub(1)</code> are like <code>+1</code>  and <code>-1</code> , but don't panic on overflows.</p>
+</blockquote>
+<p>Whenever a new message is sent by our buttons, we process this message here and modify our counter accordingly.</p>
+<p>Also, we return <code>true</code> because we don't want to quit our application. If our app should close, we can simply return <code>false</code> to close the application.</p>
+<h3 id="the-widgets-trait"><a class="header" href="#the-widgets-trait">The Widgets trait</a></h3>
+<p>Our last step is implementing the widgets trait. It provides methods to initialize and update the UI.</p>
+<p>Let's do this step by step. First, we'll have a look at beginning of the trait <code>impl</code>.</p>
+<pre><code class="language-rust no_run noplayground">impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    type Root = gtk::ApplicationWindow;
+</code></pre>
+<p>You'll notice that</p>
+<ul>
+<li>there are two generic parameters</li>
+<li>a <code>Root</code> type</li>
+</ul>
+<p>The two generic parameters are our model and the parent model. The parent model is only used in components which we will discuss later, so again we can simply use <code>()</code> as placeholder.</p>
+<p>The <code>Root</code> type is the root widget of the app. Components can choose this type freely, but the main application must use a <code>gtk::ApplicationWindow</code>.</p>
+<p>Next up, we want to initialize our UI.</p>
+<pre><code class="language-rust no_run noplayground">    /// Initialize the UI.
+    fn init_view(model: &amp;AppModel, _parent_widgets: &amp;(), sender: Sender&lt;AppMsg&gt;) -&gt; Self {
+        let window = gtk::ApplicationWindow::builder()
+            .title(&quot;Simple app&quot;)
+            .default_width(300)
+            .default_height(100)
+            .build();
+        let vbox = gtk::Box::builder()
+            .orientation(gtk::Orientation::Vertical)
+            .spacing(5)
+            .build();
+        vbox.set_margin_all(5);
+
+        let inc_button = gtk::Button::with_label(&quot;Increment&quot;);
+        let dec_button = gtk::Button::with_label(&quot;Decrement&quot;);
+
+        let label = gtk::Label::new(Some(&amp;format!(&quot;Counter: {}&quot;, model.counter)));
+        label.set_margin_all(5);
+
+        // Connect the widgets
+        window.set_child(Some(&amp;vbox));
+        vbox.append(&amp;inc_button);
+        vbox.append(&amp;dec_button);
+        vbox.append(&amp;label);
+
+        // Connect events
+        let btn_sender = sender.clone();
+        inc_button.connect_clicked(move |_| {
+            send!(btn_sender, AppMsg::Increment);
+        });
+
+        dec_button.connect_clicked(move |_| {
+            send!(sender, AppMsg::Decrement);
+        });
+
+        Self {
+            window,
+            vbox,
+            inc_button,
+            dec_button,
+            label,
+        }
+    }
+</code></pre>
+<p>But what exactly happens here?</p>
+<p>First, we initialize each of our widgets, mostly by using builder patterns.</p>
+<p>Then we connect the widgets so that GTK4 knows how they are related to each other. The buttons and the label are added to the box, and the box is added to the window.</p>
+<p>Now the magic happens: we connect the &quot;clicked&quot; event for both buttons and send a message from the closures back to the update loop. To do this, we only need to move a clone of our sender into the closures and send the message.</p>
+<p>Alright, now every time we click our buttons a message will be sent to update our counter!</p>
+<p>Yet our UI will not updated when the counter is changed. To do this, we need to implement the view function:</p>
+<pre><code class="language-rust no_run noplayground">    /// Update the view to represent the updated model.
+    fn view(&amp;mut self, model: &amp;AppModel, _sender: Sender&lt;AppMsg&gt;) {
+        self.label.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
+    }
+</code></pre>
+<p>We just need to update the label to represent the new counter value.</p>
+<p>We're almost done. To complete the <code>Widgets</code> trait we just need to implement the <code>root_widget</code> method.</p>
+<pre><code class="language-rust no_run noplayground">    /// Return the root widget.
+    fn root_widget(&amp;self) -&gt; Self::Root {
+        self.window.clone()
+    }
+</code></pre>
+<h2 id="running-the-app"><a class="header" href="#running-the-app">Running the App</a></h2>
+<p>The last step is to run the app we just wrote. To do so, we just need to initialize our model and pass it into <code>RelmApp::new()</code>.</p>
+<pre><code class="language-rust no_run noplayground">fn main() {
+    let model = AppModel {
+        counter: 0,
+    };
+    let app = RelmApp::new(model);
+    app.run();
+}
+</code></pre>
+<p>🎉 Congratulations! You just wrote your first app with Relm4! 🎉</p>
+<h3 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h3>
+<p>There are a few concepts in Relm4 that might look complex at first but are actually quite easy to understand and help you keep your code structured. I hope this chapter made everything clear for you :)</p>
+<p>If you found a mistake or there was something unclear, please open an issue <a href="https://github.com/AaronErhardt/relm4/issues">here</a>.</p>
+<p>As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the relm4-macros crate that offers a macro that helps us to reduce the amount of code we need to implement the Widgets trait.</p>
+<blockquote>
+<p>As you might have noticed, storing inc_button, dec_button and vbox in our widgets struct is not necessary because GTK will keep them alive automatically. Therefore, we can remove them from <code>AppWidgets</code> to avoid compiler warnings.</p>
+</blockquote>
+<h4 id="screenshots"><a class="header" href="#screenshots">Screenshots</a></h4>
+<p><img src="img/screenshots/simple-light.png" alt="App screenshot light" />
+<img src="img/screenshots/simple-dark.png" alt="App screenshot dark" /></p>
+<h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
+<p>Let's review our code in one piece one more time to see how all these parts work together:</p>
+<pre><code class="language-rust no_run noplayground">use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
+use relm4::{send, AppUpdate, Model, RelmApp, Sender, WidgetPlus, Widgets};
+
+struct AppModel {
+    counter: u8,
+}
+
+enum AppMsg {
+    Increment,
+    Decrement,
+}
+
+impl Model for AppModel {
+    type Msg = AppMsg;
+    type Widgets = AppWidgets;
+    type Components = ();
+}
+
+impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::Increment =&gt; {
+                self.counter = self.counter.wrapping_add(1);
+            }
+            AppMsg::Decrement =&gt; {
+                self.counter = self.counter.wrapping_sub(1);
+            }
+        }
+        true
+    }
+}
+
+struct AppWidgets {
+    window: gtk::ApplicationWindow,
+    vbox: gtk::Box,
+    inc_button: gtk::Button,
+    dec_button: gtk::Button,
+    label: gtk::Label,
+}
+
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    type Root = gtk::ApplicationWindow;
+
+    /// Initialize the UI.
+    fn init_view(model: &amp;AppModel, _parent_widgets: &amp;(), sender: Sender&lt;AppMsg&gt;) -&gt; Self {
+        let window = gtk::ApplicationWindow::builder()
+            .title(&quot;Simple app&quot;)
+            .default_width(300)
+            .default_height(100)
+            .build();
+        let vbox = gtk::Box::builder()
+            .orientation(gtk::Orientation::Vertical)
+            .spacing(5)
+            .build();
+        vbox.set_margin_all(5);
+
+        let inc_button = gtk::Button::with_label(&quot;Increment&quot;);
+        let dec_button = gtk::Button::with_label(&quot;Decrement&quot;);
+
+        let label = gtk::Label::new(Some(&amp;format!(&quot;Counter: {}&quot;, model.counter)));
+        label.set_margin_all(5);
+
+        // Connect the widgets
+        window.set_child(Some(&amp;vbox));
+        vbox.append(&amp;inc_button);
+        vbox.append(&amp;dec_button);
+        vbox.append(&amp;label);
+
+        // Connect events
+        let btn_sender = sender.clone();
+        inc_button.connect_clicked(move |_| {
+            send!(btn_sender, AppMsg::Increment);
+        });
+
+        dec_button.connect_clicked(move |_| {
+            send!(sender, AppMsg::Decrement);
+        });
+
+        Self {
+            window,
+            vbox,
+            inc_button,
+            dec_button,
+            label,
+        }
+    }
+
+    /// Return the root widget.
+    fn root_widget(&amp;self) -&gt; Self::Root {
+        self.window.clone()
+    }
+
+    /// Update the view to represent the updated model.
+    fn view(&amp;mut self, model: &amp;AppModel, _sender: Sender&lt;AppMsg&gt;) {
+        self.label.set_label(&amp;format!(&quot;Counter: {}&quot;, model.counter));
+    }
+}
+
+fn main() {
+    let model = AppModel {
+        counter: 0,
+    };
+    let app = RelmApp::new(model);
+    app.run();
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="widget_macro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="widget_macro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

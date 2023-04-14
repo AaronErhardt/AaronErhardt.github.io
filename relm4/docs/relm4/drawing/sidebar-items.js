@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DrawContext","Context returned by [`DrawHandler`] that stores a [`Context`] along with additional data required for drawing."],["DrawHandler","Manager for drawing operations."]]});

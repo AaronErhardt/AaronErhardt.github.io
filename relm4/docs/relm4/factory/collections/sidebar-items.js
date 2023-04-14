@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DynamicIndex","A dynamic index that updates automatically when items are shifted inside a [`Factory`]."],["FactoryVec","A container similar to [`Vec`] that implements [`Factory`]."],["FactoryVecDeque","A container similar to [`VecDeque`] that implements [`Factory`]."],["WeakDynamicIndex","A weak version of [`DynamicIndex`]."]]});

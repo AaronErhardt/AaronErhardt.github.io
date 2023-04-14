@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["libpanel"] = [{"text":"impl&lt;T:&nbsp;<a class=\"trait\" href=\"libpanel/subclass/frame_header/trait.FrameHeaderImpl.html\" title=\"trait libpanel::subclass::frame_header::FrameHeaderImpl\">FrameHeaderImpl</a>&gt; <a class=\"trait\" href=\"libpanel/subclass/prelude/trait.IsImplementable.html\" title=\"trait libpanel::subclass::prelude::IsImplementable\">IsImplementable</a>&lt;T&gt; for <a class=\"struct\" href=\"libpanel/struct.FrameHeader.html\" title=\"struct libpanel::FrameHeader\">FrameHeader</a>","synthetic":false,"types":["libpanel::auto::frame_header::FrameHeader"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

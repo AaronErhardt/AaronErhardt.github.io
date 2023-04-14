@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Sets a custom global stylesheet."><meta name="keywords" content="rust, rustlang, rust-lang, set_global_css"><title>set_global_css in relm4 - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script><script defer src="../scrape-examples.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" href="https://relm4.org/icons/relm4_org.svg"></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../relm4/index.html"><div class="logo-container"><img src="https://relm4.org/icons/relm4_logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../relm4/index.html"><div class="logo-container">
+                    <img src="https://relm4.org/icons/relm4_logo.svg" alt="logo"></div>
+        </a><div class="sidebar-elems"><h2 class="location"><a href="index.html">In relm4</a></h2><div id="sidebar-vars" data-name="set_global_css" data-ty="fn" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../relm4/index.html">
+                        <img src="https://relm4.org/icons/relm4_logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Function <a href="index.html">relm4</a>::<wbr><a class="fn" href="#">set_global_css</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/relm4/lib.rs.html#86-95">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="docblock item-decl"><pre class="rust fn"><code>pub fn set_global_css(style_data: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>)</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Sets a custom global stylesheet.</p>
+<h2 id="panics"><a href="#panics">Panics</a></h2>
+<p>This function panics if <a href="struct.RelmApp.html#method.new" title="RelmApp::new"><code>RelmApp::new</code></a> wasn’t called before
+or this function is not called on the thread that also called <a href="struct.RelmApp.html#method.new" title="RelmApp::new"><code>RelmApp::new</code></a>.</p>
+</div></details><div class="docblock scraped-example-list"><span></span><h5 id="scraped-examples"><a href="#scraped-examples">Examples found in repository</a></h5><div class="scraped-example " data-locs="[[[62,68],&quot;../src/advent_calendar/advent_calendar.rs.html#267-273&quot;,&quot;lines 267-273&quot;]]"><div class="scraped-example-title">relm4-examples/libadwaita/examples/advent_calendar.rs (<a href="../src/advent_calendar/advent_calendar.rs.html#267-273">lines 267-273</a>)</div><div class="code-wrapper"><span class="expand">&varr;</span><div class="example-wrap"><pre class="line-numbers"><span>205</span>
+<span>206</span>
+<span>207</span>
+<span>208</span>
+<span>209</span>
+<span>210</span>
+<span>211</span>
+<span>212</span>
+<span>213</span>
+<span>214</span>
+<span>215</span>
+<span>216</span>
+<span>217</span>
+<span>218</span>
+<span>219</span>
+<span>220</span>
+<span>221</span>
+<span>222</span>
+<span>223</span>
+<span>224</span>
+<span>225</span>
+<span>226</span>
+<span>227</span>
+<span>228</span>
+<span>229</span>
+<span>230</span>
+<span>231</span>
+<span>232</span>
+<span>233</span>
+<span>234</span>
+<span>235</span>
+<span>236</span>
+<span>237</span>
+<span>238</span>
+<span>239</span>
+<span>240</span>
+<span>241</span>
+<span>242</span>
+<span>243</span>
+<span>244</span>
+<span>245</span>
+<span>246</span>
+<span>247</span>
+<span>248</span>
+<span>249</span>
+<span>250</span>
+<span>251</span>
+<span>252</span>
+<span>253</span>
+<span>254</span>
+<span>255</span>
+<span>256</span>
+<span>257</span>
+<span>258</span>
+<span>259</span>
+<span>260</span>
+<span>261</span>
+<span>262</span>
+<span>263</span>
+<span>264</span>
+<span>265</span>
+<span>266</span>
+<span>267</span>
+<span>268</span>
+<span>269</span>
+<span>270</span>
+<span>271</span>
+<span>272</span>
+<span>273</span>
+<span>274</span>
+<span>275</span>
+</pre><pre class="rust"><code><span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">calendar_entries</span> <span class="op">=</span> <span class="ident">FactoryVec::new</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_page</span> <span class="op">=</span> <span class="number">0</span>;
+
+    <span class="comment">// Time since midnight December the 1st.</span>
+    <span class="kw">let</span> <span class="ident">time_since_first_dec</span> <span class="op">=</span> <span class="ident">SystemTime::now</span>()
+        .<span class="ident">duration_since</span>(<span class="ident">UNIX_EPOCH</span>)
+        .<span class="ident">unwrap</span>()
+        .<span class="ident">as_secs</span>()
+        <span class="op">-</span> <span class="number">1638313200</span>;
+    <span class="kw">let</span> <span class="ident">seconds_per_day</span>: <span class="ident">i64</span> <span class="op">=</span> <span class="number">86400</span>;
+
+    <span class="kw">let</span> <span class="ident">verses</span> <span class="op">=</span> <span class="macro">vec!</span>[
+        (<span class="string">&quot;Come unto me, all ye that labour and are heavy laden, and I will give you rest. Take my yoke upon you, and learn of me; for I am meek and lowly in heart: and ye shall find rest unto your souls. For my yoke is easy, and my burden is light.&quot;</span>, <span class="string">&quot;Matthew 11, 28-30&quot;</span>),
+        (<span class="string">&quot;For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life. For God sent not his Son into the world to condemn the world; but that the world through him might be saved.&quot;</span>, <span class="string">&quot;John 3, 16-17&quot;</span>),
+        (<span class="string">&quot;If any man thirst, let him come unto me, and drink. He that believeth on me, as the scripture hath said, out of his belly shall flow rivers of living water.&quot;</span>, <span class="string">&quot;John 8, 37-38&quot;</span>),
+        (<span class="string">&quot;For the LORD God is a sun and shield: the LORD will give grace and glory: no good thing will he withhold from them that walk uprightly.&quot;</span>, <span class="string">&quot;Psalm 84, 11&quot;</span>),
+        (<span class="string">&quot;Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.&quot;</span>, <span class="string">&quot;Proverbs 3, 5-6&quot;</span>),
+        (<span class="string">&quot;Blessed be the God and Father of our Lord Jesus Christ, who has blessed us with every spiritual blessing in the heavenly places in Christ, just as He chose us in Him before the foundation of the world, that we should be holy and without blame before Him in love.&quot;</span>, <span class="string">&quot;Ephesians 1,3-4&quot;</span>),
+        (<span class="string">&quot;Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me.&quot;</span>, <span class="string">&quot;John 14, 6&quot;</span>),
+        (<span class="string">&quot;Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be afraid.&quot;</span>, <span class="string">&quot;John 14, 27&quot;</span>),
+        (<span class="string">&quot;But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, temperance: against such there is no law.&quot;</span>, <span class="string">&quot;Romans 8, 22-23&quot;</span>),
+        (<span class="string">&quot;Then spake Jesus again unto them, saying, I am the light of the world: he that followeth me shall not walk in darkness, but shall have the light of life.&quot;</span>, <span class="string">&quot;John 8, 12&quot;</span>),
+        (<span class="string">&quot;Rejoice in the Lord alway: and again I say, Rejoice. Let your moderation be known unto all men. The Lord is at hand.&quot;</span>, <span class="string">&quot;Philippians 4, 4-5&quot;</span>),
+        (<span class="string">&quot;For the word of God is quick, and powerful, and sharper than any twoedged sword, piercing even to the dividing asunder of soul and spirit, and of the joints and marrow, and is a discerner of the thoughts and intents of the heart.&quot;</span>, <span class="string">&quot;Hebrews 4, 12&quot;</span>),
+        (<span class="string">&quot;Commit to the Lord whatever you do, and he will establish your plans.&quot;</span>, <span class="string">&quot;Proverbs 16:3&quot;</span>),
+        (<span class="string">&quot;Let the morning bring me word of your unfailing love, for I have put my trust in you. Show me the way I should go, for to you I entrust my life.&quot;</span>, <span class="string">&quot;Psalm 143:8&quot;</span>),
+        (<span class="string">&quot;Be completely humble and gentle; be patient, bearing with one another in love.&quot;</span>, <span class="string">&quot;Ephesians 4:2&quot;</span>),
+        (<span class="string">&quot;Whatever you do, work at it with all your heart, as working for the Lord, not for human masters, since you know that you will receive an inheritance from the Lord as a reward. It is the Lord Christ you are serving.&quot;</span>, <span class="string">&quot;Colossians 3:23-24&quot;</span>),
+        (<span class="string">&quot;Let love and faithfulness never leave you;bind them around your neck, write them on the tablet of your heart. Then you will win favor and a good name in the sight of God and man.&quot;</span>, <span class="string">&quot;Proverbs 3:3-4&quot;</span>),
+        (<span class="string">&quot;So do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.&quot;</span>, <span class="string">&quot;Isaiah 41:10&quot;</span>),
+        (<span class="string">&quot;But blessed is the one who trusts in the Lord, whose confidence is in him. They will be like a tree planted by the water that sends out its roots by the stream. It does not fear when heat comes; its leaves are always green. It has no worries in a year of drought and never fails to bear fruit.&quot;</span>, <span class="string">&quot;Jeremiah 17:7-8&quot;</span>),
+        (<span class="string">&quot;Love is patient, love is kind. It does not envy, it does not boast, it is not proud. It does not dishonor others, it is not self-seeking, it is not easily angered, it keeps no record of wrongs.&quot;</span>, <span class="string">&quot;1 Corinthians 13:4-5&quot;</span>),
+        (<span class="string">&quot;Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.&quot;</span>, <span class="string">&quot;Philippians 4:6-7&quot;</span>),
+        (<span class="string">&quot;These commandments that I give you today are to be on your hearts. Impress them on your children. Talk about them when you sit at home and when you walk along the road, when you lie down and when you get up.&quot;</span>, <span class="string">&quot;Deuteronomy 6:6-7&quot;</span>),
+        (<span class="string">&quot;But blessed is the one who trusts in the Lord, whose confidence is in him. They will be like a tree planted by the water that sends out its roots by the stream. It does not fear when heat comes; its leaves are always green. It has no worries in a year of drought and never fails to bear fruit.&quot;</span>, <span class="string">&quot;Jeremiah 17:7-8&quot;</span>),
+        (<span class="string">&quot;The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you; the Lord turn his face toward you and give you peace.&quot;</span>, <span class="string">&quot;Numbers 6:24-26&quot;</span>),
+    ];
+
+    <span class="comment">// Fill factory with the verses</span>
+    <span class="kw">for</span> (<span class="ident">idx</span>, (<span class="ident">verse</span>, <span class="ident">passage</span>)) <span class="kw">in</span> <span class="ident">verses</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>() {
+        <span class="kw">let</span> <span class="ident">time_difference</span> <span class="op">=</span> <span class="ident">seconds_per_day</span> <span class="op">*</span> <span class="ident">idx</span> <span class="kw">as</span> <span class="ident">i64</span> <span class="op">-</span> <span class="ident">time_since_first_dec</span> <span class="kw">as</span> <span class="ident">i64</span>;
+        <span class="kw">let</span> <span class="ident">time_left</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">time_difference</span> <span class="op">&gt;</span> <span class="number">0</span> {
+            <span class="ident">time_difference</span> <span class="kw">as</span> <span class="ident">u32</span>
+        } <span class="kw">else</span> {
+            <span class="ident">start_page</span> <span class="op">=</span> <span class="ident">idx</span> <span class="kw">as</span> <span class="ident">u8</span>;
+            <span class="number">0</span>
+        };
+
+        <span class="ident">calendar_entries</span>.<span class="ident">push</span>(<span class="ident">CalendarEntry</span> {
+            <span class="ident">verse</span>: <span class="ident">verse</span>.<span class="ident">to_string</span>(),
+            <span class="ident">passage</span>: <span class="ident">passage</span>.<span class="ident">to_string</span>(),
+            <span class="ident">time_left</span>,
+        });
+    }
+
+    <span class="kw">let</span> <span class="ident">app</span> <span class="op">=</span> <span class="ident">RelmApp::new</span>(<span class="ident">AppModel</span> {
+        <span class="ident">calendar_entries</span>,
+        <span class="ident">start_page</span>,
+    });
+
+    <span class="comment">// Style the verse labels</span>
+    <span class="highlight focus"><span class="ident">relm4::set_global_css</span>(
+        <span class="string">b&quot;\
+        .verse { \
+            font-weight: bold; \
+            font-size: 1.4em; \
+        }&quot;</span>,
+    )</span>;
+    <span class="ident">app</span>.<span class="ident">run</span>();
+}</code></pre></div>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="relm4" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (306ba8357 2022-04-05)" ></div>
+</body></html>

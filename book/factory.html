@@ -1,0 +1,490 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Factories - GUI development with Relm4</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="favicon.svg">
+                        <link rel="shortcut icon" href="favicon.png">
+                <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+                <link rel="stylesheet" href="css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="first_app.html"><strong aria-hidden="true">1.</strong> Your first app</a></li><li class="chapter-item expanded "><a href="widget_macro.html"><strong aria-hidden="true">2.</strong> The widget macro</a></li><li class="chapter-item expanded "><a href="efficient_ui.html"><strong aria-hidden="true">3.</strong> Efficient UI updates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tracker.html"><strong aria-hidden="true">3.1.</strong> Tracker</a></li><li class="chapter-item expanded "><a href="factory.html" class="active"><strong aria-hidden="true">3.2.</strong> Factories</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="factory_position.html"><strong aria-hidden="true">3.2.1.</strong> The position function</a></li></ol></li><li class="chapter-item expanded "><a href="factory_advanced.html"><strong aria-hidden="true">3.3.</strong> Advanced factories</a></li></ol></li><li class="chapter-item expanded "><a href="components.html"><strong aria-hidden="true">4.</strong> Components</a></li><li class="chapter-item expanded "><a href="worker.html"><strong aria-hidden="true">5.</strong> Workers</a></li><li class="chapter-item expanded "><a href="message_handler.html"><strong aria-hidden="true">6.</strong> Message handlers</a></li><li class="chapter-item expanded "><a href="threads_and_async.html"><strong aria-hidden="true">7.</strong> Threads and async</a></li><li class="chapter-item expanded "><a href="reusable_components.html"><strong aria-hidden="true">8.</strong> Reusable components</a></li><li class="chapter-item expanded "><a href="widget_macro_reference.html"><strong aria-hidden="true">9.</strong> Widget macro reference</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="widget_macro_expansion.html"><strong aria-hidden="true">9.1.</strong> Macro expansion</a></li></ol></li><li class="chapter-item expanded "><a href="templates.html"><strong aria-hidden="true">10.</strong> Templates</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="app_template.html"><strong aria-hidden="true">10.1.</strong> App template</a></li><li class="chapter-item expanded "><a href="component_template.html"><strong aria-hidden="true">10.2.</strong> Component template</a></li><li class="chapter-item expanded "><a href="worker_template.html"><strong aria-hidden="true">10.3.</strong> Worker template</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">GUI development with Relm4</h1>
+
+                    <div class="right-buttons">
+                                                <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        <a href="https://github.com/AaronErhardt/AaronErhardt.github.io/tree/master/relm4-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                                                
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="factory"><a class="header" href="#factory">Factory</a></h1>
+<p>Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.</p>
+<h2 id="factories-in-relm4"><a class="header" href="#factories-in-relm4">Factories in Relm4</a></h2>
+<p>Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.</p>
+<blockquote>
+<p>The app we will write in this chapter is also available <a href="https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs">here</a>. Run <code>cargo run --example factory</code> from the <a href="https://github.com/AaronErhardt/relm4/tree/main/relm4-examples">example directory</a> if you want to see the code in action.</p>
+</blockquote>
+<h3 id="the-model"><a class="header" href="#the-model">The model</a></h3>
+<p>The most common solution for storing collections of data is a <code>Vec</code>. Yet a <code>Vec</code> can't help us with efficient UI updates because it does not track changes to itself. If we used a <code>Vec</code> we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a <code>FactoryVec</code> to store our data. A <code>FactoryVec</code> is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Additionally, it automatically keeps track of all the changes made to itself.</p>
+<blockquote>
+<p>An overview over all available factory data structures can be found in the documentation <a href="https://aaronerhardt.github.io/docs/relm4/relm4/factory/collections/index.html">here</a>.</p>
+</blockquote>
+<pre><code class="language-rust no_run noplayground">struct Counter {
+    value: u8,
+}
+
+struct AppModel {
+    counters: FactoryVec&lt;Counter&gt;,
+    created_counters: u8,
+}
+</code></pre>
+<p>As you can see, we first define the struct <code>Counter</code> that just stores the value of a single counter. Then we use a <code>FactoryVec</code> to store our counters in the model. For now, all of this is just data. Similar to the model type, we need to define the data structures we need for our UI first. Then we will define how to create widgets from this data. Yet unlike the model type, we can have many counters in a <code>FactoryVec</code> and each of them will be represented by its own widgets.</p>
+<p>To give our counters an unique value at initialization, we also add a separate counter to the model to count the amount of counters we did already create. </p>
+<h2 id="the-message-type"><a class="header" href="#the-message-type">The message type</a></h2>
+<p>The actions we want to perform are</p>
+<ul>
+<li>Add new counters</li>
+<li>Remove counters</li>
+<li>Decrement a counter</li>
+</ul>
+<p>Accordingly, our message type looks like this:</p>
+<pre><code class="language-rust no_run noplayground">#[derive(Debug)]
+enum AppMsg {
+    Add,
+    Remove,
+    Clicked(usize),
+}
+</code></pre>
+<p>You'll notice that an index is passed with <code>AppMsg::Clicked</code>. This allows us to select the counter that emitted the clicked signal.</p>
+<h2 id="the-update-function"><a class="header" href="#the-update-function">The update function</a></h2>
+<p>The update function takes care of adding, removing and decrementing counters. Each new counter will be initialized with the amount of counters created before it.</p>
+<pre><code class="language-rust no_run noplayground">impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::Add =&gt; {
+                self.counters.push(Counter {
+                    value: self.created_counters,
+                });
+                self.created_counters += 1;
+            }
+            AppMsg::Remove =&gt; {
+                self.counters.pop();
+            }
+            AppMsg::Clicked(index) =&gt; {
+                if let Some(counter) = self.counters.get_mut(index) {
+                    counter.value = counter.value.wrapping_sub(1);
+                }
+            }
+        }
+        true
+    }
+}
+</code></pre>
+<blockquote>
+<p>The <code>get</code> and <code>get_mut</code> methods inside <code>FactoryVec</code> return <code>Some</code> if the element exists and <code>None</code> if the index is invalid. It's recommended to not unwrap this <code>Option</code> because messages (and also the indices sent with them) are queued up if your update and view functions are slow and can be stale by the time they are handled.</p>
+</blockquote>
+<h2 id="the-factory-implementation"><a class="header" href="#the-factory-implementation">The factory implementation</a></h2>
+<p>So far the code looked pretty normal. Now to the interesting part of the code.</p>
+<p>The first thing we need to implement for a factory is a widgets type. That sounds familiar, right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets represent an element inside a factory data structure like <code>FactoryVec</code>.</p>
+<p>In our case, we just need a simple button that will decrement the counter when clicked and will also display the counter value.</p>
+<pre><code class="language-rust no_run noplayground">struct FactoryWidgets {
+    button: gtk::Button,
+}
+</code></pre>
+<p>The <code>FactoryPrototype</code> trait we need next is very similar to the <code>Widgets</code> trait, too: it defines how widgets are created and updated. Let's have a look at the implementation:</p>
+<pre><code class="language-rust no_run noplayground">impl FactoryPrototype for Counter {
+    type Factory = FactoryVec&lt;Self&gt;;
+    type Widgets = FactoryWidgets;
+    type Root = gtk::Button;
+    type View = gtk::Box;
+    type Msg = AppMsg;
+</code></pre>
+<p>Alright, there are quite a few types! Let's look at them one by one:</p>
+<ul>
+<li><strong>Factory:</strong> the data structure we use to store our elements. In our case, a <code>FactoryVec</code>.</li>
+<li><strong>Widgets:</strong> the struct that stores out widgets. That's the <code>FactoryWidgets</code> type we just created.</li>
+<li><strong>Root:</strong> similar to the root in the <code>Widgets</code> trait, it represents the outermost widget. This is usually a container like <code>gtk::Box</code> but in our case we just have a <code>gtk::Button</code>.</li>
+<li><strong>View:</strong> the container we want our widgets to be placed inside. The simplest solution for this is a <code>gtk::Box</code>.</li>
+<li><strong>Msg:</strong> the messages we want to send to the model containing this factory.</li>
+</ul>
+<h3 id="the-generate-function"><a class="header" href="#the-generate-function">The generate function</a></h3>
+<p>The generate function is similar to <code>init_view</code> in the <code>Widgets</code> trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. For the factory type <code>FactoryVec</code> an index of the type <code>usize</code> is being used.</p>
+<pre><code class="language-rust no_run noplayground">    fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
+        let button = gtk::Button::with_label(&amp;self.value.to_string());
+        let index = *index;
+        button.connect_clicked(move |_| {
+            sender.send(AppMsg::Clicked(index)).unwrap();
+        });
+
+        FactoryWidgets { button }
+    }
+</code></pre>
+<p>As you can see, we send a message with the index back to the update function to decrement this specific counter when the button is pressed.</p>
+<h3 id="the-position-function"><a class="header" href="#the-position-function">The position function</a></h3>
+<p>In our case, the function is pretty short:</p>
+<pre><code class="language-rust no_run noplayground">    fn position(&amp;self, _index: &amp;usize) {}
+</code></pre>
+<p>The <code>gtk::Box</code> we use here is one-dimensional. This means that a <code>FactoryVec</code> can perfectly resemble the layout with its own internal structure because it's one-dimenational as well. In other words, the first element of the <code>FactoryVec</code> is also the first in the <code>gtk::Box</code>. Yet, some container widgets such as <code>gtk::Grid</code> place widgets at fixed two-dimensional positions and rely in the position function to know where a new widget should be added.</p>
+<p>Because we don't use it here, the position function is explained in the next chapter.</p>
+<h3 id="the-update-function-1"><a class="header" href="#the-update-function-1">The update function</a></h3>
+<p>The update function is similar to <code>view</code> in the <code>Widgets</code> trait: it updates the widgets according to the updated data.</p>
+<pre><code class="language-rust no_run noplayground">    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
+        widgets.button.set_label(&amp;self.value.to_string());
+    }
+</code></pre>
+<p>We just update the label of the button to represent the updated counter value.</p>
+<h3 id="the-get_root-function"><a class="header" href="#the-get_root-function">The get_root function</a></h3>
+<p>The last function we need is the <code>get_root</code> function. It's similar to the <code>root_widget</code> in the <code>Widgets</code> trait: it returns the root widget, the outermost of our widgets.</p>
+<pre><code class="language-rust no_run noplayground">    fn get_root(widgets: &amp;FactoryWidgets) -&gt; &amp;gtk::Button {
+        &amp;widgets.button
+    }
+</code></pre>
+<h2 id="the-widgets"><a class="header" href="#the-widgets">The widgets</a></h2>
+<p>The last piece to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the <code>factory!</code> macro.</p>
+<pre><code class="language-rust no_run noplayground">#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        gtk::ApplicationWindow {
+            set_default_width: 300,
+            set_default_height: 200,
+            set_child = Some(&amp;gtk::Box) {
+                set_orientation: gtk::Orientation::Vertical,
+                set_margin_all: 5,
+                set_spacing: 5,
+                append = &amp;gtk::Button {
+                    set_label: &quot;Add&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Add);
+                    }
+                },
+                append = &amp;gtk::Button {
+                    set_label: &quot;Remove&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Remove);
+                    }
+                },
+                append = &amp;gtk::Box {
+                    set_orientation: gtk::Orientation::Vertical,
+                    set_margin_all: 5,
+                    set_spacing: 5,
+                    factory!(model.counters),
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>The <code>factory!</code> macro that's almost at the end of the widgets definition now updates our widgets according to the changes we make to the data in our model. It sits inside of the <code>gtk::Box</code> we want to use as a container for our counter.</p>
+<blockquote>
+<p>The <code>factory!</code> macro simply expands to <code>model.data.generate(&amp;self.gen_box, sender)</code> where <code>gen_box</code> is the <code>gtk::Box</code> we used as a container. The <code>generate</code> function is provided by the <code>Factory</code> trait that's implemented for <code>FactoryVec</code> and similar data structures.</p>
+</blockquote>
+<p>Now to test this, we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!</p>
+<h4 id="screenshots"><a class="header" href="#screenshots">Screenshots</a></h4>
+<p><img src="img/screenshots/factory-light.png" alt="App screenshot light" />
+<img src="img/screenshots/factory-dark.png" alt="App screenshot dark" /></p>
+<h2 id="the-complete-code"><a class="header" href="#the-complete-code">The complete code</a></h2>
+<p>Let's review our code in one piece one more time to see how all these parts work together:</p>
+<pre><code class="language-rust no_run noplayground">use gtk::glib::Sender;
+use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
+use relm4::factory::{FactoryPrototype, FactoryVec};
+use relm4::{send, AppUpdate, Model, RelmApp, WidgetPlus, Widgets};
+
+#[derive(Debug)]
+enum AppMsg {
+    Add,
+    Remove,
+    Clicked(usize),
+}
+
+struct Counter {
+    value: u8,
+}
+
+struct AppModel {
+    counters: FactoryVec&lt;Counter&gt;,
+    created_counters: u8,
+}
+
+impl Model for AppModel {
+    type Msg = AppMsg;
+    type Widgets = AppWidgets;
+    type Components = ();
+}
+
+impl AppUpdate for AppModel {
+    fn update(&amp;mut self, msg: AppMsg, _components: &amp;(), _sender: Sender&lt;AppMsg&gt;) -&gt; bool {
+        match msg {
+            AppMsg::Add =&gt; {
+                self.counters.push(Counter {
+                    value: self.created_counters,
+                });
+                self.created_counters += 1;
+            }
+            AppMsg::Remove =&gt; {
+                self.counters.pop();
+            }
+            AppMsg::Clicked(index) =&gt; {
+                if let Some(counter) = self.counters.get_mut(index) {
+                    counter.value = counter.value.wrapping_sub(1);
+                }
+            }
+        }
+        true
+    }
+}
+
+struct FactoryWidgets {
+    button: gtk::Button,
+}
+
+impl FactoryPrototype for Counter {
+    type Factory = FactoryVec&lt;Self&gt;;
+    type Widgets = FactoryWidgets;
+    type Root = gtk::Button;
+    type View = gtk::Box;
+    type Msg = AppMsg;
+
+    fn generate(&amp;self, index: &amp;usize, sender: Sender&lt;AppMsg&gt;) -&gt; FactoryWidgets {
+        let button = gtk::Button::with_label(&amp;self.value.to_string());
+        let index = *index;
+        button.connect_clicked(move |_| {
+            sender.send(AppMsg::Clicked(index)).unwrap();
+        });
+
+        FactoryWidgets { button }
+    }
+
+    fn position(&amp;self, _index: &amp;usize) {}
+
+    fn update(&amp;self, _index: &amp;usize, widgets: &amp;FactoryWidgets) {
+        widgets.button.set_label(&amp;self.value.to_string());
+    }
+
+    fn get_root(widgets: &amp;FactoryWidgets) -&gt; &amp;gtk::Button {
+        &amp;widgets.button
+    }
+}
+
+#[relm4_macros::widget]
+impl Widgets&lt;AppModel, ()&gt; for AppWidgets {
+    view! {
+        gtk::ApplicationWindow {
+            set_default_width: 300,
+            set_default_height: 200,
+            set_child = Some(&amp;gtk::Box) {
+                set_orientation: gtk::Orientation::Vertical,
+                set_margin_all: 5,
+                set_spacing: 5,
+                append = &amp;gtk::Button {
+                    set_label: &quot;Add&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Add);
+                    }
+                },
+                append = &amp;gtk::Button {
+                    set_label: &quot;Remove&quot;,
+                    connect_clicked(sender) =&gt; move |_| {
+                        send!(sender, AppMsg::Remove);
+                    }
+                },
+                append = &amp;gtk::Box {
+                    set_orientation: gtk::Orientation::Vertical,
+                    set_margin_all: 5,
+                    set_spacing: 5,
+                    factory!(model.counters),
+                }
+            }
+        }
+    }
+}
+
+fn main() {
+    let model = AppModel {
+        counters: FactoryVec::new(),
+        created_counters: 0,
+    };
+
+    let relm = RelmApp::new(model);
+    relm.run();
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="tracker.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="factory_position.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="tracker.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="factory_position.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
