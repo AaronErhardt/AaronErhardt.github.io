@@ -21,7 +21,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-I'm exited to announce tuxedo-rs, a collection of Rust crates for interacting with hardware from TUXEDO Computers.
+I'm exited to announce [tuxedo-rs](https://github.com/AaronErhardt/tuxedo-rs), a collection of Rust crates for interacting with hardware from TUXEDO Computers.
 
 ## Some background
 
