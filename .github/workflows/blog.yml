@@ -19,7 +19,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.101.0'
+          hugo-version: 'latest'
 
       - name: Build
         run: hugo --minify
@@ -27,7 +27,7 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
-        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/blog') || github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
