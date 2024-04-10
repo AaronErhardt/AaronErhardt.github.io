@@ -1,6 +1,6 @@
 ---
 title: "A new Relm 4 you: announcing Relm4 v0.4!"
-date: 2022-01-17T15:00:00+30:00
+date: 2022-01-17T15:00:00+00:00
 # weight: 1
 # aliases: ["/relm4_release"]
 tags: ["relm4"]

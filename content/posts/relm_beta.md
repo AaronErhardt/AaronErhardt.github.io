@@ -1,6 +1,6 @@
 ---
 title: "Relm4 beta released 🎉"
-date: 2021-08-11T15:00:00+30:00
+date: 2021-08-11T15:00:00+00:00
 # weight: 1
 # aliases: ["/relm4_beta"]
 tags: ["relm4"]
