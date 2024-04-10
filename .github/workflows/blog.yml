@@ -3,7 +3,7 @@ name: blog
 on:
   push:
     branches:
-      - blog  # Set a branch name to trigger deployment
+      - master
   pull_request:
 
 jobs:

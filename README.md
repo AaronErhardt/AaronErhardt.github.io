@@ -1,0 +1,1 @@
+This repository contains [my personal blog](https://aaronerhardt.github.io/blog).
