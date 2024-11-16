@@ -1,5 +1,5 @@
 ---
-title: "The unfortunate situation of tuxedo-rs"
+title: "Tuxedo-rs status update"
 date: 2024-11-16
 # weight: 1
 tags: ["tuxedo-rs"]
@@ -42,7 +42,7 @@ This recent event reminded me to write a status report of the project that I had
 
 ### What is tuxedo-rs
 
-Tuxedo-rs is a community-built (not supported or connected to TUXEDO Computers) collection of Rust libraries and programs for interacting with hardware from TUXEDO Computers. 
+[Tuxedo-rs](https://github.com/AaronErhardt/tuxedo-rs) is a community-built (not supported or connected to TUXEDO Computers) collection of Rust libraries and programs for interacting with hardware from TUXEDO Computers. 
 It implements fan control and keyboard LED control from the user space among other features -
 which is pretty neat if you want to set custom fan curves or want to animate your keyboard colors.
 For example, I use it often to switch between quiet, power saving profiles and louder, more performant profiles depending on my situation.
@@ -55,7 +55,7 @@ The control service and the GUI also make great use of Rust's async capabilities
 On top of that, due to clever control algorithms, tuxedo-rs tends to be quite a bit more efficient than the software provided by TUXEDO.
 Unfortunately, moving forward and extending the functionality to more devices happens to be a greater challenge than anticipated.
 
-## TUXEDO's Software Strategy: General Concerns
+## General concerns regarding TUXEDO
 
 TUXEDO Computers provides software that offers quite similar features as tuxedo-rs (and some more).
 So you might wonder why tuxedo-rs exists in the first place.
@@ -94,7 +94,7 @@ Yet, the software is Linux-only.
 The dependency on Node.js not only makes it painful to build the software yourself, it also makes it unlikely for maintainers of Linux distributions to package the software for their users.
 Not to mention the increased RAM usage of the GUI caused by running essentially a whole webbrowser in the background.
 
-## TUXEDO's Software Strategy: Problems for tuxedo-rs
+## Current problems of tuxedo-rs
 
 The problems mentioned so far are mostly the reason why tuxedo-rs exists.
 However, there are also several hidden problems that I have encountered during development of tuxedo-rs.
